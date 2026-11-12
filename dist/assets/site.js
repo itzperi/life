@@ -29,10 +29,10 @@
   var links = d.querySelectorAll('a[href*="wa.me/"]');
   for (var i = 0; i < links.length; i++) {
     try {
+      // Rebuild with encodeURIComponent (spaces as %20): some WhatsApp clients show "+" literally.
       var u = new URL(links[i].href);
       var t = u.searchParams.get('text') || 'Hi Lifeline Placements, I need staff.';
-      u.searchParams.set('text', t + '\n\nRef: ' + SRC);
-      links[i].href = u.toString();
+      links[i].href = u.origin + u.pathname + '?text=' + encodeURIComponent(t + '\n\nRef: ' + SRC);
     } catch (e) {}
   }
 
@@ -41,6 +41,7 @@
     if (!a) return;
     var href = a.getAttribute('href') || '', loc = a.getAttribute('data-loc') || 'content';
     var p = { link_location: loc, page_path: location.pathname, lead_source: SRC.split(' ')[0] };
+    if (a.classList && a.classList.contains('chip')) p.service = (a.textContent || '').trim().slice(0, 80);
     if (href.indexOf('tel:') === 0) w.gtag('event', 'call_click', p);
     else if (href.indexOf('wa.me/') > -1) w.gtag('event', 'whatsapp_click', p);
   });
@@ -61,4 +62,22 @@
     w.gtag('event', 'lead_submit', { industry: o.industry, city: o.city, headcount: o.headcount, lead_source: SRC.split(' ')[0] });
     setTimeout(function () { location.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg); }, 150);
   });
+
+  // Floating service picker: open from the mobile bar, close with the X, Escape or a tap outside.
+  var pk = d.getElementById('picker');
+  if (pk) {
+    var openers = d.querySelectorAll('[data-open-picker]');
+    for (var k = 0; k < openers.length; k++) openers[k].addEventListener('click', function (e) { e.preventDefault(); pk.open = true; w.gtag('event', 'picker_open', { page_path: location.pathname }); });
+    var x = pk.querySelector('[data-close-picker]');
+    if (x) x.addEventListener('click', function () { pk.open = false; });
+    d.addEventListener('keydown', function (e) { if (e.key === 'Escape') pk.open = false; });
+    d.addEventListener('click', function (e) { if (pk.open && !pk.contains(e.target) && !(e.target.closest && e.target.closest('[data-open-picker]'))) pk.open = false; });
+  }
+
+  // Reveal cards as they scroll into view (skipped when the visitor prefers reduced motion).
+  if ('IntersectionObserver' in w && !(w.matchMedia && w.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }); }, { rootMargin: '0px 0px -40px 0px' });
+    var els = d.querySelectorAll('main .card, main .steps li, main .stat, main .faq details, main .city-cloud a');
+    for (var r = 0; r < els.length; r++) { var b = els[r].getBoundingClientRect(); if (b.top > w.innerHeight) { els[r].classList.add('rv'); els[r].style.transitionDelay = (r % 4) * 60 + 'ms'; io.observe(els[r]); } }
+  }
 })();

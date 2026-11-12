@@ -1,6 +1,6 @@
 # Lifeline Placements website and growth programme
 
-A static, server-rendered site for **Lifeline Placements** (manpower supply and recruitment, Tamil Nadu). It has 46 pages plus a 404 page, and no runtime dependencies.
+A static, server-rendered site for **Lifeline Placements** (manpower supply and recruitment, Tamil Nadu). It has 51 pages plus a 404 page, and no runtime dependencies.
 
 ```
 npm run build    # generate dist/ from src/
@@ -12,7 +12,8 @@ npm run images   # re-render OG image and icons (needs Chrome or Edge)
 ## Where things are
 | Path | What |
 |---|---|
-| `src/config.js` | **All business facts.** Fill a `null` and rebuild; the yellow "[to confirm]" chips disappear everywhere |
+| `src/config.js` | **All business facts.** Unknown facts no longer show chips: fee and replacement use the neutral wording in `factFallbacks`, and sentences about capacity, licences, years, people placed and candidate fees (wrapped in `[[...]]` in the data files) stay hidden until you fill the value and rebuild |
+| `src/data/services.js` | 4 service pages (permanent, contract, bulk, payroll), each with its own prefilled WhatsApp message |
 | `src/data/industries.js` | 14 industry pages |
 | `src/data/cities.js` | 20 city and district pages |
 | `src/data/guides.js` | 4 guides |

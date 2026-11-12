@@ -2,10 +2,11 @@
 const fs = require('fs');
 const path = require('path');
 const L = require('./lib/layout');
-const { C, esc, t, tok, plain, hasToken, ctaRow, quoteForm, faqHtml, finalCta, page, faqNode, waBtn, callBtn, addressHtml } = L;
+const { C, esc, t, tok, plain, ICON, indIcon, waHref, waNeed, waChip, ctaRow, pickerChips, quoteForm, faqHtml, finalCta, page, faqNode, howToNode, waBtn, callBtn, addressHtml, mapsUrl } = L;
 const industries = require('./data/industries');
 const cities = require('./data/cities');
 const guides = require('./data/guides');
+const services = require('./data/services').filter((s) => s.slug !== 'payroll-outsourcing' || C.payrollOutsourcing);
 
 const ROOT = path.join(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
@@ -20,110 +21,198 @@ function write(rel, html) {
   fs.writeFileSync(file, html);
 }
 function emit(p, opts, meta) {
-  pages.push({ path: p, title: opts.title, description: opts.description, keyword: meta.keyword, type: meta.type, noindex: !!opts.noindex });
+  pages.push({ path: p, title: opts.title, description: opts.description, keyword: meta.keyword, type: meta.type, noindex: !!opts.noindex, faqs: meta.faqs || [], summary: meta.summary || '' });
   write(p === '/' ? 'index.html' : p.replace(/^\//, '') + 'index.html', page({ path: p, ...opts }));
 }
 const indBySlug = Object.fromEntries(industries.map((i) => [i.slug, i]));
 const cityBySlug = Object.fromEntries(cities.map((c) => [c.slug, c]));
+const guideBySlug = Object.fromEntries(guides.map((g) => [g.slug, g]));
 const HOME = { name: 'Home', path: '/' };
-const updated = `<p class="meta">Updated ${C.updatedDisplay} · Lifeline Placements, ${esc(C.address.locality)}, ${esc(C.address.city)}</p>`;
+const updated = `<p class="meta">${ICON.clock}Updated ${C.updatedDisplay} · Lifeline Placements, ${esc(C.address.locality)}, ${esc(C.address.city)}</p>`;
+const lc = (s) => s.charAt(0).toLowerCase() + s.slice(1);
 
-const steps = (what) => `<section class="alt"><div class="wrap"><h2>How hiring through Lifeline works</h2>
-<ol class="steps">
-<li><strong>Send the requirement</strong>WhatsApp or call ${C.phoneDisplay} with the role, how many people, the location and the date you need them${what ? ' for ' + esc(what) : ''}.</li>
-<li><strong>Get a written quote</strong>We confirm wages, shifts, the hiring model and our charges in writing. Turnaround: ${tok('{{TURNAROUND}}')}.</li>
-<li><strong>Interview shortlisted people</strong>We screen candidates against your checklist and send profiles. You interview and select.</li>
-<li><strong>Joining and follow-up</strong>We coordinate documents and joining day, and replace people who leave within the agreed terms: ${tok('{{REPLACEMENT}}')}.</li>
-</ol></div></section>`;
+// ---------- shared blocks ----------
+const STEPS = (what) => [
+  ['Send the requirement', `WhatsApp or call ${C.phoneDisplay} with the role, how many people, the location and the date you need them${what ? ' for ' + what : ''}.`],
+  ['Get a written quote', 'We confirm wages, shifts, the hiring model and our charges in writing. Turnaround: {{TURNAROUND}}.'],
+  ['Interview shortlisted people', 'We screen candidates against your checklist and send profiles. You interview and select.'],
+  ['Joining and follow-up', 'We coordinate documents and joining day. Replacement terms if someone leaves: {{REPLACEMENT}}.'],
+];
+const steps = (what) => `<section class="alt"><div class="wrap"><p class="eyebrow">How it works</p><h2>How hiring through Lifeline works</h2>
+<ol class="steps">${STEPS(what).map(([h, x]) => `<li><strong>${esc(h)}</strong>${t(x)}</li>`).join('')}</ol></div></section>`;
 
-const linkCards = (items, base) => `<div class="grid">${items.map((x) => `<a class="card" href="/${base}/${x.slug}/">${esc(x.name)}</a>`).join('')}</div>`;
+// Right-hand hero card: tap a chip to open WhatsApp with a message about that exact need.
+const heroCard = (title, chips, note = 'WhatsApp opens with your message ready. Add headcount and location, then send.') =>
+  `<aside class="hero-card" aria-label="${esc(title)}"><p class="hc-title">${ICON.chat}${esc(title)}</p>${chips}<p class="hc-note">${esc(note)}</p></aside>`;
+
+const linkCards = (items, base, iconFn, sub) => `<div class="grid grid-ic">${items.map((x) => `<a class="card card-ic" href="/${base}/${x.slug}/"><span class="ic">${iconFn(x)}</span><span><span class="ct">${esc(x.name)}</span>${sub ? `<small>${esc(sub(x))}</small>` : ''}</span>${ICON.arrow}</a>`).join('')}</div>`;
+const roleList = (ind) => ind.roles.flatMap((g) => g.items);
+
+const TURN = C.facts.TURNAROUND || '';
+const turnParts = TURN.match(/(\d+)\s*hours?.*?(\d+)\s*days?/i);
+const stats = [
+  C.googleRating ? { n: `${C.googleRating.rating}<span>★</span>`, l: `Google rating from ${C.googleRating.count} reviews`, s: `as of ${C.googleRating.asOf}` } : null,
+  turnParts ? { n: `${turnParts[1]}<span>hrs</span>`, l: 'to supply helpers', s: 'owner-confirmed turnaround' } : null,
+  turnParts ? { n: `${turnParts[2]}<span>days</span>`, l: 'for skilled roles', s: 'profiles to your inbox' } : null,
+  { n: `${industries.length}`, l: 'industries served', s: 'factories to hospitals' },
+  { n: `${cities.length}`, l: 'Tamil Nadu cities and districts', s: 'served from Chennai' },
+].filter(Boolean);
+const statStrip = `<div class="stats">${stats.map((s) => `<div class="stat"><b>${s.n}</b><span>${esc(s.l)}</span><small>${esc(s.s)}</small></div>`).join('')}</div>`;
 
 // ---------------- HOME ----------------
 const homeFaqs = [
-  { q: 'How much does a manpower agency charge in Chennai?', a: "For permanent placement, published market rates run from about 8.33% to 16.67% of the hire's annual CTC. For contract staffing, agencies add a monthly service charge to wages, PF and ESI, plus 18% GST. Rates depend on role, volume and duration. Lifeline Placements' fee: {{FEE}}. WhatsApp your role for a written quote." },
+  { q: 'How much does a manpower agency charge in Chennai?', a: "For permanent placement, published market rates run from about 8.33% to 16.67% of the hire's annual CTC. For contract staffing, agencies add a monthly service charge to wages, PF and ESI, plus 18% GST. Rates depend on role, volume and duration. Lifeline Placements' fee is {{FEE}}. WhatsApp your role for a written quote." },
   { q: 'How fast can Lifeline Placements supply staff?', a: 'Speed depends on the role, the location and the wage offered. Helpers and housekeeping staff near Chennai usually close faster than skilled operators or nurses in smaller towns. Our turnaround: {{TURNAROUND}}. Send the role, headcount, location and joining date on WhatsApp and we will give you a date in writing.' },
-  { q: 'Do you do bulk hiring?', a: 'Yes. Lifeline Placements handles bulk hiring for factories, warehouses, BPOs and retail chains across Tamil Nadu, from our Chennai office. Tell us the roles, headcount per shift, wage and joining date. Largest order size so far: {{CAPACITY}}. Our bulk hiring checklist explains what to prepare before the drive starts.' },
-  { q: 'What is the replacement guarantee?', a: 'If a placed person leaves or does not work out within the agreed window, the agency finds a replacement. Market practice in India ranges from 30 to 90 days for permanent placement. For contract staff, replacement continues for the life of the contract. Lifeline Placements\' terms: {{REPLACEMENT}}. We put them in writing with every quote.' },
+  { q: 'Do you do bulk hiring?', a: 'Yes. Lifeline Placements handles bulk hiring for factories, warehouses, BPOs and retail chains across Tamil Nadu, from our Chennai office. Tell us the roles, headcount per shift, wage and joining date.[[ Largest order size so far: {{CAPACITY}}.]] Our bulk hiring checklist explains what to prepare before the drive starts.' },
+  { q: 'What is the replacement guarantee?', a: "If a placed person leaves or does not work out within the agreed window, the agency finds a replacement. Market practice in India ranges from 30 to 90 days for permanent placement. For contract staff, replacement continues for the life of the contract. Lifeline Placements' replacement terms are {{REPLACEMENT}}." },
   { q: 'Contract staffing or permanent placement: which is better?', a: 'Contract staffing suits seasonal peaks, projects and roles where volume is uncertain; the worker stays on the agency payroll and you pay monthly. Permanent placement suits long-term and skilled roles; the worker joins your payroll and you pay the agency once. Many employers use both. Our comparison guide sets out costs and rules.' },
   { q: 'What documents do I need to hire through an agency?', a: 'For contract staffing you sign a service agreement and share your work-order details. If the contractor has 50 or more contract workers, it needs a licence under the OSH Code, and you may have principal-employer duties. Workers bring identity, address, bank and education documents. We send a checklist with every quote.' },
   { q: 'Which agency supplies housekeeping, security, BPO and factory staff in Chennai?', a: 'Lifeline Placements supplies housekeeping, BPO and call-centre, office and factory staff to employers in Chennai and across Tamil Nadu. Security guards are different: only agencies holding a PSARA licence may supply them, so ask any agency for that licence. WhatsApp +91 99622 99076 with your requirement.' },
 ];
 {
-  const homeSummary = `<strong>Lifeline Placements</strong> is a manpower supply and recruitment agency based in ${esc(C.address.locality)}, Chennai. We supply factory workers, BPO and call-centre staff, office and front-desk staff, housekeeping, retail, hospital and warehouse staff to employers across Tamil Nadu, through permanent placement, contract staffing and bulk hiring. Turnaround: ${tok('{{TURNAROUND}}')}. WhatsApp or call <a href="tel:${C.tel}" data-loc="hero_text">${C.phoneDisplay}</a>.`;
-  const body = `<section class="hero"><div class="wrap">
-<h1>Manpower Supply and Recruitment Agency for Employers in Tamil Nadu</h1>
+  const homeSummary = `<strong>Lifeline Placements</strong> is a manpower supply and recruitment agency based in ${esc(C.address.locality)}, Chennai. We supply factory workers, BPO and call-centre staff, office and front-desk staff, housekeeping, retail, hospital and warehouse staff to employers across Tamil Nadu, through permanent placement, contract staffing and bulk hiring. Turnaround: ${tok('{{TURNAROUND}}')}.`;
+  const body = `<section class="hero hero-home"><div class="wrap hero-grid">
+<div class="hero-copy">
+<p class="pill">${ICON.pin}Aminjikarai, Chennai · Serving all of Tamil Nadu</p>
+<h1>Manpower Supply and Recruitment Agency for Employers in <em>Tamil Nadu</em></h1>
 <p class="ta" lang="ta">தமிழ்நாடு முழுவதும் நிறுவனங்களுக்கு பணியாளர்களை வழங்குகிறோம்</p>
 <p class="summary">${homeSummary}</p>
-${ctaRow('hero', 'Hi Lifeline Placements, I need staff.')}
-<ul class="trust">
-${C.googleRating ? `<li><strong>${C.googleRating.rating}★ on Google</strong> from ${C.googleRating.count} reviews (as of ${C.googleRating.asOf}). <a href="${esc(C.googleRating.url)}" rel="noopener">See reviews</a></li>` : ''}
-${C.facts.TURNAROUND ? `<li><strong>Staff supplied in ${esc(C.facts.TURNAROUND)}</strong></li>` : ""}
-<li><strong>${industries.length} industries</strong> served</li>
-<li><strong>Office:</strong> ${esc(C.address.locality)}, Chennai</li>
-<li><strong>Years in business:</strong> ${tok('{{YEARS}}')}</li>
-</ul>
+${ctaRow('hero', DEFAULT_WA())}
+${C.googleRating ? `<a class="rating" href="${esc(C.googleRating.url)}" rel="noopener"><span class="stars">${ICON.star.repeat(5)}</span><span><strong>${C.googleRating.rating} on Google</strong> · ${C.googleRating.count} reviews (as of ${C.googleRating.asOf})</span></a>` : ''}
+</div>
+${heroCard('What staff do you need?', pickerChips('hero_picker'))}
 </div></section>
 
+<section class="stats-sec"><div class="wrap">${statStrip}</div></section>
+
 <section><div class="wrap">
-<h2>Industries we supply staff to</h2>
-<p class="lead">Each page lists the roles we fill, the hiring models that suit that industry and the questions employers ask us.</p>
-${linkCards(industries, 'industries')}
+<p class="eyebrow">Services</p><h2>Four ways to hire through Lifeline</h2>
+<p class="lead">Pick the model that fits the role. Each one has its own page with costs, what is included and the questions employers ask.</p>
+<div class="grid grid-svc">${services.map((s) => `<article class="card svc"><span class="ic ic-lg">${ICON[s.icon]}</span><h3><a href="/services/${s.slug}/">${esc(s.name)}</a></h3><p>${esc(s.short)}</p><div class="svc-cta"><a class="link" href="/services/${s.slug}/">How it works ${ICON.arrow}</a>${waChip('home_services', 'Enquire', s.waText)}</div></article>`).join('')}</div>
+<p><a class="link" href="/guides/contract-vs-permanent-vs-payroll-staffing/">Compare contract, permanent and payroll staffing ${ICON.arrow}</a></p>
 </div></section>
 
 <section class="alt"><div class="wrap">
-<h2>Cities and districts we serve</h2>
-<p class="lead">We work from our Chennai office and supply staff across Tamil Nadu. Each page covers that area's industrial estates and typical roles.</p>
-${linkCards(cities, 'cities')}
+<p class="eyebrow">Industries</p><h2>Industries we supply staff to</h2>
+<p class="lead">Each page lists the roles we fill, the hiring models that suit that industry and the questions employers ask us.</p>
+${linkCards(industries, 'industries', (x) => indIcon(x.slug), (x) => roleList(x).slice(0, 3).join(', '))}
 </div></section>
 
-<section><div class="wrap">
-<h2>Hiring models</h2>
-<div class="grid grid-lg">
-<div class="card"><h3>Permanent placement</h3><p>We find, screen and shortlist. The person joins your payroll. You pay us once.</p></div>
-<div class="card"><h3>Contract staffing</h3><p>Workers stay on our payroll. We pay wages, PF and ESI and bill you monthly. We replace people who leave.</p></div>
-<div class="card"><h3>Bulk hiring</h3><p>Many similar roles to one start date: new lines, new processes, festive peaks. See the <a href="/guides/bulk-hiring-checklist/">bulk hiring checklist</a>.</p></div>
-${C.payrollOutsourcing ? '<div class="card"><h3>Payroll outsourcing</h3><p>You choose the people. We hold them on our rolls and run salary, PF, ESI and filings.</p></div>' : ''}
-</div>
-<p><a href="/guides/contract-vs-permanent-vs-payroll-staffing/">Compare contract, permanent and payroll staffing</a></p>
+<section class="cities-sec"><div class="wrap">
+<p class="eyebrow">Locations</p><h2>Cities and districts we serve</h2>
+<p class="lead">We work from our Chennai office and supply staff across Tamil Nadu. Each page covers that area's industrial estates and typical roles.</p>
+<div class="city-cloud">${cities.map((c) => `<a href="/cities/${c.slug}/">${ICON.pin}${esc(c.name)}<small lang="ta">${esc(c.tamilName)}</small></a>`).join('')}</div>
 </div></section>
 
 ${steps('')}
 
-<section id="quote-sec"><div class="wrap">${quoteForm({ id: 'quote' })}</div></section>
+<section id="quote-sec" class="quote-sec"><div class="wrap quote-grid">
+<div><p class="eyebrow">Quick quote</p><h2>Tell us what you need in six fields</h2><p class="lead">The form writes the WhatsApp message for you, so nothing gets missed: industry, role, headcount, location, date and your name.</p>
+<ul class="ticks"><li>${ICON.shield}Written quote before you commit</li><li>${ICON.clock}Turnaround: ${tok('{{TURNAROUND}}')}</li><li>${ICON.users}Permanent, contract or bulk</li></ul></div>
+${quoteForm({ id: 'quote' })}</div></section>
 
 ${faqHtml(homeFaqs)}
 
-<section class="alt"><div class="wrap"><h2>Hiring guides</h2><div class="grid grid-lg">${guides.map((g) => `<a class="card" href="/guides/${g.slug}/">${esc(g.h1)}</a>`).join('')}</div></div></section>
+<section class="alt"><div class="wrap"><p class="eyebrow">Guides</p><h2>Hiring guides</h2><div class="grid grid-lg">${guides.map((g) => `<a class="card card-guide" href="/guides/${g.slug}/"><span class="ic">${ICON.book}</span><span class="ct">${esc(g.h1)}</span><small>${esc(g.description)}</small></a>`).join('')}</div></div></section>
 
-${finalCta('Hi Lifeline Placements, I need staff.')}`;
+${finalCta(DEFAULT_WA())}`;
   emit('/', {
     title: 'Manpower Agency in Tamil Nadu | Lifeline Placements',
     description: 'Lifeline Placements supplies factory, BPO, office, housekeeping, hospital and retail staff to employers across Tamil Nadu. WhatsApp +91 99622 99076 today.',
     body,
-    schema: [{ '@type': 'WebSite', '@id': `${C.url}/#website`, url: `${C.url}/`, name: C.name, inLanguage: 'en-IN', publisher: { '@id': `${C.url}/#org` } }, faqNode(homeFaqs)],
-  }, { keyword: 'manpower agency tamil nadu', type: 'home' });
+    schema: [faqNode(homeFaqs), howToNode(`${C.url}/#howto`, 'How to hire staff through Lifeline Placements', STEPS(''))],
+  }, { keyword: 'manpower agency tamil nadu', type: 'home', faqs: homeFaqs });
 }
+function DEFAULT_WA() { return 'Hi Lifeline Placements, I need staff.\nRole: \nHow many: \nWork location: \nNeeded by: '; }
+
+// ---------------- SERVICES ----------------
+for (const s of services) {
+  const p = `/services/${s.slug}/`;
+  const crumbs = [HOME, { name: 'Services', path: '/services/' }, { name: s.name, path: p }];
+  const g = guideBySlug[s.guide];
+  const others = services.filter((x) => x !== s);
+  const body = `<section class="hero"><div class="wrap hero-grid">
+<div class="hero-copy"><span class="ic ic-xl">${ICON[s.icon]}</span>
+<h1>${esc(s.h1)}</h1>
+<p class="ta" lang="ta">${esc(s.tamil)}</p>
+<p class="summary">${t(s.summary)}</p>
+${ctaRow('hero', s.waText)}
+${updated}</div>
+${heroCard(`Ask about ${lc(s.name)}`, `<div class="chips">${waChip('hero_service', `${s.name}: send my requirement`, s.waText).replace('class="chip"', 'class="chip chip-hot"')}${industries.slice(0, 8).map((i) => waChip('hero_service', `${s.name} for ${lc(i.name)}`, `Hi Lifeline Placements, I need ${lc(s.name)} for ${i.name}.\nRole: \nHow many: \nLocation: `)).join('')}</div>`)}
+</div></section>
+
+<section><div class="wrap cols">
+<div><p class="eyebrow">Included</p><h2>What ${lc(s.name)} includes</h2><ul class="ticks ticks-col">${s.included.map((x) => `<li>${ICON.shield}<span>${t(x)}</span></li>`).join('')}</ul></div>
+<div><p class="eyebrow">Fit</p><h2>When ${lc(s.name)} suits you</h2><ul class="ticks ticks-col">${s.suits.map((x) => `<li>${ICON.userCheck}<span>${t(x)}</span></li>`).join('')}</ul>
+<div class="note"><h3>What does ${lc(s.name)} cost?</h3><p>${t(s.cost)}</p></div></div>
+</div></section>
+
+${steps(lc(s.name))}
+
+<section><div class="wrap"><p class="eyebrow">Industries</p><h2>${esc(s.name)} by industry</h2>
+${linkCards(s.relatedIndustries.map((x) => indBySlug[x]).filter(Boolean), 'industries', (x) => indIcon(x.slug), (x) => roleList(x).slice(0, 3).join(', '))}
+${g ? `<p><a class="link" href="/guides/${g.slug}/">Read the guide: ${esc(g.h1)} ${ICON.arrow}</a></p>` : ''}
+</div></section>
+
+${faqHtml(s.faqs, `${s.name}: questions employers ask`)}
+
+<section class="quote-sec"><div class="wrap">${quoteForm({ service: s.name })}</div></section>
+
+<section class="alt"><div class="wrap"><h2>Other hiring models</h2><div class="grid grid-lg">${others.map((o) => `<a class="card card-ic" href="/services/${o.slug}/"><span class="ic">${ICON[o.icon]}</span><span><span class="ct">${esc(o.name)}</span><small>${esc(o.short)}</small></span>${ICON.arrow}</a>`).join('')}</div></div></section>
+
+${finalCta(s.waText, `Ready to start ${lc(s.name)}? Message us now.`)}`;
+  emit(p, {
+    title: s.title, description: s.description, body, crumbs, waContext: { label: `${s.name}: send my requirement`, text: s.waText },
+    schema: [
+      { '@type': 'Service', '@id': `${C.url}${p}#service`, name: s.name, serviceType: s.name, description: plain(s.summary) || s.description, provider: { '@id': `${C.url}/#org` }, areaServed: { '@type': 'State', name: 'Tamil Nadu' }, audience: { '@type': 'BusinessAudience', name: 'Employers in Tamil Nadu' }, url: C.url + p, availableChannel: { '@type': 'ServiceChannel', serviceUrl: `https://wa.me/${C.wa}`, servicePhone: { '@type': 'ContactPoint', telephone: C.tel } } },
+      faqNode(s.faqs),
+    ],
+  }, { keyword: s.primaryKeyword, type: 'service', faqs: s.faqs, summary: s.summary });
+}
+
+emit('/services/', {
+  title: 'Staffing Services in Tamil Nadu | Lifeline Placements',
+  description: 'Permanent placement, contract staffing, bulk hiring and payroll outsourcing for employers across Tamil Nadu. Compare the models, then WhatsApp us your role.',
+  crumbs: [HOME, { name: 'Services', path: '/services/' }],
+  schema: [{ '@type': 'ItemList', name: 'Staffing services', itemListElement: services.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.name, url: `${C.url}/services/${s.slug}/` })) }],
+  body: `<section class="hero"><div class="wrap hero-grid"><div class="hero-copy"><h1>Staffing Services for Employers in Tamil Nadu</h1><p class="ta" lang="ta">எங்கள் சேவைகள்</p>
+<p class="summary">Lifeline Placements offers ${services.length} hiring models: ${services.map((s) => lc(s.name)).join(', ').replace(/, ([^,]*)$/, ' and $1')}. Permanent placement puts the person on your payroll for a one-time fee. Contract staffing and payroll outsourcing keep people on our payroll for a monthly charge. Bulk hiring fills many roles for one start date.</p>${ctaRow('hero', DEFAULT_WA())}</div>
+${heroCard('Which model do you need?', `<div class="chips">${services.map((s) => waChip('hero_services', s.name, s.waText)).join('')}${waChip('hero_services', 'Not sure: help me choose', 'Hi Lifeline Placements, I need staff but I am not sure which hiring model fits.\nRole: \nHow many: \nFor how long: ')}</div>`)}</div></section>
+<section><div class="wrap"><div class="grid grid-svc">${services.map((s) => `<article class="card svc"><span class="ic ic-lg">${ICON[s.icon]}</span><h2 class="h3"><a href="/services/${s.slug}/">${esc(s.name)}</a></h2><p>${esc(s.short)}</p><div class="svc-cta"><a class="link" href="/services/${s.slug}/">Details ${ICON.arrow}</a>${waChip('services_hub', 'Enquire', s.waText)}</div></article>`).join('')}</div></div></section>
+<section class="alt"><div class="wrap"><h2>Which hiring model should I choose?</h2>
+<div class="tbl"><table><thead><tr><th>Model</th><th>Whose payroll</th><th>How you pay</th><th>Suits</th></tr></thead><tbody>
+<tr><td><strong><a href="/services/permanent-placement/">Permanent placement</a></strong></td><td>Yours</td><td>One-time fee after joining</td><td>Long-term and skilled roles</td></tr>
+<tr><td><strong><a href="/services/contract-staffing/">Contract staffing</a></strong></td><td>Lifeline's</td><td>Monthly invoice</td><td>Peaks, projects, helper and operator roles</td></tr>
+<tr><td><strong><a href="/services/bulk-hiring/">Bulk hiring</a></strong></td><td>Either</td><td>Per hire or monthly</td><td>Many similar roles for one start date</td></tr>
+${C.payrollOutsourcing ? '<tr><td><strong><a href="/services/payroll-outsourcing/">Payroll outsourcing</a></strong></td><td>Lifeline\'s</td><td>Monthly invoice</td><td>People you have already chosen</td></tr>' : ''}
+</tbody></table></div>
+<p><a class="link" href="/guides/contract-vs-permanent-vs-payroll-staffing/">Read the full comparison guide ${ICON.arrow}</a></p></div></section>
+${finalCta(DEFAULT_WA())}`,
+}, { keyword: 'staffing services tamil nadu', type: 'hub' });
 
 // ---------------- INDUSTRIES ----------------
 for (const ind of industries) {
   const p = `/industries/${ind.slug}/`;
   const crumbs = [HOME, { name: 'Industries', path: '/industries/' }, { name: ind.name, path: p }];
-  const waText = `Hi Lifeline Placements, I need staff for ${ind.name}.`;
-  const body = `<section class="hero"><div class="wrap">
+  const waText = waNeed(`staff for ${ind.name}`, '\nRole: ');
+  const body = `<section class="hero"><div class="wrap hero-grid">
+<div class="hero-copy"><span class="ic ic-xl">${indIcon(ind.slug)}</span>
 <h1>${esc(ind.h1)}</h1>
 <p class="ta" lang="ta">${esc(ind.tamil)}</p>
 <p class="summary">${t(ind.summary)}</p>
 ${ctaRow('hero', waText)}
-${updated}
+${updated}</div>
+${heroCard(`Message us about ${lc(ind.name)} staff`, `<div class="chips">${roleList(ind).slice(0, 9).map((r) => waChip('hero_role', r, waNeed(`${lc(r)} for ${ind.name}`))).join('')}</div>`)}
 </div></section>
 
-<section><div class="wrap"><h2>Roles we supply</h2>
-<div class="grid grid-lg">${ind.roles.map((g) => `<div class="card"><h3>${esc(g.group)}</h3><ul>${g.items.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></div>`).join('')}</div>
+<section><div class="wrap"><p class="eyebrow">Roles</p><h2>Roles we supply</h2>
+<p class="lead">Tap any role to send us a WhatsApp message about it. Add headcount and location, then press send.</p>
+<div class="grid grid-lg">${ind.roles.map((g) => `<div class="card role-card"><h3>${esc(g.group)}</h3><div class="chips chips-sm">${g.items.map((r) => waChip('role_card', r, waNeed(`${lc(r)} for ${ind.name}`))).join('')}</div></div>`).join('')}</div>
 </div></section>
 
-<section class="alt"><div class="wrap"><h2>Hiring models for ${esc(ind.name.toLowerCase())}</h2>
+<section class="alt"><div class="wrap"><p class="eyebrow">Hiring models</p><h2>Hiring models for ${esc(ind.name.toLowerCase())}</h2>
 <div class="tbl"><table><thead><tr><th>Model</th><th>When it fits</th><th>Example</th></tr></thead><tbody>
-${ind.models.map((m) => `<tr><td><strong>${esc(m.model)}</strong></td><td>${t(m.bestFor)}</td><td>${t(m.example)}</td></tr>`).join('')}
+${ind.models.map((m) => { const s = services.find((x) => x.name.toLowerCase() === m.model.toLowerCase()); return `<tr><td><strong>${s ? `<a href="/services/${s.slug}/">${esc(m.model)}</a>` : esc(m.model)}</strong></td><td>${t(m.bestFor)}</td><td>${t(m.example)}</td></tr>`; }).join('')}
 </tbody></table></div>
 <p class="meta">Examples are illustrations of typical requests, not named clients.</p>
 </div></section>
@@ -131,54 +220,58 @@ ${ind.models.map((m) => `<tr><td><strong>${esc(m.model)}</strong></td><td>${t(m.
 <section><div class="wrap prose"><h2>What matters when hiring for ${esc(ind.name.toLowerCase())} in Tamil Nadu</h2>
 ${ind.context.map((x) => `<p>${t(x)}</p>`).join('')}
 <h3>What we check before sending candidates</h3>
-<ul>${ind.screening.map((x) => `<li>${t(x)}</li>`).join('')}</ul>
+<ul class="ticks ticks-col">${ind.screening.map((x) => `<li>${ICON.shield}<span>${t(x)}</span></li>`).join('')}</ul>
 </div></section>
 
 ${steps(ind.name.toLowerCase())}
 
 ${faqHtml(ind.faqs, `${ind.name} hiring: questions employers ask`)}
 
-<section><div class="wrap">${quoteForm({ industry: ind.name })}</div></section>
+<section class="quote-sec"><div class="wrap">${quoteForm({ industry: ind.name })}</div></section>
 
 <section class="alt"><div class="wrap cols">
-<div><h2>Related industries</h2><ul>${ind.relatedIndustries.map((s) => indBySlug[s]).filter(Boolean).map((r) => `<li><a href="/industries/${r.slug}/">${esc(r.name)}</a></li>`).join('')}</ul></div>
-<div><h2>Where we supply ${esc(ind.name.toLowerCase())} staff</h2><ul>${ind.relatedCities.map((s) => cityBySlug[s]).filter(Boolean).map((c) => `<li><a href="/cities/${c.slug}/">${esc(ind.name)} staff in ${esc(c.name)}</a></li>`).join('')}</ul></div>
+<div><h2>Related industries</h2><ul class="links">${ind.relatedIndustries.map((s) => indBySlug[s]).filter(Boolean).map((r) => `<li><a href="/industries/${r.slug}/">${indIcon(r.slug)}${esc(r.name)}</a></li>`).join('')}</ul></div>
+<div><h2>Where we supply ${esc(ind.name.toLowerCase())} staff</h2><ul class="links">${ind.relatedCities.map((s) => cityBySlug[s]).filter(Boolean).map((c) => `<li><a href="/cities/${c.slug}/">${ICON.pin}${esc(ind.name)} staff in ${esc(c.name)}</a></li>`).join('')}</ul></div>
 </div></section>
 
 ${finalCta(waText, `Need ${ind.name.toLowerCase()} staff? Message us now.`)}`;
   emit(p, {
-    title: ind.title, description: ind.description, body, crumbs,
+    title: ind.title, description: ind.description, body, crumbs, waContext: { label: `Staff for ${ind.name}`, text: waText },
     schema: [
-      { '@type': 'Service', '@id': `${C.url}${p}#service`, name: ind.h1, serviceType: 'Manpower supply and recruitment', description: plain(ind.summary) || ind.description, provider: { '@id': `${C.url}/#org` }, areaServed: { '@type': 'State', name: 'Tamil Nadu' }, audience: { '@type': 'BusinessAudience', name: `${ind.name} employers` }, url: C.url + p },
+      { '@type': 'Service', '@id': `${C.url}${p}#service`, name: ind.h1, serviceType: 'Manpower supply and recruitment', description: plain(ind.summary) || ind.description, provider: { '@id': `${C.url}/#org` }, areaServed: { '@type': 'State', name: 'Tamil Nadu' }, audience: { '@type': 'BusinessAudience', name: `${ind.name} employers` }, url: C.url + p,
+        hasOfferCatalog: { '@type': 'OfferCatalog', name: `${ind.name} roles`, itemListElement: roleList(ind).map((r) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: `${r} supply` } })) } },
       faqNode(ind.faqs),
     ],
-  }, { keyword: ind.primaryKeyword, type: 'industry' });
+  }, { keyword: ind.primaryKeyword, type: 'industry', faqs: ind.faqs, summary: ind.summary });
 }
 
 // ---------------- CITIES ----------------
 for (const c of cities) {
   const p = `/cities/${c.slug}/`;
   const crumbs = [HOME, { name: 'Cities', path: '/cities/' }, { name: c.name, path: p }];
-  const waText = `Hi Lifeline Placements, I need staff in ${c.name}.`;
-  const body = `<section class="hero"><div class="wrap">
+  const waText = waNeed(`staff in ${c.name}`, '\nRole: ').replace('\nWork location: ', '\nArea: ');
+  const body = `<section class="hero"><div class="wrap hero-grid">
+<div class="hero-copy"><p class="pill">${ICON.pin}${esc(c.name)}${c.district && c.district !== c.name ? ` · ${esc(c.district)} district` : ''}</p>
 <h1>${esc(c.h1)}</h1>
 <p class="ta" lang="ta">${esc(c.tamilName)}: நிறுவனங்களுக்கு பணியாளர்கள்</p>
 <p class="summary">${t(c.summary)}</p>
 ${ctaRow('hero', waText)}
-${updated}
+${updated}</div>
+${heroCard(`Message us about staff in ${c.name}`, `<div class="chips">${c.roles.slice(0, 9).map((r) => waChip('hero_role', r, waNeed(`${lc(r)} in ${c.name}`).replace('\nWork location: ', '\nArea: '))).join('')}</div>`)}
 </div></section>
 
-<section><div class="wrap"><h2>Industrial areas and business districts we serve in ${esc(c.name)}</h2>
-<div class="grid grid-lg">${c.areas.map((a) => `<div class="card"><h3>${esc(a.name)}</h3><p>${t(a.note)}</p></div>`).join('')}</div>
+<section><div class="wrap"><p class="eyebrow">Areas</p><h2>Industrial areas and business districts we serve in ${esc(c.name)}</h2>
+<div class="grid grid-lg">${c.areas.map((a) => `<div class="card area"><h3>${ICON.pin}${esc(a.name)}</h3><p>${t(a.note)}</p></div>`).join('')}</div>
 </div></section>
 
-<section class="alt"><div class="wrap"><h2>Local industries and the staff they hire</h2>
-<div class="grid grid-lg">${c.industries.map((x) => `<div class="card"><h3>${x.industrySlug && indBySlug[x.industrySlug] ? `<a href="/industries/${x.industrySlug}/">${esc(x.name)}</a>` : esc(x.name)}</h3><p>${t(x.note)}</p></div>`).join('')}</div>
+<section class="alt"><div class="wrap"><p class="eyebrow">Local industries</p><h2>Local industries and the staff they hire</h2>
+<div class="grid grid-lg">${c.industries.map((x) => `<div class="card"><h3>${x.industrySlug && indBySlug[x.industrySlug] ? `<a href="/industries/${x.industrySlug}/">${esc(x.name)}</a>` : esc(x.name)}</h3><p>${t(x.note)}</p>${waChip('city_industry', `Ask about ${lc(x.name)} staff`, waNeed(`${lc(x.name)} staff in ${c.name}`, '\nRole: ').replace('\nWork location: ', '\nArea: '))}</div>`).join('')}</div>
 ${c.employers && c.employers.length ? `<p><strong>Large employers in the area include</strong> ${c.employers.map(esc).join('; ')}.</p><p class="meta">Named as examples of local employers, not Lifeline clients.</p>` : ''}
 </div></section>
 
 <section><div class="wrap prose"><h2>Typical roles employers in ${esc(c.name)} hire</h2>
-<ul>${c.roles.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
+<p>Tap a role to message us about it on WhatsApp.</p>
+<div class="chips chips-sm">${c.roles.map((r) => waChip('city_role', r, waNeed(`${lc(r)} in ${c.name}`).replace('\nWork location: ', '\nArea: '))).join('')}</div>
 <h2>Hiring in ${esc(c.name)}: what to plan for</h2>
 ${c.localNotes.map((x) => `<p>${t(x)}</p>`).join('')}
 ${c.slug !== 'chennai' ? `<p class="note">Lifeline Placements serves ${esc(c.name)} from our office in ${esc(C.address.locality)}, Chennai. Call or WhatsApp ${C.phoneDisplay}; we confirm the joining plan and timeline before you commit.</p>` : ''}
@@ -188,21 +281,21 @@ ${steps('')}
 
 ${faqHtml(c.faqs, `Hiring staff in ${c.name}: common questions`)}
 
-<section><div class="wrap">${quoteForm({ city: c.name })}</div></section>
+<section class="quote-sec"><div class="wrap">${quoteForm({ city: c.name })}</div></section>
 
 <section class="alt"><div class="wrap cols">
-<div><h2>Industries we staff in ${esc(c.name)}</h2><ul>${c.relatedIndustries.map((s) => indBySlug[s]).filter(Boolean).map((r) => `<li><a href="/industries/${r.slug}/">${esc(r.name)} staff</a></li>`).join('')}</ul></div>
-<div><h2>Nearby areas</h2><ul>${c.nearby.map((s) => cityBySlug[s]).filter(Boolean).map((n) => `<li><a href="/cities/${n.slug}/">Manpower supply in ${esc(n.name)}</a></li>`).join('')}</ul></div>
+<div><h2>Industries we staff in ${esc(c.name)}</h2><ul class="links">${c.relatedIndustries.map((s) => indBySlug[s]).filter(Boolean).map((r) => `<li><a href="/industries/${r.slug}/">${indIcon(r.slug)}${esc(r.name)} staff</a></li>`).join('')}</ul></div>
+<div><h2>Nearby areas</h2><ul class="links">${c.nearby.map((s) => cityBySlug[s]).filter(Boolean).map((n) => `<li><a href="/cities/${n.slug}/">${ICON.pin}Manpower supply in ${esc(n.name)}</a></li>`).join('')}</ul></div>
 </div></section>
 
 ${finalCta(waText, `Need staff in ${c.name}? Message us now.`)}`;
   emit(p, {
-    title: c.title, description: c.description, body, crumbs,
+    title: c.title, description: c.description, body, crumbs, waContext: { label: `Staff in ${c.name}`, text: waText },
     schema: [
       { '@type': 'Service', '@id': `${C.url}${p}#service`, name: c.h1, serviceType: 'Manpower supply and recruitment', description: plain(c.summary) || c.description, provider: { '@id': `${C.url}/#org` }, areaServed: { '@type': 'City', name: c.name, containedInPlace: { '@type': 'State', name: 'Tamil Nadu' } }, url: C.url + p },
       faqNode(c.faqs),
     ],
-  }, { keyword: c.primaryKeyword, type: 'city' });
+  }, { keyword: c.primaryKeyword, type: 'city', faqs: c.faqs, summary: c.summary });
 }
 
 // ---------------- GUIDES ----------------
@@ -210,131 +303,148 @@ for (const g of guides) {
   const p = `/guides/${g.slug}/`;
   const crumbs = [HOME, { name: 'Guides', path: '/guides/' }, { name: g.h1, path: p }];
   const toc = [...g.bodyHtml.matchAll(/<h2 id="([^"]+)">([^<]+)<\/h2>/g)];
-  const body = `<article><section class="hero"><div class="wrap">
+  const waText = `Hi Lifeline Placements, I read your guide "${g.h1}" and have a staffing question.\nQuestion: `;
+  const body = `<article><section class="hero hero-guide"><div class="wrap narrow">
+<p class="pill">${ICON.book}Hiring guide</p>
 <h1>${esc(g.h1)}</h1>
 <p class="ta" lang="ta">${esc(g.tamil)}</p>
 <p class="summary">${t(g.summary)}</p>
-${ctaRow('hero', 'Hi Lifeline Placements, I have a staffing question.')}
-<p class="meta">By Lifeline Placements · Published ${g.published} · Updated ${C.updatedDisplay}</p>
+${ctaRow('hero', waText)}
+<p class="meta">${ICON.clock}By <a href="/about/">Lifeline Placements</a>, reviewed by ${esc(C.founder.name)} · Published ${g.published} · Updated ${C.updatedDisplay}</p>
 </div></section>
-<section><div class="wrap prose">
-<nav class="toc" aria-label="On this page"><strong>On this page</strong><ol>${toc.map((m) => `<li><a href="#${m[1]}">${m[2]}</a></li>`).join('')}</ol></nav>
-${tok(g.bodyHtml)}
+<section><div class="wrap guide-grid">
+<nav class="toc" aria-label="On this page"><strong>On this page</strong><ol>${toc.map((m) => `<li><a href="#${m[1]}">${m[2]}</a></li>`).join('')}</ol>
+<div class="toc-cta"><p>Have a question about your own hiring?</p>${waBtn('guide_toc', waText, 'Ask on WhatsApp', 'btn-sm')}</div></nav>
+<div class="prose">${tok(g.bodyHtml)}</div>
 </div></section></article>
 ${faqHtml(g.faqs, 'Related questions')}
-<section><div class="wrap">${quoteForm({})}</div></section>
-<section class="alt"><div class="wrap"><h2>More hiring guides</h2><ul>${guides.filter((x) => x !== g).map((x) => `<li><a href="/guides/${x.slug}/">${esc(x.h1)}</a></li>`).join('')}</ul></div></section>
-${finalCta('Hi Lifeline Placements, I have a staffing question.')}`;
+<section class="quote-sec"><div class="wrap">${quoteForm({})}</div></section>
+<section class="alt"><div class="wrap"><h2>More hiring guides</h2><div class="grid grid-lg">${guides.filter((x) => x !== g).map((x) => `<a class="card card-guide" href="/guides/${x.slug}/"><span class="ic">${ICON.book}</span><span class="ct">${esc(x.h1)}</span></a>`).join('')}</div></div></section>
+${finalCta(waText)}`;
   emit(p, {
-    title: g.title, description: g.description, body, crumbs, ogType: 'article',
+    title: g.title, description: g.description, body, crumbs, ogType: 'article', waContext: { label: 'Ask about this guide', text: waText },
     schema: [
-      { '@type': 'Article', '@id': `${C.url}${p}#article`, headline: g.h1, description: g.description, datePublished: g.published, dateModified: C.updated, author: { '@id': `${C.url}/#org` }, publisher: { '@id': `${C.url}/#org` }, mainEntityOfPage: C.url + p, image: `${C.url}/assets/og-default.png`, inLanguage: 'en-IN' },
+      { '@type': 'Article', '@id': `${C.url}${p}#article`, headline: g.h1, description: g.description, datePublished: g.published, dateModified: C.updated, author: { '@id': `${C.url}/#org` }, reviewedBy: { '@id': `${C.url}/about/#founder` }, publisher: { '@id': `${C.url}/#org` }, mainEntityOfPage: C.url + p, image: `${C.url}/assets/og-default.png`, inLanguage: 'en-IN', about: { '@type': 'Thing', name: g.primaryKeyword } },
       faqNode(g.faqs),
     ],
-  }, { keyword: g.primaryKeyword, type: 'guide' });
+  }, { keyword: g.primaryKeyword, type: 'guide', faqs: g.faqs, summary: g.summary });
 }
 
 // ---------------- HUBS ----------------
+const itemList = (name, items, base) => ({ '@type': 'ItemList', name, itemListElement: items.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.name || x.h1, url: `${C.url}/${base}/${x.slug}/` })) });
 emit('/industries/', {
   title: 'Industries We Staff in Tamil Nadu | Lifeline Placements',
   description: 'Staff for IT, BPO, factories, automobile, pharma, textile, retail, hospitals, hostels, e-commerce and logistics across Tamil Nadu. WhatsApp us your requirement.',
   crumbs: [HOME, { name: 'Industries', path: '/industries/' }],
-  body: `<section class="hero"><div class="wrap"><h1>Industries We Supply Staff to Across Tamil Nadu</h1><p class="ta" lang="ta">நாங்கள் சேவை செய்யும் தொழில்கள்</p>
-<p class="summary">Lifeline Placements supplies staff to ${industries.length} industries across Tamil Nadu, from Chennai factories and IT offices to hospitals, hostels and warehouses. Choose your industry to see the roles we fill, the hiring models that suit it, and answers to the questions employers ask. WhatsApp or call ${C.phoneDisplay}.</p>${ctaRow('hero')}</div></section>
-<section><div class="wrap"><div class="grid grid-lg">${industries.map((i) => `<a class="card" href="/industries/${i.slug}/">${esc(i.name)}<small>${esc(i.roles.flatMap((g) => g.items).slice(0, 4).join(', '))}</small></a>`).join('')}</div></div></section>
-${finalCta()}`,
+  schema: [itemList('Industries served', industries, 'industries')],
+  body: `<section class="hero"><div class="wrap hero-grid"><div class="hero-copy"><h1>Industries We Supply Staff to Across Tamil Nadu</h1><p class="ta" lang="ta">நாங்கள் சேவை செய்யும் தொழில்கள்</p>
+<p class="summary">Lifeline Placements supplies staff to ${industries.length} industries across Tamil Nadu, from Chennai factories and IT offices to hospitals, hostels and warehouses. Choose your industry to see the roles we fill, the hiring models that suit it, and answers to the questions employers ask. WhatsApp or call ${C.phoneDisplay}.</p>${ctaRow('hero', DEFAULT_WA())}</div>
+${heroCard('Message us about your industry', `<div class="chips">${industries.map((i) => waChip('hero_industry', i.name, waNeed(`staff for ${i.name}`, '\nRole: '))).join('')}</div>`)}</div></section>
+<section><div class="wrap">${linkCards(industries, 'industries', (x) => indIcon(x.slug), (x) => roleList(x).slice(0, 4).join(', '))}</div></section>
+${finalCta(DEFAULT_WA())}`,
 }, { keyword: 'manpower supply by industry', type: 'hub' });
 
 emit('/cities/', {
   title: 'Manpower Supply Across Tamil Nadu Cities | Lifeline',
   description: 'Manpower supply in Chennai, Sriperumbudur, Coimbatore, Hosur, Tiruppur, Madurai, Trichy and 13 more Tamil Nadu districts. WhatsApp Lifeline your requirement.',
   crumbs: [HOME, { name: 'Cities', path: '/cities/' }],
-  body: `<section class="hero"><div class="wrap"><h1>Manpower Supply Across Tamil Nadu: Cities and Districts</h1><p class="ta" lang="ta">தமிழ்நாட்டின் நகரங்கள் மற்றும் மாவட்டங்கள்</p>
-<p class="summary">Lifeline Placements works from Aminjikarai, Chennai and supplies staff to employers in ${cities.length} Tamil Nadu cities and districts. Each page lists that area's industrial estates, local industries and the roles employers there hire. WhatsApp or call ${C.phoneDisplay} for districts not listed.</p>${ctaRow('hero')}</div></section>
-<section><div class="wrap"><div class="grid grid-lg">${cities.map((c) => `<a class="card" href="/cities/${c.slug}/">${esc(c.name)}<small>${esc(c.areas.slice(0, 3).map((a) => a.name).join(', '))}</small></a>`).join('')}</div></div></section>
-${finalCta()}`,
+  schema: [itemList('Cities and districts served', cities, 'cities')],
+  body: `<section class="hero"><div class="wrap hero-grid"><div class="hero-copy"><h1>Manpower Supply Across Tamil Nadu: Cities and Districts</h1><p class="ta" lang="ta">தமிழ்நாட்டின் நகரங்கள் மற்றும் மாவட்டங்கள்</p>
+<p class="summary">Lifeline Placements works from Aminjikarai, Chennai and supplies staff to employers in ${cities.length} Tamil Nadu cities and districts. Each page lists that area's industrial estates, local industries and the roles employers there hire. WhatsApp or call ${C.phoneDisplay} for districts not listed.</p>${ctaRow('hero', DEFAULT_WA())}</div>
+${heroCard('Message us about your city', `<div class="chips">${cities.map((c) => waChip('hero_city', c.name, waNeed(`staff in ${c.name}`, '\nRole: ').replace('\nWork location: ', '\nArea: '))).join('')}</div>`)}</div></section>
+<section><div class="wrap">${linkCards(cities, 'cities', () => ICON.pin, (x) => x.areas.slice(0, 3).map((a) => a.name).join(', '))}</div></section>
+${finalCta(DEFAULT_WA())}`,
 }, { keyword: 'manpower supply tamil nadu districts', type: 'hub' });
 
 emit('/guides/', {
   title: 'Hiring Guides for Tamil Nadu Employers | Lifeline Placements',
   description: 'Plain guides on contract vs permanent staffing, bulk hiring, choosing a manpower agency and staffing costs in Tamil Nadu. Questions? WhatsApp Lifeline today.',
   crumbs: [HOME, { name: 'Guides', path: '/guides/' }],
-  body: `<section class="hero"><div class="wrap"><h1>Hiring Guides for Employers in Tamil Nadu</h1><p class="ta" lang="ta">நிறுவனங்களுக்கான ஆட்சேர்ப்பு வழிகாட்டிகள்</p>
+  schema: [{ '@type': 'ItemList', name: 'Hiring guides', itemListElement: guides.map((g, i) => ({ '@type': 'ListItem', position: i + 1, name: g.h1, url: `${C.url}/guides/${g.slug}/` })) }],
+  body: `<section class="hero"><div class="wrap narrow"><h1>Hiring Guides for Employers in Tamil Nadu</h1><p class="ta" lang="ta">நிறுவனங்களுக்கான ஆட்சேர்ப்பு வழிகாட்டிகள்</p>
 <p class="summary">Practical guides from Lifeline Placements, a Chennai manpower agency: how contract, permanent and payroll staffing differ, how to run a bulk hiring drive, how to check an agency before you sign, and what a contract worker really costs in Tamil Nadu in 2026.</p></div></section>
-<section><div class="wrap"><div class="grid grid-lg">${guides.map((g) => `<a class="card" href="/guides/${g.slug}/">${esc(g.h1)}<small>${esc(g.description)}</small></a>`).join('')}</div></div></section>
-${finalCta()}`,
+<section><div class="wrap"><div class="grid grid-lg">${guides.map((g) => `<a class="card card-guide" href="/guides/${g.slug}/"><span class="ic">${ICON.book}</span><span class="ct">${esc(g.h1)}</span><small>${esc(g.description)}</small></a>`).join('')}</div></div></section>
+${finalCta('Hi Lifeline Placements, I have a staffing question.\nQuestion: ')}`,
 }, { keyword: 'staffing guides tamil nadu', type: 'hub' });
 
 // ---------------- ABOUT / CONTACT / JOBS / PRIVACY / 404 ----------------
+const founderBio = C.founder.bio || 'He leads the agency\'s work with employers: taking each requirement, setting the screening checklist for the role and following up with the employer after joining.';
+const factRows = [
+  ['Office', addressHtml()],
+  ['Phone and WhatsApp', `<a href="tel:${C.tel}" data-loc="about_table">${C.phoneDisplay}</a>`],
+  ['Email', `<a href="mailto:${C.email}">${C.email}</a>`],
+  ['Turnaround', tok('{{TURNAROUND}}')],
+  C.facts.YEARS ? ['Years in business', esc(C.facts.YEARS)] : null,
+  C.facts.PLACED ? ['People placed', esc(C.facts.PLACED)] : null,
+  C.facts.LICENCES ? ['Licences and registrations', esc(C.facts.LICENCES)] : null,
+  ['Hiring models', services.map((s) => `<a href="/services/${s.slug}/">${esc(s.name)}</a>`).join(', ')],
+  ['Industries served', industries.map((i) => `<a href="/industries/${i.slug}/">${esc(i.name)}</a>`).join(', ')],
+  ['Area served', 'All of Tamil Nadu, from our Chennai office'],
+  ['Languages', 'English and Tamil'],
+  C.googleRating ? ['Google rating', `${C.googleRating.rating} from ${C.googleRating.count} reviews, as of ${C.googleRating.asOf}. <a href="${esc(C.googleRating.url)}" rel="noopener">Read the reviews on Google</a>`] : null,
+].filter(Boolean);
 emit('/about/', {
   title: 'About Lifeline Placements | Manpower Agency in Chennai',
   description: 'Who we are: Lifeline Placements, a manpower supply and recruitment agency in Aminjikarai, Chennai, serving employers across Tamil Nadu. Call +91 99622 99076.',
   crumbs: [HOME, { name: 'About', path: '/about/' }],
-  schema: [{ '@type': 'AboutPage', '@id': `${C.url}/about/#page`, url: `${C.url}/about/`, name: 'About Lifeline Placements', about: { '@id': `${C.url}/#org` } }],
-  body: `<section class="hero"><div class="wrap"><h1>About Lifeline Placements, Manpower Agency in Chennai</h1><p class="ta" lang="ta">லைஃப்லைன் பிளேஸ்மென்ட்ஸ் பற்றி</p>
-<p class="summary">Lifeline Placements is a manpower supply and recruitment agency in ${esc(C.address.locality)}, Chennai. We help employers across Tamil Nadu hire factory, office, BPO, housekeeping, retail, hospital, hostel and warehouse staff through permanent placement, contract staffing and bulk hiring. Reach us on WhatsApp or by phone at ${C.phoneDisplay}.</p>${ctaRow('hero')}</div></section>
+  pageType: 'AboutPage',
+  schema: [{ '@type': 'Person', '@id': `${C.url}/about/#founder`, name: C.founder.name, jobTitle: C.founder.role, worksFor: { '@id': `${C.url}/#org` }, ...(C.founder.qualification ? { hasCredential: { '@type': 'EducationalOccupationalCredential', credentialCategory: 'degree', name: C.founder.qualification } } : {}), knowsAbout: ['Recruitment', 'Contract staffing', 'Manpower supply in Tamil Nadu'] }],
+  body: `<section class="hero"><div class="wrap hero-grid"><div class="hero-copy"><h1>About Lifeline Placements, Manpower Agency in Chennai</h1><p class="ta" lang="ta">லைஃப்லைன் பிளேஸ்மென்ட்ஸ் பற்றி</p>
+<p class="summary">Lifeline Placements is a manpower supply and recruitment agency in ${esc(C.address.locality)}, Chennai. We help employers across Tamil Nadu hire factory, office, BPO, housekeeping, retail, hospital, hostel and warehouse staff through permanent placement, contract staffing and bulk hiring. Reach us on WhatsApp or by phone at ${C.phoneDisplay}.</p>${ctaRow('hero', DEFAULT_WA())}</div>
+<aside class="hero-card founder"><span class="avatar" aria-hidden="true">${esc(C.founder.name.split(' ').map((w) => w[0]).join('').replace(/\W/g, '').slice(0, 2))}</span><p><strong>${esc(C.founder.name)}</strong>${C.founder.qualification ? `, ${esc(C.founder.qualification)}` : ''}<br><small>${esc(C.founder.role)}</small></p><p class="hc-note">${esc(founderBio)}</p>${waChip('about_founder', 'Message the team', DEFAULT_WA())}</aside></div></section>
 <section><div class="wrap prose">
 <h2>Who runs Lifeline Placements?</h2>
-<p>Lifeline Placements is headed by <strong>${esc(C.founder.name)}</strong>${C.founder.qualification ? ', ' + esc(C.founder.qualification) : ''}. ${C.founder.bio ? esc(C.founder.bio) : '<mark class="ph">[short bio: experience in recruitment, industries and districts worked in: to confirm]</mark>'}</p>
+<p>Lifeline Placements is headed by <strong>${esc(C.founder.name)}</strong>${C.founder.qualification ? ', ' + esc(C.founder.qualification) : ''}. ${esc(founderBio)}</p>
 <h2>What we do</h2>
-<ul>
-<li><strong>Permanent placement:</strong> we source and screen; the person joins your payroll.</li>
-<li><strong>Contract staffing:</strong> workers stay on our payroll; we handle wages, PF, ESI and replacements.</li>
-<li><strong>Bulk hiring:</strong> many similar roles to one start date.</li>
-${C.payrollOutsourcing ? '<li><strong>Payroll outsourcing:</strong> you choose the people; we run salary and compliance.</li>' : ''}
-</ul>
+<ul class="ticks ticks-col">${services.map((s) => `<li>${ICON[s.icon]}<span><a href="/services/${s.slug}/"><strong>${esc(s.name)}</strong></a>: ${esc(s.short)}</span></li>`).join('')}</ul>
 <h2>Facts about Lifeline Placements</h2>
-<div class="tbl"><table><tbody>
-<tr><th>Office</th><td>${addressHtml()}</td></tr>
-<tr><th>Phone and WhatsApp</th><td><a href="tel:${C.tel}" data-loc="about_table">${C.phoneDisplay}</a></td></tr>
-<tr><th>Email</th><td><a href="mailto:${C.email}">${C.email}</a></td></tr>
-<tr><th>Years in business</th><td>${tok('{{YEARS}}')}</td></tr>
-<tr><th>People placed</th><td>${tok('{{PLACED}}')}</td></tr>
-<tr><th>Licences and registrations</th><td>${tok('{{LICENCES}}')}</td></tr>
-<tr><th>Industries served</th><td>${industries.map((i) => `<a href="/industries/${i.slug}/">${esc(i.name)}</a>`).join(', ')}</td></tr>
-<tr><th>Area served</th><td>All of Tamil Nadu, from our Chennai office</td></tr>
-${C.googleRating ? `<tr><th>Google rating</th><td>${C.googleRating.rating} from ${C.googleRating.count} reviews, as of ${C.googleRating.asOf}. <a href="${esc(C.googleRating.url)}" rel="noopener">Read the reviews on Google</a></td></tr>` : ''}
-</tbody></table></div>
+<div class="tbl"><table><tbody>${factRows.map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join('')}</tbody></table></div>
 <h2>How we work</h2>
 <p>We reply to WhatsApp messages during working hours, ask three questions (what role, how many people, by when), and send a written quote. We screen candidates against your checklist before you meet them. Industry pages list the checks we run for each role.</p>
-<h2>Case studies</h2>
-<p><mark class="ph">[Case studies will be added only with each client's written permission: to confirm]</mark></p>
+<h2>What do employers say about Lifeline Placements?</h2>
+<p>${C.googleRating ? `Employers and candidates have rated Lifeline Placements ${C.googleRating.rating} out of 5 across ${C.googleRating.count} Google reviews (as of ${C.googleRating.asOf}). <a href="${esc(C.googleRating.url)}" rel="noopener">Read the reviews on Google</a>.` : 'Read our reviews on Google.'} We publish named client stories only with each client's written permission.</p>
 </div></section>
-${finalCta()}`,
+${finalCta(DEFAULT_WA())}`,
 }, { keyword: 'lifeline placements', type: 'about' });
 
 emit('/contact/', {
   title: 'Contact Lifeline Placements | WhatsApp +91 99622 99076',
   description: 'Contact Lifeline Placements in Aminjikarai, Chennai. WhatsApp or call +91 99622 99076, or send your staffing requirement through the quote form below.',
   crumbs: [HOME, { name: 'Contact', path: '/contact/' }],
-  schema: [{ '@type': 'ContactPage', '@id': `${C.url}/contact/#page`, url: `${C.url}/contact/`, name: 'Contact Lifeline Placements', about: { '@id': `${C.url}/#org` } }],
-  body: `<section class="hero"><div class="wrap"><h1>Contact Lifeline Placements in Chennai</h1><p class="ta" lang="ta">எங்களை தொடர்பு கொள்ள</p>
-<p class="summary">The fastest way to reach Lifeline Placements is WhatsApp on ${C.phoneDisplay}. Send the role, how many people, the work location and when you need them, and we reply with questions or a quote. You can also call the same number.</p>${ctaRow('hero')}</div></section>
-<section><div class="wrap cols">
-<div><h2>Office</h2><p><strong>Lifeline Placements</strong><br>${addressHtml()}</p>
-<p>Phone and WhatsApp: <a href="tel:${C.tel}" data-loc="contact_block">${C.phoneDisplay}</a><br>Email: <a href="mailto:${C.email}">${C.email}</a><br>Hours: ${C.hours ? esc(C.hours) : '<mark class="ph">[working hours: to confirm]</mark>'}</p>
-<p><a href="${esc(C.googleRating ? C.googleRating.url : 'https://www.google.com/maps')}" rel="noopener">Open in Google Maps</a></p></div>
+  pageType: 'ContactPage',
+  body: `<section class="hero"><div class="wrap hero-grid"><div class="hero-copy"><h1>Contact Lifeline Placements in Chennai</h1><p class="ta" lang="ta">எங்களை தொடர்பு கொள்ள</p>
+<p class="summary">The fastest way to reach Lifeline Placements is WhatsApp on ${C.phoneDisplay}. Send the role, how many people, the work location and when you need them, and we reply with questions or a quote. You can also call the same number.</p>${ctaRow('hero', DEFAULT_WA())}</div>
+${heroCard('Tap what you need', pickerChips('contact_picker'))}</div></section>
+<section><div class="wrap cols contact-cols">
+<div><h2>Office</h2>
+<div class="card contact-card"><p><strong>Lifeline Placements</strong><br>${addressHtml()}</p>
+<p>${ICON.phone} <a href="tel:${C.tel}" data-loc="contact_block">${C.phoneDisplay}</a> (phone and WhatsApp)<br>${ICON.chat} <a href="mailto:${C.email}">${C.email}</a><br>${ICON.clock} ${C.hours ? esc(C.hours) : esc(C.hoursNote)}</p>
+<p><a class="link" href="${esc(mapsUrl())}" rel="noopener">Get directions on Google Maps ${ICON.arrow}</a></p></div>
+<div class="map"><iframe title="Map: Lifeline Placements office, Aminjikarai, Chennai" src="https://www.google.com/maps?q=${encodeURIComponent(C.mapQuery)}&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div>
 <div>${quoteForm({ id: 'quote' })}</div>
 </div></section>`,
 }, { keyword: 'lifeline placements contact number', type: 'contact' });
 
+const jobWa = 'Hi Lifeline Placements, I am looking for a job.\nName: \nJob I want: \nEducation: \nExperience: \nAreas I can travel to: ';
 emit('/jobs/', {
   title: 'Jobs Through Lifeline Placements, Chennai | Job Seekers',
   description: 'Looking for a job in Chennai or Tamil Nadu? See how to share your details with Lifeline Placements on WhatsApp and read our privacy notice first. Message us.',
   crumbs: [HOME, { name: 'Jobs', path: '/jobs/' }],
-  body: `<section class="hero"><div class="wrap"><h1>Jobs Through Lifeline Placements in Chennai and Tamil Nadu</h1><p class="ta" lang="ta">வேலை தேடுபவர்களுக்கு</p>
+  waContext: { label: 'I am looking for a job', text: jobWa },
+  body: `<section class="hero"><div class="wrap narrow"><h1>Jobs Through Lifeline Placements in Chennai and Tamil Nadu</h1><p class="ta" lang="ta">வேலை தேடுபவர்களுக்கு</p>
 <p class="summary">Lifeline Placements fills roles for employers across Tamil Nadu: factory, warehouse, BPO, office, housekeeping, retail, hospital and hostel jobs. If you are looking for work, send your name, the job you want, your experience and your preferred area on WhatsApp. We contact you when a matching opening comes up.</p>
-<div class="cta-row">${waBtn('jobs_hero', 'Hi Lifeline Placements, I am looking for a job.', 'WhatsApp your details')}</div></div></section>
+<div class="cta-row">${waBtn('jobs_hero', jobWa, 'WhatsApp your details', 'btn-lg')}</div></div></section>
 <section><div class="wrap prose">
 <h2>How do I apply for a job through Lifeline Placements?</h2>
 <p><strong>Send a WhatsApp message to ${C.phoneDisplay} with your name, the job you want, your education, your experience and the areas you can travel to. We match you against open requirements from employers. If there is a fit, we call you for a short screening before the employer interview.</strong></p>
-<h2>Do I have to pay a fee?</h2>
-<p>${tok('{{CANDIDATE_FEE}}')}</p>
+${C.facts.CANDIDATE_FEE ? `<h2>Do I have to pay a fee?</h2><p>${esc(C.facts.CANDIDATE_FEE)}</p>` : ''}
+<h2>How do I know a message really came from Lifeline Placements?</h2>
+<p>Our only number is ${C.phoneDisplay}. If anyone contacts you about a job in our name from another number, or asks you for money or documents before an employer has selected you, call ${C.phoneDisplay} to check first.</p>
 <h2>What should I keep ready?</h2>
 <ul><li>A short CV, or details typed in WhatsApp</li><li>Identity and address proof (show at joining; do not send copies until an employer selects you)</li><li>Education or ITI certificates for skilled roles</li><li>Bank account details for salary (only after selection)</li></ul>
 <h2>Your data</h2>
 <p>We use your details only to match you with jobs and to contact you. Read our <a href="/privacy/">privacy notice</a> before sending documents. To have your details deleted, message "DELETE MY DATA" on WhatsApp.</p>
-<p class="note">Are you an employer? <a href="/">Start here</a> or see <a href="/industries/">industries we staff</a>.</p>
+<p class="note">Are you an employer? <a href="/">Start here</a> or see <a href="/services/">our staffing services</a>.</p>
 </div></section>`,
 }, { keyword: 'lifeline placements jobs chennai', type: 'jobs' });
 
@@ -343,13 +453,13 @@ emit('/privacy/', {
   description: 'How Lifeline Placements collects, uses, stores and deletes employer and job-seeker data under India\'s Digital Personal Data Protection Act, 2023. Read it here.',
   crumbs: [HOME, { name: 'Privacy', path: '/privacy/' }],
   body: `<section><div class="wrap prose"><h1>Privacy Notice</h1>
-<p class="meta">Effective ${C.updatedDisplay}. <mark class="ph">[Owner to review with a legal adviser before launch]</mark></p>
+<p class="meta">Effective ${C.updatedDisplay}.</p>
 <h2>Who we are</h2><p>Lifeline Placements, ${addressHtml()}. Contact: <a href="mailto:${C.email}">${C.email}</a>, ${C.phoneDisplay}.</p>
-<h2>What we collect</h2><ul><li><strong>Employers:</strong> name, company, phone number, and the requirement you send (industry, role, headcount, location, date).</li><li><strong>Job seekers:</strong> the details you choose to send on WhatsApp (name, phone, education, experience, preferred location, CV).</li><li><strong>Website:</strong> if analytics is enabled, anonymous usage data through Google Analytics (pages viewed, button clicks). The website does not use advertising cookies.</li></ul>
+<h2>What we collect</h2><ul><li><strong>Employers:</strong> name, company, phone number, and the requirement you send (industry, role, headcount, location, date).</li><li><strong>Job seekers:</strong> the details you choose to send on WhatsApp (name, phone, education, experience, preferred location, CV).</li><li><strong>Website:</strong> if analytics is enabled, anonymous usage data through Google Analytics (pages viewed, button clicks). The website does not use advertising cookies. The contact page shows an embedded Google Map, and the site loads fonts from Google Fonts; Google receives your IP address when these load.</li></ul>
 <h2>Why we use it</h2><p>To reply to your enquiry, prepare quotes, match candidates with openings, and meet legal obligations. We do not sell personal data.</p>
 <h2>Who we share it with</h2><p>Job-seeker profiles are shared only with employers hiring for a matching role. Employer requirements are not shared outside Lifeline Placements.</p>
-<h2>How long we keep it</h2><p><mark class="ph">[retention period: to confirm, e.g. 12 months after last contact]</mark></p>
-<h2>Your rights</h2><p>Under the Digital Personal Data Protection Act, 2023 you can ask to see, correct or delete your data, or withdraw consent. Message "DELETE MY DATA" on WhatsApp or email us. Grievance contact: <mark class="ph">[name of grievance officer: to confirm]</mark>.</p>
+<h2>How long we keep it</h2><p>We keep personal data for ${esc(C.privacy.retention)}. After that we delete it.</p>
+<h2>Your rights</h2><p>Under the Digital Personal Data Protection Act, 2023 you can ask to see, correct or delete your data, or withdraw consent. Message "DELETE MY DATA" on WhatsApp or email us. Grievance contact: ${esc(C.privacy.grievanceOfficer)}, <a href="mailto:${C.email}">${C.email}</a>, ${C.phoneDisplay}.</p>
 </div></section>`,
 }, { keyword: '(none)', type: 'legal' });
 
@@ -358,8 +468,9 @@ write('404.html', page({
   path: '/404.html', noindex: true,
   title: 'Page not found | Lifeline Placements',
   description: 'This page does not exist. Find staff for your business across Tamil Nadu, or WhatsApp Lifeline Placements on +91 99622 99076 and tell us what you need.',
-  body: `<section class="hero"><div class="wrap"><h1>Page not found</h1><p>The page may have moved. Try one of these, or message us directly.</p>${ctaRow('404')}
-<ul><li><a href="/">Home</a></li><li><a href="/industries/">Industries</a></li><li><a href="/cities/">Cities</a></li><li><a href="/guides/">Guides</a></li><li><a href="/contact/">Contact</a></li></ul></div></section>`,
+  body: `<section class="hero"><div class="wrap hero-grid"><div class="hero-copy"><h1>Page not found</h1><p>The page may have moved. Try one of these, or message us directly.</p>${ctaRow('404', DEFAULT_WA())}
+<ul class="links"><li><a href="/">Home</a></li><li><a href="/services/">Services</a></li><li><a href="/industries/">Industries</a></li><li><a href="/cities/">Cities</a></li><li><a href="/guides/">Guides</a></li><li><a href="/contact/">Contact</a></li></ul></div>
+${heroCard('What staff do you need?', pickerChips('404_picker'))}</div></section>`,
 }));
 
 // ---------------- STATIC FILES ----------------
@@ -395,16 +506,40 @@ Allow: /
 Sitemap: ${C.url}/sitemap.xml
 `);
 
+const factsBlock = [
+  `- Name: ${C.name} (also written "${C.alternateName}")`,
+  `- Type: manpower supply and recruitment agency (employment agency)`,
+  `- Office: ${L.addressText()}`,
+  `- Phone and WhatsApp: ${C.phoneDisplay} (https://wa.me/${C.wa})`,
+  `- Email: ${C.email}`,
+  `- Head: ${C.founder.name}${C.founder.qualification ? ', ' + C.founder.qualification : ''}`,
+  C.facts.TURNAROUND ? `- Turnaround: ${C.facts.TURNAROUND}` : null,
+  C.facts.YEARS ? `- Years in business: ${C.facts.YEARS}` : null,
+  C.facts.CAPACITY ? `- Largest order: ${C.facts.CAPACITY}` : null,
+  C.googleRating ? `- Google rating: ${C.googleRating.rating} from ${C.googleRating.count} reviews (as of ${C.googleRating.asOf})` : null,
+  `- Hiring models: ${services.map((s) => s.name).join(', ')}`,
+  `- Area served: all of Tamil Nadu, India, from Chennai`,
+  `- Languages: English, Tamil`,
+  `- Does not supply: security guards (needs a PSARA licence) or overseas placement`,
+].filter(Boolean).join('\n');
+
 write('llms.txt', `# Lifeline Placements
 
 > Manpower supply and recruitment agency in ${C.address.locality}, Chennai, Tamil Nadu, India. Supplies staff to employers across Tamil Nadu through permanent placement, contract staffing and bulk hiring. Phone and WhatsApp: ${C.phoneDisplay} (https://wa.me/${C.wa}).
 
-Note: this file is an optional summary for AI tools. Google Search does not use llms.txt.
+Note: this file is an optional summary for AI tools. Google Search does not use llms.txt. A longer version with every FAQ answer is at ${C.url}/llms-full.txt
+
+## Facts
+${factsBlock}
 
 ## Key pages
 - [Home](${C.url}/): services, industries, cities, FAQ
+- [Services](${C.url}/services/): compare hiring models
 - [About](${C.url}/about/): who we are and verified facts
-- [Contact](${C.url}/contact/): phone, WhatsApp, office
+- [Contact](${C.url}/contact/): phone, WhatsApp, office, map
+
+## Services
+${services.map((s) => `- [${s.name}](${C.url}/services/${s.slug}/): ${s.short}`).join('\n')}
 
 ## Industries
 ${industries.map((i) => `- [${i.name}](${C.url}/industries/${i.slug}/): ${plain(i.description) || ''}`).join('\n')}
@@ -416,14 +551,48 @@ ${cities.map((c) => `- [${c.name}](${C.url}/cities/${c.slug}/)`).join('\n')}
 ${guides.map((g) => `- [${g.h1}](${C.url}/guides/${g.slug}/)`).join('\n')}
 `);
 
+write('llms-full.txt', `# Lifeline Placements: full reference for AI assistants
+
+Manpower supply and recruitment agency in ${C.address.locality}, Chennai, Tamil Nadu, India. Updated ${C.updatedDisplay}.
+
+## Facts
+${factsBlock}
+
+## How to enquire
+Employers can WhatsApp ${C.phoneDisplay} (https://wa.me/${C.wa}) with the role, headcount, work location and date needed, or call the same number. Job seekers can send their name, the job they want, education, experience and preferred area on WhatsApp.
+
+${indexable.filter((p) => p.summary || p.faqs.length).map((p) => `## ${p.title}\nURL: ${C.url}${p.path}\n${p.summary ? '\n' + (plain(p.summary) || '').replace(/<[^>]+>/g, '') + '\n' : ''}${p.faqs.map((f) => { const q = plain(f.q), a = plain(f.a); return q && a ? `\nQ: ${q}\nA: ${a}\n` : ''; }).join('')}`).join('\n')}
+`);
+
 // Old-site URLs -> new pages (Cloudflare Pages / Netlify syntax). Apache equivalents are in .htaccess.
 const REDIRECTS = [
   ['/aboutus', '/about/'], ['/aboutus.html', '/about/'],
   ['/contactus', '/contact/'], ['/contactus.html', '/contact/'],
-  ['/services', '/industries/'], ['/services.html', '/industries/'],
+  ['/services.html', '/services/'],
   ['/enquiry', '/contact/'], ['/enquiry.html', '/contact/'],
 ];
 write('_redirects', REDIRECTS.map(([a, b]) => `${a} ${b} 301`).join('\n') + '\n');
+// Vercel reads vercel.json from the repo root (it ignores _redirects, _headers and .htaccess), so generate it there.
+const SEC_HEADERS = [
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+  { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+];
+fs.writeFileSync(path.join(ROOT, 'vercel.json'), JSON.stringify({
+  $schema: 'https://openapi.vercel.sh/vercel.json',
+  buildCommand: 'npm run build',
+  outputDirectory: 'dist',
+  framework: null,
+  trailingSlash: true,
+  // trailingSlash adds "/" to extensionless paths first, so cover both spellings of each old URL.
+  redirects: [['/index.html', '/'], ...REDIRECTS.flatMap(([a, b]) => (/\.\w+$/.test(a) ? [[a, b]] : [[a, b], [a + '/', b]]))].map(([source, destination]) => ({ source, destination, permanent: true })),
+  headers: [
+    { source: '/(.*)', headers: SEC_HEADERS },
+    { source: '/assets/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000' }] },
+    { source: '/favicon.svg', headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000' }] },
+  ],
+}, null, 2) + '\n');
 write('_headers', `/*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
@@ -481,6 +650,7 @@ Total indexable pages: ${kw.length} (plus 404.html, noindex)
 
 ## Redirects from the old site
 ${REDIRECTS.map(([a, b]) => `- ${a} → ${b} (301)`).join('\n')}
+- /services (no extension) now resolves to the new /services/ hub directly
 - /index.html → / (301; handled automatically on Cloudflare Pages, by .htaccess on Apache)
 `);
 
@@ -488,8 +658,8 @@ console.log(`Built ${pages.length} pages + 404 into dist/`);
 
 // ---------------- SCHEMA BLOCKS (docs) ----------------
 {
-  const samples = ['/', '/industries/pharma/', '/cities/kanchipuram/', '/guides/staffing-cost-tamil-nadu/', '/about/'];
-  let md = `# JSON-LD schema blocks\n\nExtracted from the built pages on ${C.updated}. Every page carries the EmploymentAgency node; page types add BreadcrumbList, Service, FAQPage, Article, AboutPage or ContactPage. FAQPage includes only questions whose answers contain no unconfirmed facts, so it grows automatically as the owner confirms facts. No Review or AggregateRating markup is used.\n\nValidate after launch with https://validator.schema.org and https://search.google.com/test/rich-results.\n`;
+  const samples = ['/', '/services/contract-staffing/', '/industries/pharma/', '/cities/kanchipuram/', '/guides/staffing-cost-tamil-nadu/', '/about/'];
+  let md = `# JSON-LD schema blocks\n\nExtracted from the built pages on ${C.updated}. Every page carries the EmploymentAgency node and a WebPage node with a speakable selector; page types add BreadcrumbList, Service, FAQPage, HowTo, ItemList, Article, Person, AboutPage or ContactPage. FAQPage includes only questions whose answers contain no unconfirmed facts. No Review or AggregateRating markup is used.\n\nValidate after launch with https://validator.schema.org and https://search.google.com/test/rich-results.\n`;
   for (const s of samples) {
     const html = fs.readFileSync(path.join(DIST, s === '/' ? 'index.html' : s.slice(1) + 'index.html'), 'utf8');
     const json = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1];
