@@ -1,0 +1,12 @@
+{
+  "name": "lifeline-placements-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static website for Lifeline Placements (manpower supply and recruitment, Tamil Nadu)",
+  "scripts": {
+    "build": "node src/build.js",
+    "images": "node src/make-images.js",
+    "check": "node src/check.js",
+    "serve": "node src/serve.js"
+  }
+}

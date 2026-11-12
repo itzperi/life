@@ -1,0 +1,32 @@
+# Apache (current host) configuration for the new static site
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+RewriteEngine On
+# Force HTTPS and www
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ https://www.lifelineplacements.com/$1 [R=301,L]
+# Old URLs
+RewriteRule ^index\.html$ / [R=301,L]
+RewriteRule ^aboutus$ /about/ [R=301,L]
+RewriteRule ^aboutus\.html$ /about/ [R=301,L]
+RewriteRule ^contactus$ /contact/ [R=301,L]
+RewriteRule ^contactus\.html$ /contact/ [R=301,L]
+RewriteRule ^services$ /industries/ [R=301,L]
+RewriteRule ^services\.html$ /industries/ [R=301,L]
+RewriteRule ^enquiry$ /contact/ [R=301,L]
+RewriteRule ^enquiry\.html$ /contact/ [R=301,L]
+# Add trailing slash to directory URLs
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.*[^/])$ /$1/ [R=301,L]
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  <FilesMatch "\.(css|js|png|webp|svg|ico)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/xml text/plain
+</IfModule>

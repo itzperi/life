@@ -1,0 +1,23 @@
+# Lifeline Placements: all search and AI crawlers welcome
+User-agent: *
+Allow: /
+
+# Search and AI-search crawlers (listed explicitly so the intent is clear)
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+Allow: /
+
+# Model-training crawlers. Allowed by default; change to "Disallow: /" if the owner prefers to opt out.
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://www.lifelineplacements.com/sitemap.xml
