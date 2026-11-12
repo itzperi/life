@@ -21,7 +21,10 @@ module.exports = {
     postalCode: '600029',
     country: 'IN',
   },
-  hours: null, // e.g. 'Mon-Sat 9:30 am - 8:00 pm' (Business Profile shows "closes 8 pm"; opening time unknown)
+  hours: null, // e.g. 'Mon-Sat 9:30 am - 8:00 pm'. When set, it also goes into schema as openingHours text.
+  hoursNote: 'Open until 8:00 pm, as listed on our Google Business Profile. WhatsApp any time; we reply during working hours.', // shown while hours is null
+  // Approximate map pin for the Aminjikarai office, used only for the embedded map link (not in schema).
+  mapQuery: 'Life Line Placements, Nelson Towers, Nelson Manickam Road, Aminjikarai, Chennai 600029',
 
   // Business Profile rating, shown as a dated fact (no review markup). Update or set to null.
   googleRating: { rating: '4.6', count: 178, asOf: '12 Nov 2026', url: 'https://www.google.com/maps/search/?api=1&query=Life%20Line%20Placements%20Aminjikarai%20Chennai' },
@@ -36,6 +39,18 @@ module.exports = {
     YEARS: null,
     PLACED: null,
     LICENCES: null,
+  },
+  // Neutral wording used while a fact above is null, so pages read cleanly without inventing numbers.
+  // Tokens with no fallback (CAPACITY, LICENCES, YEARS, PLACED, CANDIDATE_FEE) sit inside [[optional spans]]
+  // in the data files: the whole span is left out until the owner confirms the fact, then it appears automatically.
+  factFallbacks: {
+    FEE: 'quoted in writing for each requirement before you commit',
+    REPLACEMENT: 'set out in writing with every quote',
+  },
+  // Privacy-notice defaults. Owner to confirm with a legal adviser.
+  privacy: {
+    retention: '12 months after our last contact with you, unless a law requires us to keep it longer',
+    grievanceOfficer: 'V. Arun Kumar, Head of Lifeline Placements',
   },
   factLabels: {
     TURNAROUND: 'turnaround time',

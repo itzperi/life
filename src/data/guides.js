@@ -89,7 +89,7 @@ module.exports = [
 
 <h2 id="agency">What should you send the agency on day one?</h2>
 <p>Send the role list with headcount, shift timings, wage per role, work location with a Google Maps pin, joining date, documents needed, and whether you provide transport, food or accommodation. A complete brief lets the agency start sourcing the same day.</p>
-<p>Lifeline Placements takes bulk orders across Tamil Nadu from our Chennai office. Largest order size: {{CAPACITY}}. Send your headcount on WhatsApp to <a href="tel:+919962299076" data-loc="guide_body">+91 99622 99076</a>.</p>
+<p>Lifeline Placements takes bulk orders across Tamil Nadu from our Chennai office.[[ Largest order size: {{CAPACITY}}.]] Send your headcount on WhatsApp to <a href="tel:+919962299076" data-loc="guide_body">+91 99622 99076</a>.</p>
 <p class="meta">Compliance points as of Nov 2026. General information, not legal advice.</p>`,
   },
   {
@@ -133,10 +133,10 @@ module.exports = [
 <h2 id="lifeline">How does Lifeline Placements answer these checks?</h2>
 <ul>
 <li>Office: Aminjikarai, Chennai. Phone and WhatsApp: <a href="tel:+919962299076" data-loc="guide_body">+91 99622 99076</a>.</li>
-<li>Licences and registrations: {{LICENCES}}</li>
+[[<li>Licences and registrations: {{LICENCES}}</li>]]
 <li>Turnaround: {{TURNAROUND}}</li>
 <li>Replacement terms: {{REPLACEMENT}}</li>
-<li>Candidate fee policy: {{CANDIDATE_FEE}}</li>
+[[<li>Candidate fee policy: {{CANDIDATE_FEE}}</li>]]
 <li>Invoices show wages, statutory dues, service charge and GST separately for contract staff.</li>
 </ul>
 <p>Send us your requirement and ask for references from your industry. WhatsApp <a href="https://wa.me/919962299076" data-loc="guide_body">+91 99622 99076</a>.</p>

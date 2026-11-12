@@ -57,6 +57,8 @@ for (const f of files) {
   const text = main.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<[^>]+>/g, ' ').replace(/&[a-z#0-9]+;/g, ' ').replace(/\s+/g, ' ');
   const words = text.split(' ').filter(Boolean).length;
   const ph = (html.match(/class="ph"/g) || []).length;
+  if (ph) fail(u, `${ph} unconfirmed-fact placeholder chips`);
+  if (/\[\[|\]\]|\{\{[A-Z_]+\}\}/.test(html)) fail(u, 'raw token or optional-span marker leaked');
   const banned = (text.match(BANNED) || []);
   if (banned.length) fail(u, 'hype words: ' + [...new Set(banned)].join(', '));
   if (/security guard/i.test(text) && !/PSARA/.test(text)) fail(u, 'mentions security guards without PSARA caveat');
