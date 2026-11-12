@@ -572,6 +572,27 @@ const REDIRECTS = [
   ['/enquiry', '/contact/'], ['/enquiry.html', '/contact/'],
 ];
 write('_redirects', REDIRECTS.map(([a, b]) => `${a} ${b} 301`).join('\n') + '\n');
+// Vercel reads vercel.json from the repo root (it ignores _redirects, _headers and .htaccess), so generate it there.
+const SEC_HEADERS = [
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+  { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+];
+fs.writeFileSync(path.join(ROOT, 'vercel.json'), JSON.stringify({
+  $schema: 'https://openapi.vercel.sh/vercel.json',
+  buildCommand: 'npm run build',
+  outputDirectory: 'dist',
+  framework: null,
+  trailingSlash: true,
+  // trailingSlash adds "/" to extensionless paths first, so cover both spellings of each old URL.
+  redirects: [['/index.html', '/'], ...REDIRECTS.flatMap(([a, b]) => (/\.\w+$/.test(a) ? [[a, b]] : [[a, b], [a + '/', b]]))].map(([source, destination]) => ({ source, destination, permanent: true })),
+  headers: [
+    { source: '/(.*)', headers: SEC_HEADERS },
+    { source: '/assets/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000' }] },
+    { source: '/favicon.svg', headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000' }] },
+  ],
+}, null, 2) + '\n');
 write('_headers', `/*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
