@@ -1,4 +1,4 @@
-// Industry page data for Lifeline Placements.
+// Industry page data for Lifeline Crew.
 // Rules: docs/00-facts-and-rules.md. Tokens such as {{TURNAROUND}} render as "[to confirm]" chips.
 // Employers named in `context` are local context only, never Lifeline clients.
 
@@ -12,7 +12,7 @@ module.exports = [
     description: "IT helpdesk, network, developer, tester and non-tech staff for IT firms on OMR, in Guindy and Coimbatore. Permanent, contract or C2H. WhatsApp or call us.",
     h1: "IT Staffing and Recruitment for Companies in Chennai and Tamil Nadu",
     tamil: "ஐடி நிறுவனங்களுக்கு தகுதியான பணியாளர்கள்",
-    summary: "Lifeline Placements recruits for IT companies and IT-enabled firms across Tamil Nadu. We fill IT helpdesk, system admin, network, junior developer, software tester and data analyst roles, plus the HR, admin and accounts staff an IT office needs. Most demand comes from OMR, Guindy, Taramani and Porur in Chennai, with more from Coimbatore, Madurai and Tiruchirappalli. Screened profiles can reach you within {{TURNAROUND}}. Send the job description on WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits for IT companies and IT-enabled firms across Tamil Nadu. We fill IT helpdesk, system admin, network, junior developer, software tester and data analyst roles, plus the HR, admin and accounts staff an IT office needs. Most demand comes from OMR, Guindy, Taramani and Porur in Chennai, with more from Coimbatore, Madurai and Tiruchirappalli. Screened profiles can reach you within {{TURNAROUND}}. Send the job description on WhatsApp or call +91 99622 99076.",
     roles: [
       { group: "Infrastructure and support", items: ["IT helpdesk engineers", "System administrators", "Network engineers (CCNA level)", "IT asset and hardware technicians"] },
       { group: "Development and testing", items: ["Junior and mid-level developers (Java, .NET, Python, front end)", "Manual and automation testers", "Data analysts"] },
@@ -55,7 +55,7 @@ module.exports = [
     description: "Voice and non-voice agents, team leaders and QAs for BPOs in Chennai, Coimbatore and Madurai. Tamil, Hindi and English processes. WhatsApp or call to start.",
     h1: "BPO and Call Centre Staffing in Chennai and Tamil Nadu",
     tamil: "கால் சென்டர்களுக்கு திறமையான பணியாளர்கள்",
-    summary: "Lifeline Placements supplies voice and non-voice agents, team leaders, quality analysts and back-office executives to BPOs and call centres in Tamil Nadu. We recruit for domestic processes in Tamil, English and Hindi, and for international voice where English fluency is tested. Most seats are in Chennai, at Ambattur, Guindy and along OMR, with growing centres in Coimbatore, Madurai and Tiruchirappalli. A training batch can be lined up within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with your process details.",
+    summary: "Lifeline Crew supplies voice and non-voice agents, team leaders, quality analysts and back-office executives to BPOs and call centres in Tamil Nadu. We recruit for domestic processes in Tamil, English and Hindi, and for international voice where English fluency is tested. Most seats are in Chennai, at Ambattur, Guindy and along OMR, with growing centres in Coimbatore, Madurai and Tiruchirappalli. A training batch can be lined up within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with your process details.",
     roles: [
       { group: "Voice process", items: ["Domestic voice agents (Tamil, English, Hindi)", "International voice agents", "Telesales and collections callers", "Support agents for Telugu, Kannada and Malayalam"] },
       { group: "Non-voice and back office", items: ["Chat and email support executives", "Back-office and data entry executives", "Claims and document processing executives"] },
@@ -98,7 +98,7 @@ module.exports = [
     description: "Receptionists, admin executives, data entry operators, Tally accounts assistants and office boys for offices across Chennai and Tamil Nadu. WhatsApp or call us.",
     h1: "Office Staff Recruitment in Chennai and Tamil Nadu",
     tamil: "அலுவலகப் பணிகளுக்கு நம்பகமான ஊழியர்கள்",
-    summary: "Lifeline Placements recruits front office and support staff for general offices in Tamil Nadu: receptionists, admin executives, data entry operators, accounts assistants with Tally, personal assistants and office boys. Employers include small firms, CA and law offices, builders, trading companies and corporate branch offices. Most requests come from Chennai, around Anna Nagar, T Nagar, Guindy and Ambattur, and from Coimbatore, Madurai and Salem. Candidates can be shortlisted within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 to share the role.",
+    summary: "Lifeline Crew recruits front office and support staff for general offices in Tamil Nadu: receptionists, admin executives, data entry operators, accounts assistants with Tally, personal assistants and office boys. Employers include small firms, CA and law offices, builders, trading companies and corporate branch offices. Most requests come from Chennai, around Anna Nagar, T Nagar, Guindy and Ambattur, and from Coimbatore, Madurai and Salem. Candidates can be shortlisted within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 to share the role.",
     roles: [
       { group: "Front office", items: ["Receptionists", "Front desk executives", "Telephone operators"] },
       { group: "Admin and data", items: ["Admin executives", "Data entry operators", "Personal assistants and secretaries", "MIS executives"] },
@@ -143,7 +143,7 @@ module.exports = [
     description: "ITI operators, helpers, welders, fitters and QC staff for factories in Ambattur, Gummidipoondi, Hosur and Coimbatore. Contract or permanent. Call or WhatsApp.",
     h1: "Factory Manpower Supply for Manufacturing Units in Tamil Nadu",
     tamil: "தொழிற்சாலைகளுக்கு திறமையான தொழிலாளர்கள்",
-    summary: "Lifeline Placements supplies production staff to engineering, fabrication, plastics, packaging and food processing factories in Tamil Nadu. We provide machine operators, CNC and VMC operators, ITI fitters, welders, electricians, helpers, QC inspectors and store keepers. Requests come from Ambattur, Thirumazhisai and Gummidipoondi near Chennai, from Hosur, and from Coimbatore and Salem. Helpers and operators can be mobilised within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with your shift plan and headcount.",
+    summary: "Lifeline Crew supplies production staff to engineering, fabrication, plastics, packaging and food processing factories in Tamil Nadu. We provide machine operators, CNC and VMC operators, ITI fitters, welders, electricians, helpers, QC inspectors and store keepers. Requests come from Ambattur, Thirumazhisai and Gummidipoondi near Chennai, from Hosur, and from Coimbatore and Salem. Helpers and operators can be mobilised within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with your shift plan and headcount.",
     roles: [
       { group: "Production floor", items: ["Machine operators", "CNC and VMC operators", "Press operators", "Production helpers", "Packing staff"] },
       { group: "Skilled trades", items: ["ITI fitters", "Welders (arc, MIG, TIG)", "Electricians", "Turners and machinists"] },
@@ -188,7 +188,7 @@ module.exports = [
     description: "Assembly, weld shop, paint shop and CMM staff for auto OEMs and suppliers in Oragadam, Sriperumbudur and Hosur. Contract or bulk batches. WhatsApp or call us.",
     h1: "Manpower Supply for the Automobile Industry in Chennai and Tamil Nadu",
     tamil: "வாகன உற்பத்தித் துறைக்கு பணியாளர்கள்",
-    summary: "Lifeline Placements supplies shop-floor and quality staff to vehicle makers and tier-1 and tier-2 component suppliers in Tamil Nadu. Roles include assembly line operators, weld shop and paint shop operators, CNC machinists, CMM operators, quality inspectors and maintenance technicians. Demand centres on Chennai's auto belt at Oragadam, Sriperumbudur, Irungattukottai and Maraimalai Nagar, with more from Hosur and Coimbatore. Operators can be deployed within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with your line and shift details.",
+    summary: "Lifeline Crew supplies shop-floor and quality staff to vehicle makers and tier-1 and tier-2 component suppliers in Tamil Nadu. Roles include assembly line operators, weld shop and paint shop operators, CNC machinists, CMM operators, quality inspectors and maintenance technicians. Demand centres on Chennai's auto belt at Oragadam, Sriperumbudur, Irungattukottai and Maraimalai Nagar, with more from Hosur and Coimbatore. Operators can be deployed within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with your line and shift details.",
     roles: [
       { group: "Assembly and body", items: ["Assembly line operators", "Spot and MIG welders", "Paint shop operators", "Trim and final line operators"] },
       { group: "Machining and press", items: ["CNC machinists", "Press shop operators", "Tool room technicians"] },
@@ -232,7 +232,7 @@ module.exports = [
     description: "Production chemists, QC analysts, packing staff and pharmacists for pharma units at Alathur, Gummidipoondi and Chennai distributors. WhatsApp or call us today.",
     h1: "Pharma Manpower Supply in Chennai and Tamil Nadu",
     tamil: "மருந்து நிறுவனங்களுக்கு பணியாளர்கள்",
-    summary: "Lifeline Placements supplies staff to pharmaceutical manufacturers, API units, formulation plants and pharma distributors in Tamil Nadu. We fill production chemists and operators, QC and QA executives, packing line staff, warehouse assistants and registered pharmacists. Demand comes from the SIDCO pharma estate at Alathur near Thiruporur, from Gummidipoondi in Tiruvallur district, and from distributors and stockists across Chennai. Profiles can be shared within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 to discuss your vacancy.",
+    summary: "Lifeline Crew supplies staff to pharmaceutical manufacturers, API units, formulation plants and pharma distributors in Tamil Nadu. We fill production chemists and operators, QC and QA executives, packing line staff, warehouse assistants and registered pharmacists. Demand comes from the SIDCO pharma estate at Alathur near Thiruporur, from Gummidipoondi in Tiruvallur district, and from distributors and stockists across Chennai. Profiles can be shared within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 to discuss your vacancy.",
     roles: [
       { group: "Production", items: ["Production chemists (B.Sc, M.Sc)", "Granulation, compression and coating operators", "Production helpers"] },
       { group: "Quality", items: ["QC chemists and analysts (HPLC, GC)", "QA and IPQA executives", "Microbiologists"] },
@@ -276,7 +276,7 @@ module.exports = [
     description: "Tailors, overlock operators, checkers and spinning mill workers for units in Tiruppur, Coimbatore, Erode, Karur and Chennai. WhatsApp or call us today.",
     h1: "Textile and Garment Manpower Supply in Tamil Nadu",
     tamil: "ஜவுளி மற்றும் ஆடை நிறுவனங்களுக்கு தொழிலாளர்கள்",
-    summary: "Lifeline Placements supplies workers to spinning mills, weaving and processing units and garment exporters in Tamil Nadu. We recruit tailors, single-needle and overlock operators, cutters, checkers, ironing and packing staff, spinning machine tenders and mill fitters. The main clusters are Tiruppur for knitwear, Coimbatore and Dindigul for spinning, Erode and Komarapalayam for powerlooms, Karur for home textiles, and garment units in Chennai. Workers can be mobilised within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with your order dates.",
+    summary: "Lifeline Crew supplies workers to spinning mills, weaving and processing units and garment exporters in Tamil Nadu. We recruit tailors, single-needle and overlock operators, cutters, checkers, ironing and packing staff, spinning machine tenders and mill fitters. The main clusters are Tiruppur for knitwear, Coimbatore and Dindigul for spinning, Erode and Komarapalayam for powerlooms, Karur for home textiles, and garment units in Chennai. Workers can be mobilised within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with your order dates.",
     roles: [
       { group: "Garment stitching", items: ["Tailors and single-needle operators", "Overlock and flatlock operators", "Cutting masters and cutters"] },
       { group: "Finishing", items: ["Checkers and quality inspectors", "Ironing staff", "Packing staff"] },
@@ -320,7 +320,7 @@ module.exports = [
     description: "Sales staff, cashiers and floor staff for textile, jewellery, mobile and furniture showrooms in Chennai and Tamil Nadu. WhatsApp or call before the season.",
     h1: "Showroom and Retail Staff Supply in Chennai and Tamil Nadu",
     tamil: "ஷோரூம்களுக்கு விற்பனை பணியாளர்கள்",
-    summary: "Lifeline Placements supplies sales and store staff to textile, jewellery, footwear, mobile, electronics and furniture showrooms in Tamil Nadu. Roles include salesmen and saleswomen, cashiers, billing executives, section in-charges, store keepers, delivery helpers and housekeeping staff. Requests come from T Nagar, Purasawalkam and Anna Nagar in Chennai, from Cross Cut Road in Coimbatore, and from the shopping streets of Madurai and Tirunelveli. Festival staff can be lined up within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 before the season starts.",
+    summary: "Lifeline Crew supplies sales and store staff to textile, jewellery, footwear, mobile, electronics and furniture showrooms in Tamil Nadu. Roles include salesmen and saleswomen, cashiers, billing executives, section in-charges, store keepers, delivery helpers and housekeeping staff. Requests come from T Nagar, Purasawalkam and Anna Nagar in Chennai, from Cross Cut Road in Coimbatore, and from the shopping streets of Madurai and Tirunelveli. Festival staff can be lined up within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 before the season starts.",
     roles: [
       { group: "Sales floor", items: ["Sales executives (men and women)", "Section in-charges", "Customer care staff"] },
       { group: "Billing and cash", items: ["Cashiers", "Billing executives", "Store accountants"] },
@@ -364,7 +364,7 @@ module.exports = [
     description: "Hair stylists, beauticians, makeup artists, spa therapists and front desk staff for salons and spas in Chennai, Coimbatore and Madurai. WhatsApp or call us.",
     h1: "Spa and Salon Staff Recruitment in Chennai and Tamil Nadu",
     tamil: "ஸ்பா மற்றும் சலூன்களுக்கு பணியாளர்கள்",
-    summary: "Lifeline Placements recruits staff for beauty salons, unisex salons, spas and wellness centres in Tamil Nadu. We find hair stylists, beauticians, makeup artists, nail technicians, spa therapists, front desk executives and housekeeping staff. Most requests come from Chennai, around Anna Nagar, Velachery, Nungambakkam, Adyar and along OMR and ECR, and from Coimbatore and Madurai. Trial-ready candidates can be shared within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with the services your outlet offers.",
+    summary: "Lifeline Crew recruits staff for beauty salons, unisex salons, spas and wellness centres in Tamil Nadu. We find hair stylists, beauticians, makeup artists, nail technicians, spa therapists, front desk executives and housekeeping staff. Most requests come from Chennai, around Anna Nagar, Velachery, Nungambakkam, Adyar and along OMR and ECR, and from Coimbatore and Madurai. Trial-ready candidates can be shared within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with the services your outlet offers.",
     roles: [
       { group: "Hair", items: ["Senior hair stylists", "Junior hair stylists", "Hair colour technicians"] },
       { group: "Beauty and makeup", items: ["Beauticians", "Bridal makeup artists", "Nail technicians"] },
@@ -408,7 +408,7 @@ module.exports = [
     description: "Staff nurses, ward aides, lab and X-ray technicians, pharmacists and front office staff for hospitals and clinics across Tamil Nadu. WhatsApp or call us today.",
     h1: "Hospital and Clinic Staffing in Chennai and Tamil Nadu",
     tamil: "மருத்துவமனைகளுக்கு செவிலியர்கள் மற்றும் பணியாளர்கள்",
-    summary: "Lifeline Placements supplies nursing, paramedical and support staff to hospitals, nursing homes, clinics, diagnostic centres and dental practices in Tamil Nadu. We recruit staff nurses, ward aides, lab technicians, X-ray technicians, OT technicians, pharmacists, front office and billing staff, and housekeeping. Requests come from Chennai's hospital zones around Greams Road, Vadapalani and Porur, from Vellore, and from Coimbatore, Madurai and Tiruchirappalli. Shortlists can reach you within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 to discuss your roster.",
+    summary: "Lifeline Crew supplies nursing, paramedical and support staff to hospitals, nursing homes, clinics, diagnostic centres and dental practices in Tamil Nadu. We recruit staff nurses, ward aides, lab technicians, X-ray technicians, OT technicians, pharmacists, front office and billing staff, and housekeeping. Requests come from Chennai's hospital zones around Greams Road, Vadapalani and Porur, from Vellore, and from Coimbatore, Madurai and Tiruchirappalli. Shortlists can reach you within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 to discuss your roster.",
     roles: [
       { group: "Nursing", items: ["Staff nurses (GNM, B.Sc Nursing)", "ICU and OT nurses", "Nursing assistants and ward aides"] },
       { group: "Paramedical", items: ["Lab technicians (DMLT, B.Sc MLT)", "X-ray and CT technicians", "OT technicians", "Dialysis technicians"] },
@@ -453,7 +453,7 @@ module.exports = [
     description: "Wardens, cooks, housekeeping, caretakers and front desk staff for hostels, PGs and service apartments in Chennai and Tamil Nadu. WhatsApp or call to start.",
     h1: "Staff for Hostels and Service Apartments in Chennai and Tamil Nadu",
     tamil: "விடுதிகள் மற்றும் சர்வீஸ் அபார்ட்மென்ட்களுக்கு பணியாளர்கள்",
-    summary: "Lifeline Placements supplies staff to working women's and men's hostels, student hostels, PG accommodation and service apartments in Tamil Nadu. We recruit wardens, cooks and kitchen helpers, housekeeping and laundry staff, caretakers, front desk executives and maintenance staff such as electricians and plumbers. Demand is strongest near Chennai's IT corridor on OMR, around Guindy and T Nagar, near the hospitals in Vellore, and in Coimbatore. Staff can be placed within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with your property details.",
+    summary: "Lifeline Crew supplies staff to working women's and men's hostels, student hostels, PG accommodation and service apartments in Tamil Nadu. We recruit wardens, cooks and kitchen helpers, housekeeping and laundry staff, caretakers, front desk executives and maintenance staff such as electricians and plumbers. Demand is strongest near Chennai's IT corridor on OMR, around Guindy and T Nagar, near the hospitals in Vellore, and in Coimbatore. Staff can be placed within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with your property details.",
     roles: [
       { group: "Management", items: ["Wardens (women and men)", "Property managers", "Front desk executives"] },
       { group: "Kitchen", items: ["Cooks (South Indian and North Indian)", "Kitchen helpers", "Mess supervisors"] },
@@ -497,7 +497,7 @@ module.exports = [
     description: "Pickers, packers, sorters, returns and delivery staff for e-commerce warehouses, dark stores and hubs in Chennai and Tamil Nadu. WhatsApp or call before a sale.",
     h1: "E-commerce Warehouse and Delivery Staffing in Chennai and Tamil Nadu",
     tamil: "இ-காமர்ஸ் கிடங்குகளுக்கு பணியாளர்கள்",
-    summary: "Lifeline Placements supplies staff to e-commerce sellers, marketplace warehouses, quick-commerce dark stores and delivery hubs in Tamil Nadu. We recruit pickers, packers, sorters, inventory and returns executives, loaders, delivery executives, and catalogue and customer support staff. Most demand sits in Chennai's warehouse belts at Sriperumbudur, Oragadam and Red Hills, in dark stores across the city, and in Coimbatore. Sale-season batches can be lined up within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 well before your peak.",
+    summary: "Lifeline Crew supplies staff to e-commerce sellers, marketplace warehouses, quick-commerce dark stores and delivery hubs in Tamil Nadu. We recruit pickers, packers, sorters, inventory and returns executives, loaders, delivery executives, and catalogue and customer support staff. Most demand sits in Chennai's warehouse belts at Sriperumbudur, Oragadam and Red Hills, in dark stores across the city, and in Coimbatore. Sale-season batches can be lined up within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 well before your peak.",
     roles: [
       { group: "Warehouse floor", items: ["Pickers", "Packers", "Sorters", "Loaders and unloaders"] },
       { group: "Inventory and returns", items: ["Inventory executives", "Returns and QC executives", "WMS and data entry operators"] },
@@ -541,7 +541,7 @@ module.exports = [
     description: "Loaders, forklift operators, drivers, supervisors and documentation staff for logistics firms near Chennai's ports and across Tamil Nadu. WhatsApp or call us.",
     h1: "Logistics and Warehousing Manpower Supply in Chennai and Tamil Nadu",
     tamil: "சரக்கு மற்றும் கிடங்கு நிறுவனங்களுக்கு பணியாளர்கள்",
-    summary: "Lifeline Placements supplies staff to freight forwarders, transporters, 3PL warehouses, container freight stations and cold chain operators in Tamil Nadu. We recruit loaders, forklift and reach truck operators, heavy vehicle drivers, warehouse supervisors, documentation and customs executives, and inventory staff. Demand centres on Chennai's port belt at Ennore, Manali and Madhavaram, on the Sriperumbudur corridor, and in Thoothukudi and Coimbatore. Crews can be mobilised within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with your site and shift.",
+    summary: "Lifeline Crew supplies staff to freight forwarders, transporters, 3PL warehouses, container freight stations and cold chain operators in Tamil Nadu. We recruit loaders, forklift and reach truck operators, heavy vehicle drivers, warehouse supervisors, documentation and customs executives, and inventory staff. Demand centres on Chennai's port belt at Ennore, Manali and Madhavaram, on the Sriperumbudur corridor, and in Thoothukudi and Coimbatore. Crews can be mobilised within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with your site and shift.",
     roles: [
       { group: "Warehouse operations", items: ["Loaders and unloaders", "Forklift and reach truck operators", "Warehouse supervisors", "Inventory controllers"] },
       { group: "Transport", items: ["Heavy vehicle drivers", "Light vehicle drivers", "Fleet supervisors"] },
@@ -584,7 +584,7 @@ module.exports = [
     description: "SMT, assembly and testing operators, QC inspectors and line leaders for phone and electronics plants in Sriperumbudur, Oragadam and Hosur. WhatsApp or call us.",
     h1: "Manpower for Mobile Phone Manufacturing in Sriperumbudur and Tamil Nadu",
     tamil: "மொபைல் போன் தொழிற்சாலைகளுக்கு பணியாளர்கள்",
-    summary: "Lifeline Placements supplies operators and technicians to mobile phone assembly plants, component makers and EMS units in Tamil Nadu. We recruit assembly and testing operators, SMT machine operators, quality inspectors, rework technicians, line leaders and stores staff. Demand is concentrated around Sriperumbudur, Oragadam and Mahindra World City near Chennai, and in the Hosur and Krishnagiri belt. Operator batches can be mobilised within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with your batch size and joining date.",
+    summary: "Lifeline Crew supplies operators and technicians to mobile phone assembly plants, component makers and EMS units in Tamil Nadu. We recruit assembly and testing operators, SMT machine operators, quality inspectors, rework technicians, line leaders and stores staff. Demand is concentrated around Sriperumbudur, Oragadam and Mahindra World City near Chennai, and in the Hosur and Krishnagiri belt. Operator batches can be mobilised within {{TURNAROUND}}. WhatsApp or call +91 99622 99076 with your batch size and joining date.",
     roles: [
       { group: "Assembly and testing", items: ["Assembly line operators", "Testing operators", "Packing operators"] },
       { group: "SMT and technical", items: ["SMT machine operators", "AOI and X-ray inspection operators", "Rework and soldering technicians"] },

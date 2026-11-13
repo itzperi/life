@@ -1,14 +1,14 @@
 // Single source of truth for business facts. Change a value here and rebuild (npm run build).
 // Values set to null render as a visible yellow "[to confirm]" chip on the site and are left out of JSON-LD.
 module.exports = {
-  name: 'Lifeline Placements',
-  alternateName: 'Life Line Placements', // spelling used on the current Google Business Profile
+  name: 'Lifeline Crew',
+  alternateName: ['Lifeline Placements', 'Life Line Placements'], // earlier brand name, and the spelling on the current Google Business Profile
   url: 'https://www.lifelineplacements.com', // no trailing slash
   phoneDisplay: '+91 99622 99076',
   tel: '+919962299076',
   wa: '919962299076',
   email: 'lifelineplacements@gmail.com', // published on the old site and Facebook; owner to re-confirm
-  founder: { name: 'V. Arun Kumar', qualification: 'B.Sc', role: 'Head of Lifeline Placements', bio: null },
+  founder: { name: 'V. Arun Kumar', qualification: 'B.Sc', role: 'Head of Lifeline Crew', bio: null },
 
   // Address: the PIN code conflicts between the website (600029) and the Business Profile (600030).
   // Set confirmed: true and fill street + postalCode once the owner confirms; the full address then appears everywhere.
@@ -50,7 +50,7 @@ module.exports = {
   // Privacy-notice defaults. Owner to confirm with a legal adviser.
   privacy: {
     retention: '12 months after our last contact with you, unless a law requires us to keep it longer',
-    grievanceOfficer: 'V. Arun Kumar, Head of Lifeline Placements',
+    grievanceOfficer: 'V. Arun Kumar, Head of Lifeline Crew',
   },
   factLabels: {
     TURNAROUND: 'turnaround time',

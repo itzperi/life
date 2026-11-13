@@ -13,8 +13,11 @@ Validate after launch with https://validator.schema.org and https://search.googl
     {
       "@type": "EmploymentAgency",
       "@id": "https://www.lifelineplacements.com/#org",
-      "name": "Lifeline Placements",
-      "alternateName": "Life Line Placements",
+      "name": "Lifeline Crew",
+      "alternateName": [
+        "Lifeline Placements",
+        "Life Line Placements"
+      ],
       "url": "https://www.lifelineplacements.com/",
       "telephone": "+919962299076",
       "email": "lifelineplacements@gmail.com",
@@ -124,7 +127,7 @@ Validate after launch with https://validator.schema.org and https://search.googl
           "name": "Krishnagiri"
         }
       ],
-      "description": "Lifeline Placements is a Chennai-based manpower supply and recruitment agency. It supplies staff to employers across Tamil Nadu through permanent placement, contract staffing and bulk hiring.",
+      "description": "Lifeline Crew is a Chennai-based manpower supply and recruitment agency. It supplies staff to employers across Tamil Nadu through permanent placement, contract staffing and bulk hiring.",
       "founder": {
         "@id": "https://www.lifelineplacements.com/about/#founder"
       },
@@ -214,8 +217,11 @@ Validate after launch with https://validator.schema.org and https://search.googl
       "@type": "WebSite",
       "@id": "https://www.lifelineplacements.com/#website",
       "url": "https://www.lifelineplacements.com/",
-      "name": "Lifeline Placements",
-      "alternateName": "Life Line Placements",
+      "name": "Lifeline Crew",
+      "alternateName": [
+        "Lifeline Placements",
+        "Life Line Placements"
+      ],
       "inLanguage": "en-IN",
       "publisher": {
         "@id": "https://www.lifelineplacements.com/#org"
@@ -225,8 +231,8 @@ Validate after launch with https://validator.schema.org and https://search.googl
       "@type": "WebPage",
       "@id": "https://www.lifelineplacements.com/#webpage",
       "url": "https://www.lifelineplacements.com/",
-      "name": "Manpower Agency in Tamil Nadu | Lifeline Placements",
-      "description": "Lifeline Placements supplies factory, BPO, office, housekeeping, hospital and retail staff to employers across Tamil Nadu. WhatsApp +91 99622 99076 today.",
+      "name": "Manpower Supply Agency in Tamil Nadu | Lifeline Crew",
+      "description": "Lifeline Crew supplies factory, BPO, office, housekeeping, hospital and retail staff to employers across Tamil Nadu. WhatsApp +91 99622 99076 for a quote today.",
       "inLanguage": "en-IN",
       "isPartOf": {
         "@id": "https://www.lifelineplacements.com/#website"
@@ -255,12 +261,12 @@ Validate after launch with https://validator.schema.org and https://search.googl
           "name": "How much does a manpower agency charge in Chennai?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "For permanent placement, published market rates run from about 8.33% to 16.67% of the hire's annual CTC. For contract staffing, agencies add a monthly service charge to wages, PF and ESI, plus 18% GST. Rates depend on role, volume and duration. Lifeline Placements' fee is quoted in writing for each requirement before you commit. WhatsApp your role for a written quote."
+            "text": "For permanent placement, published market rates run from about 8.33% to 16.67% of the hire's annual CTC. For contract staffing, agencies add a monthly service charge to wages, PF and ESI, plus 18% GST. Rates depend on role, volume and duration. Lifeline Crew's fee is quoted in writing for each requirement before you commit. WhatsApp your role for a written quote."
           }
         },
         {
           "@type": "Question",
-          "name": "How fast can Lifeline Placements supply staff?",
+          "name": "How fast can Lifeline Crew supply staff?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Speed depends on the role, the location and the wage offered. Helpers and housekeeping staff near Chennai usually close faster than skilled operators or nurses in smaller towns. Our turnaround: 48 hours for helpers and 7 days for skilled roles. Send the role, headcount, location and joining date on WhatsApp and we will give you a date in writing."
@@ -271,7 +277,7 @@ Validate after launch with https://validator.schema.org and https://search.googl
           "name": "Do you do bulk hiring?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Lifeline Placements handles bulk hiring for factories, warehouses, BPOs and retail chains across Tamil Nadu, from our Chennai office. Tell us the roles, headcount per shift, wage and joining date. Our bulk hiring checklist explains what to prepare before the drive starts."
+            "text": "Yes. Lifeline Crew handles bulk hiring for factories, warehouses, BPOs and retail chains across Tamil Nadu, from our Chennai office. Tell us the roles, headcount per shift, wage and joining date. Our bulk hiring checklist explains what to prepare before the drive starts."
           }
         },
         {
@@ -279,7 +285,7 @@ Validate after launch with https://validator.schema.org and https://search.googl
           "name": "What is the replacement guarantee?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "If a placed person leaves or does not work out within the agreed window, the agency finds a replacement. Market practice in India ranges from 30 to 90 days for permanent placement. For contract staff, replacement continues for the life of the contract. Lifeline Placements' replacement terms are set out in writing with every quote."
+            "text": "If a placed person leaves or does not work out within the agreed window, the agency finds a replacement. Market practice in India ranges from 30 to 90 days for permanent placement. For contract staff, replacement continues for the life of the contract. Lifeline Crew's replacement terms are set out in writing with every quote."
           }
         },
         {
@@ -303,7 +309,7 @@ Validate after launch with https://validator.schema.org and https://search.googl
           "name": "Which agency supplies housekeeping, security, BPO and factory staff in Chennai?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Lifeline Placements supplies housekeeping, BPO and call-centre, office and factory staff to employers in Chennai and across Tamil Nadu. Security guards are different: only agencies holding a PSARA licence may supply them, so ask any agency for that licence. WhatsApp +91 99622 99076 with your requirement."
+            "text": "Lifeline Crew supplies housekeeping, BPO and call-centre, office and factory staff to employers in Chennai and across Tamil Nadu. Security guards are different: only agencies holding a PSARA licence may supply them, so ask any agency for that licence. WhatsApp +91 99622 99076 with your requirement."
           }
         }
       ]
@@ -311,7 +317,7 @@ Validate after launch with https://validator.schema.org and https://search.googl
     {
       "@type": "HowTo",
       "@id": "https://www.lifelineplacements.com/#howto",
-      "name": "How to hire staff through Lifeline Placements",
+      "name": "How to hire staff through Lifeline Crew",
       "totalTime": "P7D",
       "step": [
         {
@@ -353,8 +359,11 @@ Validate after launch with https://validator.schema.org and https://search.googl
     {
       "@type": "EmploymentAgency",
       "@id": "https://www.lifelineplacements.com/#org",
-      "name": "Lifeline Placements",
-      "alternateName": "Life Line Placements",
+      "name": "Lifeline Crew",
+      "alternateName": [
+        "Lifeline Placements",
+        "Life Line Placements"
+      ],
       "url": "https://www.lifelineplacements.com/",
       "telephone": "+919962299076",
       "email": "lifelineplacements@gmail.com",
@@ -441,7 +450,7 @@ Validate after launch with https://validator.schema.org and https://search.googl
       "@id": "https://www.lifelineplacements.com/services/contract-staffing/#service",
       "name": "Contract staffing",
       "serviceType": "Contract staffing",
-      "description": "Contract staffing means the workers you need stay on the Lifeline Placements payroll while they work at your site under your supervision. We pay wages, PF and ESI, keep attendance and wage records, and send you one monthly invoice. If someone leaves or stays absent, we send a replacement. It suits helpers, operators, packers, housekeeping, warehouse and front-office roles. First batches can be ready within 48 hours for helpers and 7 days for skilled roles.",
+      "description": "Contract staffing means the workers you need stay on the Lifeline Crew payroll while they work at your site under your supervision. We pay wages, PF and ESI, keep attendance and wage records, and send you one monthly invoice. If someone leaves or stays absent, we send a replacement. It suits helpers, operators, packers, housekeeping, warehouse and front-office roles. First batches can be ready within 48 hours for helpers and 7 days for skilled roles.",
       "provider": {
         "@id": "https://www.lifelineplacements.com/#org"
       },
@@ -471,7 +480,7 @@ Validate after launch with https://validator.schema.org and https://search.googl
           "name": "What is contract staffing?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Contract staffing is a manpower supply model where the agency employs the workers and deploys them at the client's site. The agency pays wages, PF and ESI and bills the client monthly, while the client directs the daily work. Lifeline Placements supplies contract staff to employers across Tamil Nadu."
+            "text": "Contract staffing is a manpower supply model where the agency employs the workers and deploys them at the client's site. The agency pays wages, PF and ESI and bills the client monthly, while the client directs the daily work. Lifeline Crew supplies contract staff to employers across Tamil Nadu."
           }
         },
         {
@@ -479,7 +488,7 @@ Validate after launch with https://validator.schema.org and https://search.googl
           "name": "Who pays PF and ESI for contract workers?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "In contract staffing, Lifeline Placements pays the PF and ESI contributions for workers on its payroll and shows them on the monthly invoice. As principal employer you should still ask for the challans every month, because the law can hold you responsible if the contractor does not pay."
+            "text": "In contract staffing, Lifeline Crew pays the PF and ESI contributions for workers on its payroll and shows them on the monthly invoice. As principal employer you should still ask for the challans every month, because the law can hold you responsible if the contractor does not pay."
           }
         },
         {
@@ -513,8 +522,11 @@ Validate after launch with https://validator.schema.org and https://search.googl
     {
       "@type": "EmploymentAgency",
       "@id": "https://www.lifelineplacements.com/#org",
-      "name": "Lifeline Placements",
-      "alternateName": "Life Line Placements",
+      "name": "Lifeline Crew",
+      "alternateName": [
+        "Lifeline Placements",
+        "Life Line Placements"
+      ],
       "url": "https://www.lifelineplacements.com/",
       "telephone": "+919962299076",
       "email": "lifelineplacements@gmail.com",
@@ -601,7 +613,7 @@ Validate after launch with https://validator.schema.org and https://search.googl
       "@id": "https://www.lifelineplacements.com/industries/pharma/#service",
       "name": "Pharma Manpower Supply in Chennai and Tamil Nadu",
       "serviceType": "Manpower supply and recruitment",
-      "description": "Lifeline Placements supplies staff to pharmaceutical manufacturers, API units, formulation plants and pharma distributors in Tamil Nadu. We fill production chemists and operators, QC and QA executives, packing line staff, warehouse assistants and registered pharmacists. Demand comes from the SIDCO pharma estate at Alathur near Thiruporur, from Gummidipoondi in Tiruvallur district, and from distributors and stockists across Chennai. Profiles can be shared within 48 hours for helpers and 7 days for skilled roles. WhatsApp or call +91 99622 99076 to discuss your vacancy.",
+      "description": "Lifeline Crew supplies staff to pharmaceutical manufacturers, API units, formulation plants and pharma distributors in Tamil Nadu. We fill production chemists and operators, QC and QA executives, packing line staff, warehouse assistants and registered pharmacists. Demand comes from the SIDCO pharma estate at Alathur near Thiruporur, from Gummidipoondi in Tiruvallur district, and from distributors and stockists across Chennai. Profiles can be shared within 48 hours for helpers and 7 days for skilled roles. WhatsApp or call +91 99622 99076 to discuss your vacancy.",
       "provider": {
         "@id": "https://www.lifelineplacements.com/#org"
       },
@@ -756,8 +768,11 @@ Validate after launch with https://validator.schema.org and https://search.googl
     {
       "@type": "EmploymentAgency",
       "@id": "https://www.lifelineplacements.com/#org",
-      "name": "Lifeline Placements",
-      "alternateName": "Life Line Placements",
+      "name": "Lifeline Crew",
+      "alternateName": [
+        "Lifeline Placements",
+        "Life Line Placements"
+      ],
       "url": "https://www.lifelineplacements.com/",
       "telephone": "+919962299076",
       "email": "lifelineplacements@gmail.com",
@@ -844,7 +859,7 @@ Validate after launch with https://validator.schema.org and https://search.googl
       "@id": "https://www.lifelineplacements.com/cities/kanchipuram/#service",
       "name": "Manpower Supply and Recruitment in Kanchipuram District",
       "serviceType": "Manpower supply and recruitment",
-      "description": "Lifeline Placements supplies workers to plants in Sriperumbudur, Irungattukottai and Oragadam, and to employers in Kanchipuram town. Typical orders are machine operators, assembly line workers, quality inspectors, stores staff and housekeeping crews for car, two-wheeler, tyre and electronics factories. We work from our Chennai office in Aminjikarai, about an hour's drive from the SIPCOT estates, and can fill openings within 48 hours for helpers and 7 days for skilled roles. Plant HR teams in the Sriperumbudur belt can WhatsApp or call +91 99622 99076.",
+      "description": "Lifeline Crew supplies workers to plants in Sriperumbudur, Irungattukottai and Oragadam, and to employers in Kanchipuram town. Typical orders are machine operators, assembly line workers, quality inspectors, stores staff and housekeeping crews for car, two-wheeler, tyre and electronics factories. We work from our Chennai office in Aminjikarai, about an hour's drive from the SIPCOT estates, and can fill openings within 48 hours for helpers and 7 days for skilled roles. Plant HR teams in the Sriperumbudur belt can WhatsApp or call +91 99622 99076.",
       "provider": {
         "@id": "https://www.lifelineplacements.com/#org"
       },
@@ -900,8 +915,11 @@ Validate after launch with https://validator.schema.org and https://search.googl
     {
       "@type": "EmploymentAgency",
       "@id": "https://www.lifelineplacements.com/#org",
-      "name": "Lifeline Placements",
-      "alternateName": "Life Line Placements",
+      "name": "Lifeline Crew",
+      "alternateName": [
+        "Lifeline Placements",
+        "Life Line Placements"
+      ],
       "url": "https://www.lifelineplacements.com/",
       "telephone": "+919962299076",
       "email": "lifelineplacements@gmail.com",
@@ -1015,7 +1033,7 @@ Validate after launch with https://validator.schema.org and https://search.googl
           "name": "How much does a manpower agency charge in Chennai?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "For permanent placement, published market rates run from about 8.33% to 16.67% of the hire's annual CTC. For contract staffing, agencies add a monthly service charge on top of wages and statutory dues, plus 18% GST. Rates depend on role, volume and duration. Lifeline Placements' fee: quoted in writing for each requirement before you commit. Send your role on WhatsApp for a written quote."
+            "text": "For permanent placement, published market rates run from about 8.33% to 16.67% of the hire's annual CTC. For contract staffing, agencies add a monthly service charge on top of wages and statutory dues, plus 18% GST. Rates depend on role, volume and duration. Lifeline Crew' fee: quoted in writing for each requirement before you commit. Send your role on WhatsApp for a written quote."
           }
         },
         {
@@ -1049,8 +1067,11 @@ Validate after launch with https://validator.schema.org and https://search.googl
     {
       "@type": "EmploymentAgency",
       "@id": "https://www.lifelineplacements.com/#org",
-      "name": "Lifeline Placements",
-      "alternateName": "Life Line Placements",
+      "name": "Lifeline Crew",
+      "alternateName": [
+        "Lifeline Placements",
+        "Life Line Placements"
+      ],
       "url": "https://www.lifelineplacements.com/",
       "telephone": "+919962299076",
       "email": "lifelineplacements@gmail.com",
@@ -1083,8 +1104,8 @@ Validate after launch with https://validator.schema.org and https://search.googl
       "@type": "AboutPage",
       "@id": "https://www.lifelineplacements.com/about/#webpage",
       "url": "https://www.lifelineplacements.com/about/",
-      "name": "About Lifeline Placements | Manpower Agency in Chennai",
-      "description": "Who we are: Lifeline Placements, a manpower supply and recruitment agency in Aminjikarai, Chennai, serving employers across Tamil Nadu. Call +91 99622 99076.",
+      "name": "About Lifeline Crew | Manpower Agency, Aminjikarai, Chennai",
+      "description": "Who we are: Lifeline Crew, a manpower supply and recruitment agency in Aminjikarai, Chennai, serving employers across Tamil Nadu. Call +91 99622 99076.",
       "inLanguage": "en-IN",
       "isPartOf": {
         "@id": "https://www.lifelineplacements.com/#website"
@@ -1130,7 +1151,7 @@ Validate after launch with https://validator.schema.org and https://search.googl
       "@type": "Person",
       "@id": "https://www.lifelineplacements.com/about/#founder",
       "name": "V. Arun Kumar",
-      "jobTitle": "Head of Lifeline Placements",
+      "jobTitle": "Head of Lifeline Crew",
       "worksFor": {
         "@id": "https://www.lifelineplacements.com/#org"
       },

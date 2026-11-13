@@ -1,4 +1,4 @@
-/* Lifeline Placements: lead-source tagging, GA4 events (call_click, whatsapp_click, lead_submit) and the quote form. No dependencies. */
+/* Lifeline Crew: lead-source tagging, GA4 events (call_click, whatsapp_click, lead_submit) and the quote form. No dependencies. */
 (function () {
   var w = window, d = document;
   w.dataLayer = w.dataLayer || [];
@@ -31,7 +31,7 @@
     try {
       // Rebuild with encodeURIComponent (spaces as %20): some WhatsApp clients show "+" literally.
       var u = new URL(links[i].href);
-      var t = u.searchParams.get('text') || 'Hi Lifeline Placements, I need staff.';
+      var t = u.searchParams.get('text') || 'Hi Lifeline Crew, I need staff.';
       links[i].href = u.origin + u.pathname + '?text=' + encodeURIComponent(t + '\n\nRef: ' + SRC);
     } catch (e) {}
   }
@@ -39,6 +39,7 @@
   d.addEventListener('click', function (e) {
     var a = e.target.closest ? e.target.closest('a') : null;
     if (!a) return;
+    if (a.hasAttribute('data-role') && a.closest('[data-composer]')) return; // composer chips only edit the message
     var href = a.getAttribute('href') || '', loc = a.getAttribute('data-loc') || 'content';
     var p = { link_location: loc, page_path: location.pathname, lead_source: SRC.split(' ')[0] };
     if (a.classList && a.classList.contains('chip')) p.service = (a.textContent || '').trim().slice(0, 80);
@@ -52,7 +53,7 @@
     if (f.reportValidity && !f.reportValidity()) return;
     var o = {}, els = f.elements;
     for (var j = 0; j < els.length; j++) if (els[j].name) o[els[j].name] = String(els[j].value || '').trim();
-    var msg = 'Hi Lifeline Placements, I need staff.' +
+    var msg = 'Hi Lifeline Crew, I need staff.' +
       '\nIndustry: ' + o.industry + '\nRole: ' + o.role + '\nHow many: ' + o.headcount +
       '\nCity: ' + o.city + '\nNeeded by: ' + o.by + '\nName / company: ' + o.name +
       '\n\nRef: ' + SRC;
@@ -74,10 +75,29 @@
     d.addEventListener('click', function (e) { if (pk.open && !pk.contains(e.target) && !(e.target.closest && e.target.closest('[data-open-picker]'))) pk.open = false; });
   }
 
-  // Reveal cards as they scroll into view (skipped when the visitor prefers reduced motion).
-  if ('IntersectionObserver' in w && !(w.matchMedia && w.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
-    var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }); }, { rootMargin: '0px 0px -40px 0px' });
-    var els = d.querySelectorAll('main .card, main .steps li, main .stat, main .faq details, main .city-cloud a');
-    for (var r = 0; r < els.length; r++) { var b = els[r].getBoundingClientRect(); if (b.top > w.innerHeight) { els[r].classList.add('rv'); els[r].style.transitionDelay = (r % 4) * 60 + 'ms'; io.observe(els[r]); } }
-  }
+  // Crew request composer: role chips, headcount stepper, city and date write the WhatsApp message live.
+  var cmps = d.querySelectorAll('[data-composer]');
+  for (var ci = 0; ci < cmps.length; ci++) (function (cm) {
+    var st = { role: '', n: 10, city: '', when: 'within a week', ctx: cm.getAttribute('data-ctx') || '' };
+    var pv = cm.querySelector('[data-preview]'), send = cm.querySelector('[data-send]'), out = cm.querySelector('[data-count]'), sel = cm.querySelector('[data-city]');
+    var chips = cm.querySelectorAll('[data-role]'), whens = cm.querySelectorAll('[data-when]');
+    for (var z = 0; z < chips.length; z++) { chips[z].setAttribute('role', 'button'); chips[z].setAttribute('aria-pressed', z === 0 ? 'true' : 'false'); }
+    if (chips[0]) st.role = chips[0].getAttribute('data-role');
+    if (sel) st.city = sel.value;
+    function msg() { return 'Hi Lifeline Crew, I need ' + st.n + ' ' + st.role + (st.ctx ? ' ' + st.ctx : '') + (st.city ? ' in ' + st.city : '') + ', needed ' + st.when + '.'; }
+    function render() {
+      var m = msg();
+      if (pv) pv.textContent = m;
+      if (out) out.textContent = st.n;
+      if (send) send.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(m + '\nShift timing: \nAnything else: \n\nRef: ' + SRC);
+    }
+    function press(list, el) { for (var k = 0; k < list.length; k++) list[k].setAttribute('aria-pressed', list[k] === el ? 'true' : 'false'); }
+    for (var k = 0; k < chips.length; k++) chips[k].addEventListener('click', function (e) { e.preventDefault(); st.role = this.getAttribute('data-role'); press(chips, this); render(); });
+    for (var q = 0; q < whens.length; q++) whens[q].addEventListener('click', function () { st.when = this.getAttribute('data-when'); press(whens, this); render(); });
+    var steps = cm.querySelectorAll('[data-step]');
+    for (var r = 0; r < steps.length; r++) steps[r].addEventListener('click', function () { var dir = +this.getAttribute('data-step'), inc = st.n >= 50 ? 10 : st.n >= 20 ? 5 : 1; st.n = Math.max(1, Math.min(999, st.n + dir * inc)); render(); });
+    if (sel) sel.addEventListener('change', function () { st.city = sel.value; render(); });
+    if (send) send.addEventListener('click', function () { w.gtag('event', 'lead_submit', { form: 'composer', role: st.role, headcount: st.n, city: st.city || 'any', lead_source: SRC.split(' ')[0] }); });
+    render();
+  })(cmps[ci]);
 })();

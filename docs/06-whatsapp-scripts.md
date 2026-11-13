@@ -17,10 +17,10 @@ Rules for everyone who answers this number:
 
 | Field | Text |
 |---|---|
-| Business name | Lifeline Placements (match the Google Business Profile name once aligned) |
+| Business name | Lifeline Crew (match the Google Business Profile name once aligned) |
 | Category | Employment agency, or the closest option offered (for example Professional services) |
 | About (short status) | Manpower supply and recruitment for employers in Tamil Nadu. Message us: role, how many, by when. |
-| Description | Lifeline Placements is a manpower supply and recruitment agency in Aminjikarai, Chennai. We help employers across Tamil Nadu hire through permanent placement, contract staffing and bulk hiring. Send us the role, how many people you need, the joining date, the city and the shift. We reply with questions or a quote. Job seekers: please see https://www.lifelineplacements.com/jobs/ |
+| Description | Lifeline Crew is a manpower supply and recruitment agency in Aminjikarai, Chennai. We help employers across Tamil Nadu hire through permanent placement, contract staffing and bulk hiring. Send us the role, how many people you need, the joining date, the city and the shift. We reply with questions or a quote. Job seekers: please see https://www.lifelineplacements.com/jobs/ |
 | Address | 4th Floor, Nelson Towers, A Wing, No. 51/117, Nelson Manickam Road, Aminjikarai, Chennai 600029, Tamil Nadu |
 | Hours | [opening time to confirm] to 8:00 pm, [working days to confirm] |
 | Email | lifelineplacements@gmail.com (owner to re-confirm before adding) |
@@ -51,11 +51,11 @@ No prices in the catalogue. Each item links to the website page. Use a real phot
 
 ### Greeting message (send to new chats, or after 14 days of no activity)
 
-> Hello, thank you for messaging Lifeline Placements.
+> Hello, thank you for messaging Lifeline Crew.
 > Employers: please send 1) the role, 2) how many people, 3) by when, 4) city or site, 5) shift timing. We will reply shortly.
 > Looking for a job? Please see https://www.lifelineplacements.com/jobs/
 >
-> வணக்கம்! Lifeline Placements-ஐ தொடர்பு கொண்டதற்கு நன்றி.
+> வணக்கம்! Lifeline Crew-ஐ தொடர்பு கொண்டதற்கு நன்றி.
 > நிறுவனங்கள்: 1) என்ன வேலை, 2) எத்தனை பேர், 3) எப்போது தேவை, 4) ஊர் / இடம், 5) ஷிஃப்ட் நேரம் அனுப்புங்கள். விரைவில் பதில் அனுப்புகிறோம்.
 > வேலை தேடுபவர்கள்: https://www.lifelineplacements.com/jobs/ பார்க்கவும்.
 
@@ -108,11 +108,11 @@ Replace [Name], [role] and similar brackets every time. Use "Sir" or "Madam" as 
 ### 6.1 First reply: `/hi` (within 5 minutes)
 
 **English**
-> Hello [Name], thank you for contacting Lifeline Placements. I am [your name], and I will handle your requirement.
+> Hello [Name], thank you for contacting Lifeline Crew. I am [your name], and I will handle your requirement.
 > To help you quickly, please tell me the role you are hiring for, how many people you need and by when. I will reply with a few questions or a quote.
 
 **Tamil**
-> வணக்கம் [Name], Lifeline Placements-ஐ தொடர்பு கொண்டதற்கு நன்றி. நான் [your name]. உங்கள் தேவையை நான் கவனித்துக்கொள்கிறேன்.
+> வணக்கம் [Name], Lifeline Crew-ஐ தொடர்பு கொண்டதற்கு நன்றி. நான் [your name]. உங்கள் தேவையை நான் கவனித்துக்கொள்கிறேன்.
 > என்ன வேலைக்கு ஆட்கள் தேவை, எத்தனை பேர், எப்போதுக்குள் தேவை என்று சொல்லுங்கள். சில கேள்விகள் அல்லது விலை விவரத்துடன் பதில் அனுப்புகிறேன்.
 
 ### 6.2 Qualification: `/qualify`
@@ -228,11 +228,11 @@ Change the label to **Won**.
 ### 6.9 Review request: `/review` (7 days after joining; every client, same message)
 
 **English**
-> Hello [Name], thank you for working with Lifeline Placements. Could you share your honest feedback on Google? Good or bad, it helps us improve and helps other employers decide. It takes a minute: [GBP review link]
+> Hello [Name], thank you for working with Lifeline Crew. Could you share your honest feedback on Google? Good or bad, it helps us improve and helps other employers decide. It takes a minute: [GBP review link]
 > Thank you.
 
 **Tamil**
-> வணக்கம் [Name], Lifeline Placements உடன் பணியாற்றியதற்கு நன்றி. எங்கள் சேவை பற்றிய உங்கள் உண்மையான கருத்தை Google-ல் பகிர முடியுமா? நல்லதோ குறையோ, அது எங்களுக்கும் மற்ற நிறுவனங்களுக்கும் உதவும். ஒரு நிமிடம் போதும்: [GBP review link]
+> வணக்கம் [Name], Lifeline Crew உடன் பணியாற்றியதற்கு நன்றி. எங்கள் சேவை பற்றிய உங்கள் உண்மையான கருத்தை Google-ல் பகிர முடியுமா? நல்லதோ குறையோ, அது எங்களுக்கும் மற்ற நிறுவனங்களுக்கும் உதவும். ஒரு நிமிடம் போதும்: [GBP review link]
 > நன்றி.
 
 Send it to every client, whether or not you think they are happy. No gifts, discounts or favours. One reminder after 7 days, then stop.

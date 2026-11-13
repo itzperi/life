@@ -91,7 +91,7 @@ Totals: 13 posts, 12 new articles plus 10 guide or page refreshes, 18 videos (8 
 
 Two more details save a day of back-and-forth: the city or industrial area, and the shift timing.
 
-Lifeline Placements is a manpower supply and recruitment agency in Aminjikarai, Chennai. We work with employers across Tamil Nadu through permanent placement, contract staffing and bulk hiring. We start with Chennai and its industrial belt: Sriperumbudur, Oragadam, Ambattur, Guindy and OMR.
+Lifeline Crew is a manpower supply and recruitment agency in Aminjikarai, Chennai. We work with employers across Tamil Nadu through permanent placement, contract staffing and bulk hiring. We start with Chennai and its industrial belt: Sriperumbudur, Oragadam, Ambattur, Guindy and OMR.
 
 Send the five details on WhatsApp. We will reply with questions or a quote.
 
@@ -123,7 +123,7 @@ The four codes are the Code on Wages, the Industrial Relations Code, the Code on
 
 Under the OSH Code, a contractor employing 50 or more contract workers needs a licence. Below 50, the licence rule may not apply, but state rules can differ. Ask your agency in writing how many contract workers it employs in total, and which licence or registration it holds. Keep a copy on file.
 
-Also check the agency's GST registration and its PF and ESI codes. A genuine agency will share these without fuss. Lifeline Placements' licences and registrations: [licences to confirm].
+Also check the agency's GST registration and its PF and ESI codes. A genuine agency will share these without fuss. Lifeline Crew's licences and registrations: [licences to confirm].
 
 ## Who is responsible if the contractor does not pay PF or ESI?
 
@@ -150,7 +150,7 @@ A quick way to decide:
 
 The rest of this guide compares the three models in detail.
 
-## What does Lifeline Placements do for contract staff compliance?
+## What does Lifeline Crew do for contract staff compliance?
 
 We source and screen staff for permanent, contract and bulk roles across Tamil Nadu. For contract staff, the exact compliance work we take on, and the licences and registrations we hold, are listed here: [licences to confirm]. Ask us for copies before you sign any agreement. We prefer it that way.
 
@@ -182,7 +182,7 @@ WhatsApp +91 99622 99076
 | 20 to 33 s | "Permanent placement. The agency finds the person. They join your rolls. You pay a one-time fee. It suits roles you will keep for years." | Permanent = your rolls, one-time fee |
 | 33 to 48 s | "Payroll staffing. You choose the person yourself. The agency keeps them on its payroll and does the monthly paperwork. It suits people you want now, without adding to your own headcount." | Payroll = you choose, agency pays |
 | 48 to 58 s | "Simple rule. Short or uncertain need: contract. Long-term role: permanent." | Short need: contract. Long-term: permanent. |
-| 58 to 72 s | **CTA:** "Not sure? Send us three things on WhatsApp: the role, how many people, and by when. We will tell you which model fits. Lifeline Placements, Aminjikarai, Chennai." | WhatsApp +91 99622 99076 |
+| 58 to 72 s | **CTA:** "Not sure? Send us three things on WhatsApp: the role, how many people, and by when. We will tell you which model fits. Lifeline Crew, Aminjikarai, Chennai." | WhatsApp +91 99622 99076 |
 
 Note before publishing: confirm whether Lifeline offers payroll staffing [payroll service to confirm]. If not, cut the payroll section and say "We offer contract staffing, permanent placement and bulk hiring."
 
@@ -206,7 +206,7 @@ The quote depends on them. Send them together and you save a day.
 
 Housekeeping staff can join through contract staffing, where they stay on the agency's rolls and the agency pays wages, PF and ESI. Or through permanent placement, where they join your rolls. If you are unsure which suits you, tell us how long you need them.
 
-Lifeline Placements supplies housekeeping and office support staff from Aminjikarai, Chennai, to employers across Tamil Nadu.
+Lifeline Crew supplies housekeeping and office support staff from Aminjikarai, Chennai, to employers across Tamil Nadu.
 
 Send the five details on WhatsApp and we will reply with questions or a quote.
 
@@ -291,7 +291,7 @@ WhatsApp +91 99622 99076
 | 5 to 22 s | "ஒண்ணு: வேலை என்னன்னு தெளிவா எழுதுங்க. ஹெல்பரா, ஆபரேட்டரா, பேக்கரா? சம்பளம், ஷிஃப்ட் நேரம், வாரம் லீவு எல்லாம் சேர்த்து எழுதுங்க." | One: write the job clearly. Helper, operator or packer? Add the wage, shift timing and weekly off. | 1. வேலை விவரம் |
 | 22 to 40 s | "ரெண்டு: முதல் நாள் ஏற்பாடு. யூனிஃபார்ம், ID கார்டு, சேஃப்டி ஷூ, கேண்டீன், பஸ் ரூட். எல்லாம் முன்னாடியே தயாரா இருக்கணும்." | Two: day-one arrangements. Uniform, ID card, safety shoes, canteen, bus route. All ready in advance. | 2. முதல் நாள் ஏற்பாடு |
 | 40 to 58 s | "மூணு: 50 பேரும் ஒரே நாள்ல சேரணும்னு அவசியம் இல்ல. பத்து, இருபது பேரா பேட்ச் பேட்சா சேர்த்தா ட்ரெயினிங் சுலபம். யாராவது வரலைன்னா உடனே மாற்று ஆள் ஏற்பாடு பண்ணலாம்." | Three: all 50 need not join on one day. Batches of 10 or 20 make training easier, and anyone who does not turn up can be replaced quickly. | 3. பேட்ச் பேட்சா சேருங்க |
-| 58 to 72 s | **CTA:** "என்ன வேலை, எத்தனை பேர், எப்போ வேணும். இந்த மூணையும் WhatsApp-ல அனுப்புங்க. Lifeline Placements, அமைந்தகரை, சென்னை." | What job, how many, by when. Send these three on WhatsApp. Lifeline Placements, Aminjikarai, Chennai. | WhatsApp +91 99622 99076 |
+| 58 to 72 s | **CTA:** "என்ன வேலை, எத்தனை பேர், எப்போ வேணும். இந்த மூணையும் WhatsApp-ல அனுப்புங்க. Lifeline Crew, அமைந்தகரை, சென்னை." | What job, how many, by when. Send these three on WhatsApp. Lifeline Crew, Aminjikarai, Chennai. | WhatsApp +91 99622 99076 |
 
 Description text: Bulk hiring checklist for employers (English): lifelineplacements.com/guides/bulk-hiring-checklist/
 
@@ -313,7 +313,7 @@ Three things that make temporary retail hiring work:
 
 You can take extra staff on contract for the season, or hire a few permanently if your volume has grown this year. We can explain both and quote for either.
 
-Lifeline Placements, Aminjikarai, Chennai, works with showrooms and retail stores across Tamil Nadu. Send us the store location, roles, headcount, dates and timings.
+Lifeline Crew, Aminjikarai, Chennai, works with showrooms and retail stores across Tamil Nadu. Send us the store location, roles, headcount, dates and timings.
 
 WhatsApp +91 99622 99076
 
@@ -399,7 +399,7 @@ WhatsApp +91 99622 99076
 | 22 to 40 s | "Line two. ESI and EPF, shown separately. As of November 2026, employer ESI is 3.25 percent for wages up to 21,000 rupees a month. Employer EPF is 12 percent." | 2. ESI 3.25% + EPF 12% (as of Nov 2026; ESIC, EPFO) |
 | 40 to 55 s | "Line three. The agency's service charge. A percentage or a fixed amount per head? Ask which. A fixed amount is easier to budget." | 3. Service charge: % or fixed? |
 | 55 to 68 s | "Line four. GST at 18 percent. Ask your accountant what it is charged on. That line alone can change the total." | 4. GST 18%: on what base? |
-| 68 to 82 s | **CTA:** "Want a quote with every line shown? Send us the role, how many people and the city on WhatsApp. Lifeline Placements, Aminjikarai, Chennai." | WhatsApp +91 99622 99076 |
+| 68 to 82 s | **CTA:** "Want a quote with every line shown? Send us the role, how many people and the city on WhatsApp. Lifeline Crew, Aminjikarai, Chennai." | WhatsApp +91 99622 99076 |
 
 Caption on screen for the whole video: "Figures as of Nov 2026. Sources: ESIC, EPFO, TN Labour Dept. Verify before use."
 
@@ -425,7 +425,7 @@ Most staffing problems start with a question nobody asked. Ask these six before 
 Ask us the same six questions. Our answers today:
 licences and registrations [licences to confirm]; replacement [replacement terms to confirm]; time to supply 48 hours for helpers and 7 days for skilled roles; fee [fee to confirm], quoted per requirement.
 
-Lifeline Placements is a manpower supply and recruitment agency in Aminjikarai, Chennai, working with employers across Tamil Nadu.
+Lifeline Crew is a manpower supply and recruitment agency in Aminjikarai, Chennai, working with employers across Tamil Nadu.
 
 Read the full guide: lifelineplacements.com/guides/how-to-choose-a-manpower-agency/
 

@@ -1,4 +1,4 @@
-# Lifeline Placements: all search and AI crawlers welcome
+# Lifeline Crew: all search and AI crawlers welcome
 User-agent: *
 Allow: /
 
@@ -10,6 +10,7 @@ User-agent: ChatGPT-User
 User-agent: Claude-SearchBot
 User-agent: Claude-User
 User-agent: PerplexityBot
+User-agent: Applebot
 User-agent: Perplexity-User
 Allow: /
 

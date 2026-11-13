@@ -1,9 +1,9 @@
-# Lifeline Placements: fact sheet and writing rules
+# Lifeline Crew: fact sheet and writing rules
 
 Every page, document and agent works from this file. Last updated 12 Nov 2026.
 
 ## A. Facts confirmed by the owner (from the brief)
-- Brand name: **Lifeline Placements**
+- Brand name: **Lifeline Crew**
 - Business: manpower supply and recruitment for employers (B2B first; job seekers second)
 - Phone and WhatsApp (identical everywhere): **+91 99622 99076**, `tel:+919962299076`, `https://wa.me/919962299076`
 - Industries served: IT companies; BPO and call centres; general offices; manufacturing; automobile; pharma; textile; showrooms and retail; spas and salons; hospitals and clinics; hostels; service apartments; e-commerce; logistics; mobile-phone manufacturing

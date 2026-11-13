@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const C = require('../config');
 
+const JS_VER = require('crypto').createHash('md5').update(fs.readFileSync(path.join(__dirname, '../assets/site.js'))).digest('hex').slice(0, 8);
 const CSS = fs.readFileSync(path.join(__dirname, '../assets/style.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s*\n\s*/g, '');
 
 const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -17,7 +18,7 @@ function tok(htmlSafe) {
   return resolveOptional(htmlSafe).replace(TOKEN_RE, (m, k) => {
     const v = factValue(k);
     if (v) return esc(v);
-    return `<mark class="ph" title="To be confirmed by Lifeline Placements">[${esc(C.factLabels[k] || k.toLowerCase())}: to confirm]</mark>`;
+    return `<mark class="ph" title="To be confirmed by Lifeline Crew">[${esc(C.factLabels[k] || k.toLowerCase())}: to confirm]</mark>`;
   });
 }
 const t = (s) => tok(esc(s));
@@ -66,10 +67,10 @@ const INDUSTRY_ICON = { 'it-companies': 'laptop', 'bpo-call-centres': 'headset',
 const indIcon = (slug) => ICON[INDUSTRY_ICON[slug] || 'briefcase'];
 
 // ---------- WhatsApp and call links ----------
-const DEFAULT_WA = 'Hi Lifeline Placements, I need staff.';
+const DEFAULT_WA = 'Hi Lifeline Crew, I need staff.';
 const waHref = (text) => `https://wa.me/${C.wa}?text=${encodeURIComponent(text || DEFAULT_WA)}`;
 // A requirement message with blanks the employer fills in before sending.
-const waNeed = (what, extra = '') => `Hi Lifeline Placements, I need ${what}.${extra}\nHow many: \nWork location: \nNeeded by: `;
+const waNeed = (what, extra = '') => `Hi Lifeline Crew, I need ${what}.${extra}\nHow many: \nWork location: \nNeeded by: `;
 const callBtn = (loc, label = 'Call ' + C.phoneDisplay, cls = '') => `<a class="btn btn-call ${cls}" href="tel:${C.tel}" data-loc="${loc}">${ICON.phone}${esc(label)}</a>`;
 const waBtn = (loc, text, label = 'WhatsApp us', cls = '') => `<a class="btn btn-wa ${cls}" href="${esc(waHref(text))}" data-loc="${loc}">${ICON.wa}${esc(label)}</a>`;
 const ctaRow = (loc, waText) => `<div class="cta-row">${waBtn(loc, waText, 'WhatsApp your requirement')}${callBtn(loc)}</div>`;
@@ -88,15 +89,44 @@ const PICKER = [
   ['Spa & salon staff', waNeed('spa / salon staff')],
 ];
 const PICKER_MODELS = [
-  ['Permanent hire', 'Hi Lifeline Placements, I want to hire permanent staff.\nRole: \nHow many: \nLocation: \nJoining by: '],
-  ['Contract staff', 'Hi Lifeline Placements, I need contract staff on your payroll.\nRole: \nHow many: \nLocation: \nDuration: '],
-  ['Bulk hiring drive', 'Hi Lifeline Placements, I need bulk hiring.\nRoles: \nTotal headcount: \nLocation: \nStart date: '],
-  ...(C.payrollOutsourcing ? [['Payroll outsourcing', 'Hi Lifeline Placements, I want payroll outsourcing.\nNumber of employees: \nLocation: ']] : []),
+  ['Permanent hire', 'Hi Lifeline Crew, I want to hire permanent staff.\nRole: \nHow many: \nLocation: \nJoining by: '],
+  ['Contract staff', 'Hi Lifeline Crew, I need contract staff on your payroll.\nRole: \nHow many: \nLocation: \nDuration: '],
+  ['Bulk hiring drive', 'Hi Lifeline Crew, I need bulk hiring.\nRoles: \nTotal headcount: \nLocation: \nStart date: '],
+  ...(C.payrollOutsourcing ? [['Payroll outsourcing', 'Hi Lifeline Crew, I want payroll outsourcing.\nNumber of employees: \nLocation: ']] : []),
 ];
 function pickerChips(loc, context) {
   const first = context ? waChip(loc, context.label, context.text).replace('class="chip"', 'class="chip chip-hot"') : '';
   return `<div class="chips">${first}${PICKER.map(([l, m]) => waChip(loc, l, m)).join('')}</div>
 <p class="chips-h">Or by hiring model</p><div class="chips">${PICKER_MODELS.map(([l, m]) => waChip(loc, l, m)).join('')}</div>`;
+}
+
+// ---------- Crew request composer ----------
+// A WhatsApp-style card that writes the employer's requirement as they tap: role, headcount, city, date.
+// Without JavaScript every role chip is still a plain wa.me link with a prefilled message, and the send button works.
+const firstLower = (s) => (/^[A-Z][a-z]/.test(s) ? s.charAt(0).toLowerCase() + s.slice(1) : s);
+function composer({ loc = 'composer', roles = [], ctx = '', city = '', title = 'Build your staff request' } = {}) {
+  const cities = require('../data/cities').map((c) => c.name);
+  const list = roles.length ? roles : PICKER.map(([l]) => l);
+  const roleMsg = (r) => `Hi Lifeline Crew, I need ${firstLower(r)}${ctx ? ' ' + ctx : ''}${city ? ' in ' + city : ''}.\nHow many: \nWork location: \nNeeded by: `;
+  const first = `Hi Lifeline Crew, I need 10 ${firstLower(list[0])}${ctx ? ' ' + ctx : ''}${city ? ' in ' + city : ''}, needed within a week.`;
+  const whens = [['within a week', 'This week'], ['within 2 weeks', '2 weeks'], ['within a month', 'This month']];
+  return `<aside class="cmp" data-composer data-ctx="${esc(ctx)}" aria-labelledby="cmp-${loc}">
+<div class="cmp-top"><span class="cmp-av">${ICON.logo}</span><div><p class="cmp-name" id="cmp-${loc}">${esc(title)}</p><p class="cmp-sub">Lifeline Crew replies on WhatsApp</p></div></div>
+<div class="cmp-chat"><p class="cmp-bubble" data-preview aria-live="polite">${esc(first)}</p></div>
+<div class="cmp-body">
+<p class="cmp-q">Who do you need?</p>
+<div class="chips cmp-roles">${list.map((r, i) => `<a class="chip" href="${esc(waHref(roleMsg(r)))}" data-loc="${loc}" data-role="${esc(firstLower(r))}">${ICON.wa}<span>${esc(r)}</span></a>`).join('')}</div>
+<div class="cmp-ctl">
+<div class="cmp-row">
+<div><p class="cmp-q" id="cmp-n-${loc}">How many</p><div class="stepper" role="group" aria-labelledby="cmp-n-${loc}"><button type="button" data-step="-1" aria-label="Fewer people">−</button><output data-count>10</output><button type="button" data-step="1" aria-label="More people">+</button></div></div>
+<div><label class="cmp-q" for="cmp-city-${loc}">Where</label><select id="cmp-city-${loc}" data-city><option value="">Any Tamil Nadu location</option>${cities.map((c) => `<option${c === city ? ' selected' : ''}>${esc(c)}</option>`).join('')}</select></div>
+</div>
+<p class="cmp-q">When</p>
+<div class="seg" role="group" aria-label="When do you need them">${whens.map(([v, l], i) => `<button type="button" data-when="${v}" aria-pressed="${i === 0}">${l}</button>`).join('')}</div>
+</div>
+<a class="btn btn-wa btn-block" data-send href="${esc(waHref(first))}" data-loc="${loc}_send">${ICON.wa}Send on WhatsApp</a>
+<p class="cmp-note">Opens WhatsApp with this message. Nothing is sent until you press send.</p>
+</div></aside>`;
 }
 
 function addressText() {
@@ -144,7 +174,7 @@ function header(current) {
   const link = ([h, l]) => `<a href="${h}"${current && current.startsWith(h) ? ' aria-current="page"' : ''}>${l}</a>`;
   return `<a class="skip" href="#main">Skip to content</a>
 <header class="hdr"><div class="wrap">
-<a class="logo" href="/" aria-label="Lifeline Placements home">${ICON.logo}<span>Lifeline<b>Placements</b></span></a>
+<a class="logo" href="/" aria-label="Lifeline Crew home">${ICON.logo}<span>Lifeline<b>Crew</b></span></a>
 <nav class="nav" aria-label="Main">${NAV.map(link).join('')}</nav>
 <div class="hdr-cta">${waBtn('header', DEFAULT_WA, 'WhatsApp', 'btn-sm hide-sm')}${callBtn('header', 'Call', 'btn-sm')}</div>
 <details class="menu"><summary aria-label="Open menu"><span></span><span></span><span></span></summary><div class="menu-list">${NAV.map(link).join('')}<a href="/jobs/">Jobs (for job seekers)</a></div></details>
@@ -159,7 +189,7 @@ function footer(context) {
 <div class="ftr-cta"><div><h2>Tell us who you need. We'll take it from there.</h2><p>Role, headcount, location and date. One WhatsApp message is enough to start.</p></div><div class="cta-row">${waBtn('footer_cta', DEFAULT_WA, 'WhatsApp ' + C.phoneDisplay)}${callBtn('footer_cta', 'Call now', 'btn-ghost-light')}</div></div>
 <div class="cols4">
 <div>
-<a class="logo logo-light" href="/">${ICON.logo}<span>Lifeline<b>Placements</b></span></a>
+<a class="logo logo-light" href="/">${ICON.logo}<span>Lifeline<b>Crew</b></span></a>
 <p>Manpower supply and recruitment for employers across Tamil Nadu.</p>
 <p class="ta" lang="ta">தமிழ்நாடு முழுவதும் நிறுவனங்களுக்கு நம்பகமான பணியாளர்கள்.</p>
 <address>${ICON.pin}<span>${addressHtml()}</span></address>
@@ -171,7 +201,7 @@ ${C.googleRating ? `<p class="ftr-rating">${ICON.star}<span><strong>${C.googleRa
 <div><h2>Industries</h2><ul>${inds.slice(0, 9).map((i) => `<li><a href="/industries/${i.slug}/">${esc(i.name)}</a></li>`).join('')}<li><a href="/industries/">All industries</a></li></ul></div>
 <div><h2>Cities</h2><ul>${cities.slice(0, 9).map((c) => `<li><a href="/cities/${c.slug}/">${esc(c.name)}</a></li>`).join('')}<li><a href="/cities/">All cities</a></li></ul></div>
 </div>
-<p class="copy">© ${new Date(C.updated).getFullYear()} Lifeline Placements · Aminjikarai, Chennai · Content updated ${C.updatedDisplay}</p>
+<p class="copy">© ${new Date(C.updated).getFullYear()} Lifeline Crew · Aminjikarai, Chennai · Content updated ${C.updatedDisplay}</p>
 </div></footer>
 ${picker(context)}
 <div class="sbar" role="navigation" aria-label="Quick contact"><a class="c" href="tel:${C.tel}" data-loc="sticky_bar">${ICON.phone}Call</a><a class="p" href="/contact/#quote" data-open-picker data-loc="sticky_bar">${ICON.chat}Choose staff</a><a class="w" href="${esc(waHref(context ? context.text : DEFAULT_WA))}" data-loc="sticky_bar">${ICON.wa}WhatsApp</a></div>`;
@@ -181,9 +211,9 @@ ${picker(context)}
 function picker(context) {
   return `<details class="fab" id="picker"><summary aria-label="Message us about a specific service"><span class="fab-btn">${ICON.wa}<span class="fab-label">What staff do you need?</span></span></summary>
 <div class="fab-panel" role="dialog" aria-label="Choose what you need">
-<div class="fab-top"><div>${ICON.logo}<p><strong>Lifeline Placements</strong><small>Tap a service. WhatsApp opens with a ready message.</small></p></div><button type="button" class="fab-x" data-close-picker aria-label="Close">${ICON.close}</button></div>
+<div class="fab-top"><div>${ICON.logo}<p><strong>Lifeline Crew</strong><small>Tap a service. WhatsApp opens with a ready message.</small></p></div><button type="button" class="fab-x" data-close-picker aria-label="Close">${ICON.close}</button></div>
 <div class="fab-body">${pickerChips('picker', context)}
-<p class="fab-alt"><a href="tel:${C.tel}" data-loc="picker">${ICON.phone}Prefer to talk? Call ${C.phoneDisplay}</a><a href="${esc(waHref('Hi Lifeline Placements, I am looking for a job.\nName: \nJob I want: \nExperience: \nArea: '))}" data-loc="picker_jobseeker">Looking for a job instead?</a></p></div>
+<p class="fab-alt"><a href="tel:${C.tel}" data-loc="picker">${ICON.phone}Prefer to talk? Call ${C.phoneDisplay}</a><a href="${esc(waHref('Hi Lifeline Crew, I am looking for a job.\nName: \nJob I want: \nExperience: \nArea: '))}" data-loc="picker_jobseeker">Looking for a job instead?</a></p></div>
 </div></details>`;
 }
 
@@ -209,7 +239,7 @@ function orgNode(full) {
   if (C.hours) node.openingHours = C.hours;
   if (full) {
     const services = require('../data/services').filter((s) => s.slug !== 'payroll-outsourcing' || C.payrollOutsourcing);
-    node.description = 'Lifeline Placements is a Chennai-based manpower supply and recruitment agency. It supplies staff to employers across Tamil Nadu through permanent placement, contract staffing and bulk hiring.';
+    node.description = 'Lifeline Crew is a Chennai-based manpower supply and recruitment agency. It supplies staff to employers across Tamil Nadu through permanent placement, contract staffing and bulk hiring.';
     node.founder = { '@id': `${C.url}/about/#founder` };
     node.knowsAbout = require('../data/industries').map((i) => i.name);
     node.knowsLanguage = ['en', 'ta'];
@@ -237,7 +267,7 @@ function howToNode(id, name, steps) {
 const ld = (nodes) => `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': nodes.filter(Boolean) }).replace(/</g, '\\u003c')}</script>`;
 
 function faqHtml(faqs, heading = 'Frequently asked questions') {
-  return `<section class="faq" aria-labelledby="faq-h"><div class="wrap narrow"><p class="eyebrow">Answers</p><h2 id="faq-h">${esc(heading)}</h2><div class="faq-list">${faqs.map((f, i) => `<details${i === 0 ? ' open' : ''}><summary><h3>${t(f.q)}</h3><span class="pm" aria-hidden="true"></span></summary><div class="a"><p>${t(f.a)}</p></div></details>`).join('')}</div></div></section>`;
+  return `<section class="faq" aria-labelledby="faq-h"><div class="wrap narrow"><h2 id="faq-h">${esc(heading)}</h2><div class="faq-list">${faqs.map((f, i) => `<details${i === 0 ? ' open' : ''}><summary><h3>${t(f.q)}</h3><span class="pm" aria-hidden="true"></span></summary><div class="a"><p>${t(f.a)}</p></div></details>`).join('')}</div></div></section>`;
 }
 
 function finalCta(waText, title = 'Need staff? Message us now.') {
@@ -260,30 +290,30 @@ function page({ path: p, title, description, body, crumbs = [], schema = [], noi
 <html lang="en-IN" data-wa="${C.wa}">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.classList.add("js")</script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${canonical}">\n<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">`}
 <meta name="geo.region" content="IN-TN"><meta name="geo.placename" content="Chennai">
 <meta property="og:type" content="${ogType}">
-<meta property="og:site_name" content="Lifeline Placements">
+<meta property="og:site_name" content="Lifeline Crew">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${canonical}">
 <meta property="og:image" content="${C.url}/assets/og-default.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Lifeline Placements: manpower supply across Tamil Nadu, WhatsApp ${C.phoneDisplay}">
+<meta property="og:image:alt" content="Lifeline Crew: manpower supply across Tamil Nadu, WhatsApp ${C.phoneDisplay}">
 <meta property="og:locale" content="en_IN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0b3b37">
+<meta name="theme-color" content="#0b5d55">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+<link rel="preload" href="/assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>${CSS}</style>
 ${ld(nodes)}
 ${gaTag}
-<script src="/assets/site.js" defer></script>
+<script src="/assets/site.js?v=${JS_VER}" defer></script>
 </head>
 <body>
 ${header(p)}
@@ -297,4 +327,4 @@ ${footer(waContext)}
 `;
 }
 
-module.exports = { C, esc, t, tok, plain, hasToken, ICON, indIcon, waHref, waNeed, waChip, callBtn, waBtn, ctaRow, pickerChips, quoteForm, faqHtml, finalCta, page, orgNode, crumbNode, faqNode, howToNode, ld, addressText, addressHtml, mapsUrl };
+module.exports = { composer, firstLower, C, esc, t, tok, plain, hasToken, ICON, indIcon, waHref, waNeed, waChip, callBtn, waBtn, ctaRow, pickerChips, quoteForm, faqHtml, finalCta, page, orgNode, crumbNode, faqNode, howToNode, ld, addressText, addressHtml, mapsUrl };

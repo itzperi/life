@@ -8,7 +8,7 @@ module.exports = [
     h1: 'Contract vs Permanent vs Payroll Staffing: Which Suits Your Business?',
     tamil: 'ஒப்பந்தம், நிரந்தரம், சம்பளப் பட்டியல்: எது உங்களுக்கு?',
     published: '2026-11-12',
-    summary: 'Permanent placement puts the worker on your payroll; you pay the agency once. Contract staffing keeps the worker on the agency payroll; you pay a monthly invoice covering wages, PF, ESI and a service charge. Payroll outsourcing means you choose the people and the agency only runs their salaries and compliance. Lifeline Placements in Chennai offers all three. WhatsApp +91 99622 99076.',
+    summary: 'Permanent placement puts the worker on your payroll; you pay the agency once. Contract staffing keeps the worker on the agency payroll; you pay a monthly invoice covering wages, PF, ESI and a service charge. Payroll outsourcing means you choose the people and the agency only runs their salaries and compliance. Lifeline Crew in Chennai offers all three. WhatsApp +91 99622 99076.',
     faqs: [
       { q: 'What is the difference between contract staffing and permanent placement?', a: 'In permanent placement the worker joins your payroll and you pay the agency a one-time fee. In contract staffing the worker stays on the agency payroll, the agency pays wages, PF and ESI, and you pay a monthly invoice. Contract suits seasonal or uncertain demand. Permanent suits long-term roles you want to own.' },
       { q: 'Does a contractor need a licence to supply contract workers in Tamil Nadu?', a: 'Under the Occupational Safety, Health and Working Conditions Code, in force since 21 November 2025, a contractor engaging 50 or more contract workers needs a licence. The old law set the threshold at 20. State rules decide the procedure, so ask any agency for its licence and check the current Tamil Nadu rules with your labour-law adviser.' },
@@ -30,7 +30,7 @@ module.exports = [
 <tr><td>How the agency is paid (market practice)</td><td>One-time fee, often 8.33% to 16.67% of annual CTC</td><td>Monthly service charge on top of wages, plus GST</td><td>Monthly per-head or percentage fee, plus GST</td></tr>
 <tr><td>If the person leaves</td><td>Replacement within the agreed guarantee window</td><td>Agency replaces under the contract</td><td>You find the replacement</td></tr>
 <tr><td>Fits</td><td>Long-term and skilled roles</td><td>Seasonal peaks, projects, uncertain volumes</td><td>Staff you already selected, extra headcount outside your rolls</td></tr>
-<tr><td>Lifeline Placements</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Lifeline Crew</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
 </tbody></table></div>
 <p class="meta">Fee ranges are published market figures from agency and HR-tech sources (2025-26), not Lifeline's prices. Lifeline's fee: {{FEE}}.</p>
 
@@ -60,9 +60,9 @@ module.exports = [
     h1: 'Bulk Hiring Checklist: 10 Steps to Hire 20 to 500 People',
     tamil: 'பெருமளவு ஆட்சேர்ப்புக்கான சரிபார்ப்பு பட்டியல்',
     published: '2026-11-12',
-    summary: 'Bulk hiring works when the employer fixes five things before the first interview: roles and headcount by shift, the wage and CTC per role, the hiring model, the screening criteria, and joining logistics such as transport, hostel and canteen. This 10-step checklist from Lifeline Placements, a Chennai manpower agency serving all of Tamil Nadu, covers each step. WhatsApp +91 99622 99076.',
+    summary: 'Bulk hiring works when the employer fixes five things before the first interview: roles and headcount by shift, the wage and CTC per role, the hiring model, the screening criteria, and joining logistics such as transport, hostel and canteen. This 10-step checklist from Lifeline Crew, a Chennai manpower agency serving all of Tamil Nadu, covers each step. WhatsApp +91 99622 99076.',
     faqs: [
-      { q: 'How long does bulk hiring take?', a: 'It depends on the role, the location and the wage. Helpers and packers near a large labour market fill faster than skilled operators in a smaller town. Fixing wage, shifts, transport and documents before sourcing starts saves the most time. Lifeline Placements turnaround: {{TURNAROUND}}. Send your headcount on WhatsApp for a date.' },
+      { q: 'How long does bulk hiring take?', a: 'It depends on the role, the location and the wage. Helpers and packers near a large labour market fill faster than skilled operators in a smaller town. Fixing wage, shifts, transport and documents before sourcing starts saves the most time. Lifeline Crew turnaround: {{TURNAROUND}}. Send your headcount on WhatsApp for a date.' },
       { q: 'What documents should new workers bring on joining day?', a: 'Usually identity and address proof, a bank account passbook or cancelled cheque, passport-size photos, education or ITI certificates for skilled roles, and the existing UAN number if the worker had PF before. Collect only what you need, store copies securely, and mask Aadhaar numbers where full numbers are not required.' },
       { q: 'Should I ask the agency for extra workers to cover absenteeism?', a: 'Many plants plan a buffer for no-shows in the first weeks, because some selected candidates do not join or leave early. Agree the buffer, the replacement terms and who pays for extra heads in writing before the drive. Base the number on your own past joining ratios, not a fixed rule.' },
     ],
@@ -85,11 +85,11 @@ module.exports = [
 </ol>
 
 <h2 id="time">How long does bulk hiring take?</h2>
-<p><strong>It depends on role, location and wage. Unskilled roles close to a large labour pool fill faster than skilled operators in a smaller town. The biggest delays come from unclear wages, missing transport and documents nobody asked for. Lifeline Placements turnaround: {{TURNAROUND}}.</strong></p>
+<p><strong>It depends on role, location and wage. Unskilled roles close to a large labour pool fill faster than skilled operators in a smaller town. The biggest delays come from unclear wages, missing transport and documents nobody asked for. Lifeline Crew turnaround: {{TURNAROUND}}.</strong></p>
 
 <h2 id="agency">What should you send the agency on day one?</h2>
 <p>Send the role list with headcount, shift timings, wage per role, work location with a Google Maps pin, joining date, documents needed, and whether you provide transport, food or accommodation. A complete brief lets the agency start sourcing the same day.</p>
-<p>Lifeline Placements takes bulk orders across Tamil Nadu from our Chennai office.[[ Largest order size: {{CAPACITY}}.]] Send your headcount on WhatsApp to <a href="tel:+919962299076" data-loc="guide_body">+91 99622 99076</a>.</p>
+<p>Lifeline Crew takes bulk orders across Tamil Nadu from our Chennai office.[[ Largest order size: {{CAPACITY}}.]] Send your headcount on WhatsApp to <a href="tel:+919962299076" data-loc="guide_body">+91 99622 99076</a>.</p>
 <p class="meta">Compliance points as of Nov 2026. General information, not legal advice.</p>`,
   },
   {
@@ -100,10 +100,10 @@ module.exports = [
     h1: 'How to Choose a Manpower Agency in Tamil Nadu: 12 Checks',
     tamil: 'சரியான மனிதவள நிறுவனத்தைத் தேர்வு செய்வது எப்படி?',
     published: '2026-11-12',
-    summary: 'Choose a manpower agency on proof, not promises. Check its registrations (GST, PF and ESI codes, contract labour licence if it has 50 or more contract workers, a PSARA licence for security guards), references from employers like you, replacement terms in writing, a transparent invoice and its reply speed. Lifeline Placements in Chennai answers all twelve checks here. WhatsApp +91 99622 99076.',
+    summary: 'Choose a manpower agency on proof, not promises. Check its registrations (GST, PF and ESI codes, contract labour licence if it has 50 or more contract workers, a PSARA licence for security guards), references from employers like you, replacement terms in writing, a transparent invoice and its reply speed. Lifeline Crew in Chennai answers all twelve checks here. WhatsApp +91 99622 99076.',
     faqs: [
       { q: 'Which licences should a manpower agency have in Tamil Nadu?', a: 'At minimum GST registration and PF and ESI establishment codes if it puts workers on its payroll. A contractor with 50 or more contract workers needs a licence under the OSH Code. Supplying security guards needs a PSARA licence, and recruiting for jobs abroad needs a Ministry of External Affairs licence. Ask for copies before signing.' },
-      { q: 'Which agency supplies housekeeping, security, BPO and factory staff?', a: 'Many agencies cover housekeeping, BPO and factory roles under one contract, but security guards are different: only agencies holding a PSARA licence may supply them. Ask each agency which roles it supplies directly and for licence copies. Lifeline Placements supplies housekeeping, BPO and factory staff across Tamil Nadu.' },
+      { q: 'Which agency supplies housekeeping, security, BPO and factory staff?', a: 'Many agencies cover housekeeping, BPO and factory roles under one contract, but security guards are different: only agencies holding a PSARA licence may supply them. Ask each agency which roles it supplies directly and for licence copies. Lifeline Crew supplies housekeeping, BPO and factory staff across Tamil Nadu.' },
     ],
     bodyHtml: `
 <h2 id="how">How do you choose a manpower agency?</h2>
@@ -130,7 +130,7 @@ module.exports = [
 <h2 id="red-flags">What are the red flags?</h2>
 <p><strong>Watch for agencies that will not show licence or PF and ESI documents, quote one lump-sum rate without a wage break-up, promise any headcount on any date, or have no office you can visit. Also be careful if candidates tell you they paid large fees to get the job. That often leads to early exits.</strong></p>
 
-<h2 id="lifeline">How does Lifeline Placements answer these checks?</h2>
+<h2 id="lifeline">How does Lifeline Crew answer these checks?</h2>
 <ul>
 <li>Office: Aminjikarai, Chennai. Phone and WhatsApp: <a href="tel:+919962299076" data-loc="guide_body">+91 99622 99076</a>.</li>
 [[<li>Licences and registrations: {{LICENCES}}</li>]]
@@ -150,9 +150,9 @@ module.exports = [
     h1: 'How Much Does Contract Staffing Cost in Tamil Nadu? (2026)',
     tamil: 'தமிழ்நாட்டில் ஒப்பந்த பணியாளர் செலவு',
     published: '2026-11-12',
-    summary: 'A contract worker in Tamil Nadu costs the gross wage plus statutory dues (employer PF 12%, ESI 3.25% for wages up to Rs 21,000, bonus of at least 8.33%, gratuity of about 4.81%), plus the agency service charge, plus 18% GST. In the worked example below, statutory dues add about 15 to 16% to an Rs 18,000 gross wage. Lifeline Placements quotes on WhatsApp: +91 99622 99076.',
+    summary: 'A contract worker in Tamil Nadu costs the gross wage plus statutory dues (employer PF 12%, ESI 3.25% for wages up to Rs 21,000, bonus of at least 8.33%, gratuity of about 4.81%), plus the agency service charge, plus 18% GST. In the worked example below, statutory dues add about 15 to 16% to an Rs 18,000 gross wage. Lifeline Crew quotes on WhatsApp: +91 99622 99076.',
     faqs: [
-      { q: 'How much does a manpower agency charge in Chennai?', a: 'For permanent placement, published market rates run from about 8.33% to 16.67% of the hire\'s annual CTC. For contract staffing, agencies add a monthly service charge on top of wages and statutory dues, plus 18% GST. Rates depend on role, volume and duration. Lifeline Placements\' fee: {{FEE}}. Send your role on WhatsApp for a written quote.' },
+      { q: 'How much does a manpower agency charge in Chennai?', a: 'For permanent placement, published market rates run from about 8.33% to 16.67% of the hire\'s annual CTC. For contract staffing, agencies add a monthly service charge on top of wages and statutory dues, plus 18% GST. Rates depend on role, volume and duration. Lifeline Crew\' fee: {{FEE}}. Send your role on WhatsApp for a written quote.' },
       { q: 'Is GST charged on the full invoice or only the service charge?', a: 'For manpower supply, GST at 18% is generally charged on the full value billed, including the wages reimbursed, not only on the agency\'s service charge. Most registered businesses can claim input tax credit on it. Confirm the treatment for your business with your GST adviser before you compare quotes.' },
       { q: 'Do contract workers get PF and ESI?', a: 'Yes. PF and ESI apply to contract workers just as to direct employees, subject to the wage limits. The agency, as the employer, deducts the employee share, adds the employer share and deposits both. As principal employer, you should check monthly challans, because unpaid dues can become your liability.' },
     ],
@@ -194,7 +194,7 @@ module.exports = [
 <p>Check the exact rate for your employment and zone on the Tamil Nadu Labour Department website before fixing wages.</p>
 
 <h2 id="agency-fee">How much does a manpower agency charge in Chennai?</h2>
-<p><strong>For permanent placement, published market rates run from about 8.33% to 16.67% of the hire's annual CTC. For contract staffing, agencies add a monthly service charge to wages and statutory dues, plus 18% GST. Rates depend on role, volume and duration. Lifeline Placements' fee: {{FEE}}.</strong></p>
+<p><strong>For permanent placement, published market rates run from about 8.33% to 16.67% of the hire's annual CTC. For contract staffing, agencies add a monthly service charge to wages and statutory dues, plus 18% GST. Rates depend on role, volume and duration. Lifeline Crew's fee: {{FEE}}.</strong></p>
 
 <h2 id="sources">Sources</h2>
 <ul>

@@ -8,7 +8,7 @@ Sources of data: the lead sheet (`06-whatsapp-scripts.md`, section 7), GA4, Goog
 
 ## Template (keep under 300 words)
 
-**Lifeline Placements: weekly report, week of [Mon date] to [Sun date]**
+**Lifeline Crew: weekly report, week of [Mon date] to [Sun date]**
 
 **1. Leads by source**
 
@@ -55,7 +55,7 @@ Total: [ ] of 40 checks name Lifeline. Change vs last week: [ ].
 
 ## AI citation method
 
-Every Monday, run the **same 10 prompts** in ChatGPT (logged out, web search on), Gemini, Perplexity and Google Search (note whether an AI Overview appears). Use a private browser window. Log Y if Lifeline Placements (or "Life Line Placements") is named, N if not. Paste the exact wording of any mention into the log sheet, with the date. Do not change the prompts mid-quarter.
+Every Monday, run the **same 10 prompts** in ChatGPT (logged out, web search on), Gemini, Perplexity and Google Search (note whether an AI Overview appears). Use a private browser window. Log Y if Lifeline Crew (or "Life Line Placements") is named, N if not. Paste the exact wording of any mention into the log sheet, with the date. Do not change the prompts mid-quarter.
 
 The 10 prompts:
 1. Best manpower agency in Chennai for factory workers
@@ -77,7 +77,7 @@ The 10 prompts:
 
 **EXAMPLE, NOT REAL DATA. Do not quote any figure below.**
 
-**Lifeline Placements: weekly report, week of 7 Dec to 13 Dec 2026 (EXAMPLE, NOT REAL DATA)**
+**Lifeline Crew: weekly report, week of 7 Dec to 13 Dec 2026 (EXAMPLE, NOT REAL DATA)**
 
 **1. Leads by source**
 

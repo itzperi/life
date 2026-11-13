@@ -1,6 +1,6 @@
-# Lifeline Placements website and growth programme
+# Lifeline Crew website and growth programme
 
-A static, server-rendered site for **Lifeline Placements** (manpower supply and recruitment, Tamil Nadu). It has 51 pages plus a 404 page, and no runtime dependencies.
+A static, server-rendered site for **Lifeline Crew** (manpower supply and recruitment, Tamil Nadu). It has 51 pages plus a 404 page, and no runtime dependencies.
 
 ```
 npm run build    # generate dist/ from src/
@@ -32,3 +32,4 @@ npm run images   # re-render OG image and icons (needs Chrome or Edge)
 6. WhatsApp scripts: `docs/06-whatsapp-scripts.md`
 7. Weekly report template: `docs/07-weekly-report-template.md`
 8. Also: paid bridge `docs/08-paid-bridge.md`, lead tracking `docs/09-lead-tracking.md`, owner questions `docs/10-owner-questions.md`, 90-day plan `docs/11-90-day-plan.md`, fact sheet and rules `docs/00-facts-and-rules.md`
+9. GEO analysis (AI-citation readiness): `docs/13-geo-analysis.md`

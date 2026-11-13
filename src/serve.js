@@ -5,7 +5,7 @@ const path = require('path');
 const zlib = require('zlib');
 const DIST = path.join(__dirname, '..', 'dist');
 const PORT = Number(process.argv[2] || process.env.PORT || 8080);
-const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'application/javascript', '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp', '.xml': 'application/xml', '.txt': 'text/plain; charset=utf-8' };
+const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'application/javascript', '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp', '.woff2': 'font/woff2', '.xml': 'application/xml', '.txt': 'text/plain; charset=utf-8' };
 const redirects = Object.fromEntries(fs.readFileSync(path.join(DIST, '_redirects'), 'utf8').trim().split('\n').map((l) => l.split(' ')));
 http.createServer((req, res) => {
   const u = decodeURIComponent(req.url.split('?')[0]);

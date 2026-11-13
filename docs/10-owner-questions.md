@@ -25,3 +25,8 @@ Ordered by impact on leads and on AI citations.
 Also decide:
 - Should model-training crawlers (GPTBot, ClaudeBot, Google-Extended) stay allowed? They are allowed in robots.txt by default.
 - Who replies on WhatsApp, and whether job seekers should get a separate number so employer leads are answered within 5 minutes.
+
+
+## New after the Lifeline Crew rename (13 Nov 2026)
+- Is "Lifeline Crew" on your signboard, GST or registration yet? The Business Profile can only be renamed when it is.
+- Will you keep www.lifelineplacements.com and lifelineplacements@gmail.com, or move to a new domain and email?

@@ -75,7 +75,7 @@ Limits: headlines 30 characters, descriptions 90 characters. Counts in brackets.
 
 Headlines:
 1. Manpower Supply in Chennai (26)
-2. Lifeline Placements (19)
+2. Lifeline Crew (19)
 3. Staff for Factories & Offices (29)
 4. Permanent, Contract or Bulk (27)
 5. Tell Us Role, Count and Date (28)
@@ -102,7 +102,7 @@ Headlines:
 5. Contract Staff for Factories (28)
 6. Plan Joining in Batches (23)
 7. Tell Us Headcount and Shift (27)
-8. Lifeline Placements Chennai (27)
+8. Lifeline Crew Chennai (27)
 9. Call or WhatsApp for a Quote (28)
 10. Employers Only, Not Job Ads (27)
 
@@ -120,7 +120,7 @@ Headlines:
 3. 20, 50 or More Workers? (23)
 4. Contract or Permanent Staff (27)
 5. Line-by-Line Staffing Quotes (28)
-6. Lifeline Placements (19)
+6. Lifeline Crew (19)
 7. Talk to Us on WhatsApp (22)
 8. Staff for Seasonal Peaks (24)
 9. For Employers Only (18)
@@ -176,7 +176,7 @@ Copy Ad 1's structure for ad groups 4 and 5, swapping in "Housekeeping Staff Sup
 ## Part B. Meta click-to-WhatsApp ads
 
 ### B1. Set-up
-- Objective: Engagement (or Leads) with conversion location WhatsApp, using +91 99622 99076 connected to the Facebook page "Lifeline Placements".
+- Objective: Engagement (or Leads) with conversion location WhatsApp, using +91 99622 99076 connected to the Facebook page "Lifeline Crew".
 - Meta may ask whether the ad is in a Special Ad Category such as Employment. These ads offer a staffing service to companies, not jobs to individuals, but follow Meta's review. If Meta classifies them as employment ads, age, gender and some targeting options will be restricted. Keep the copy clearly employer-focused.
 - Placements: Facebook and Instagram feeds, Stories and Reels.
 
@@ -212,7 +212,7 @@ Log the code in the lead sheet. Source = Paid Meta.
 ### B4. Creative concepts (real photos or simple text cards; no stock images, no staged "happy workers")
 
 **Concept 1: Housekeeping and office staff (META-HK)**
-- English: "Need housekeeping or office support staff? Tell us the site, how many people and the shift. Lifeline Placements, Aminjikarai, Chennai. For employers only."
+- English: "Need housekeeping or office support staff? Tell us the site, how many people and the shift. Lifeline Crew, Aminjikarai, Chennai. For employers only."
 - Tamil: "அலுவலகம், மருத்துவமனை அல்லது ஹாஸ்டலுக்கு ஹவுஸ்கீப்பிங் ஆட்கள் தேவையா? இடம், எத்தனை பேர், ஷிஃப்ட் நேரம் சொல்லுங்கள். நிறுவனங்களுக்கு மட்டும்."
 - Button: Send WhatsApp message.
 

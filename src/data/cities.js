@@ -1,4 +1,4 @@
-// City and district pages for Lifeline Placements.
+// City and district pages for Lifeline Crew.
 // Employers named here are local context only, never Lifeline clients.
 // Tokens such as {{TURNAROUND}} are filled in once the owner confirms the facts.
 
@@ -9,10 +9,10 @@ module.exports = [
     district: "Chennai",
     tamilName: "சென்னை",
     primaryKeyword: "manpower consultancy chennai",
-    title: "Manpower Consultancy in Chennai | Lifeline Placements",
+    title: "Manpower Consultancy in Chennai, Tamil Nadu | Lifeline Crew",
     description: "Office, IT support, showroom, hospital and factory staff for Chennai employers, from OMR and Guindy to Ambattur and T Nagar; WhatsApp or call +91 99622 99076.",
     h1: "Manpower Consultancy and Staffing in Chennai",
-    summary: "Lifeline Placements is a manpower consultancy based in Aminjikarai, Chennai. We supply staff to employers across the city: back-office and support staff for OMR and Guindy offices, operators and helpers for Ambattur and Guindy industrial units, sales staff for T Nagar showrooms, and ward and front-desk staff for hospitals. Openings can be filled within {{TURNAROUND}}, through permanent placement, contract staffing or bulk hiring. Chennai employers can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew is a manpower consultancy based in Aminjikarai, Chennai. We supply staff to employers across the city: back-office and support staff for OMR and Guindy offices, operators and helpers for Ambattur and Guindy industrial units, sales staff for T Nagar showrooms, and ward and front-desk staff for hospitals. Openings can be filled within {{TURNAROUND}}, through permanent placement, contract staffing or bulk hiring. Chennai employers can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "OMR (Rajiv Gandhi Salai)", note: "The IT corridor from Taramani and Perungudi to Sholinganallur, with TIDEL Park, tech parks and many BPO and back-office floors that work round-the-clock shifts." },
       { name: "Guindy", note: "Guindy Industrial Estate, one of the state's oldest industrial estates, sits beside office towers, so small engineering units and corporate offices share the same roads." },
@@ -72,7 +72,7 @@ module.exports = [
     title: "Manpower Supply in Sriperumbudur and Oragadam | Lifeline",
     description: "Operators, assemblers, quality and stores staff for plants in Sriperumbudur, Irungattukottai and Oragadam, sent from Chennai; WhatsApp or call +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Kanchipuram District",
-    summary: "Lifeline Placements supplies workers to plants in Sriperumbudur, Irungattukottai and Oragadam, and to employers in Kanchipuram town. Typical orders are machine operators, assembly line workers, quality inspectors, stores staff and housekeeping crews for car, two-wheeler, tyre and electronics factories. We work from our Chennai office in Aminjikarai, about an hour's drive from the SIPCOT estates, and can fill openings within {{TURNAROUND}}. Plant HR teams in the Sriperumbudur belt can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew supplies workers to plants in Sriperumbudur, Irungattukottai and Oragadam, and to employers in Kanchipuram town. Typical orders are machine operators, assembly line workers, quality inspectors, stores staff and housekeeping crews for car, two-wheeler, tyre and electronics factories. We work from our Chennai office in Aminjikarai, about an hour's drive from the SIPCOT estates, and can fill openings within {{TURNAROUND}}. Plant HR teams in the Sriperumbudur belt can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "SIPCOT Sriperumbudur", note: "Large industrial park on the Chennai-Bengaluru highway with electronics, glass and component plants, including the Foxconn and Samsung factories in the area." },
       { name: "SIPCOT Irungattukottai", note: "Home of Hyundai Motor India's car plant, surrounded by suppliers making seats, stampings, wiring harnesses and plastic parts." },
@@ -128,10 +128,10 @@ module.exports = [
     district: "Chengalpattu",
     tamilName: "செங்கல்பட்டு",
     primaryKeyword: "manpower agency chengalpattu",
-    title: "Manpower Agency in Chengalpattu | Lifeline Placements",
+    title: "Manpower Agency in Chengalpattu, Tamil Nadu | Lifeline Crew",
     description: "Factory, IT campus and hostel staff for Mahindra World City, Maraimalai Nagar, Siruseri and Kalpakkam, recruited from Chennai; WhatsApp or call +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Chengalpattu District",
-    summary: "Lifeline Placements recruits staff for employers in Chengalpattu district, from Mahindra World City and Maraimalai Nagar to Siruseri and Kalpakkam. We supply production operators and helpers for automotive and engineering units, support and facility staff for IT campuses, and hostel and campus service staff for colleges along GST Road. Requests are handled from our Chennai office and can be filled within {{TURNAROUND}}. Employers in Chengalpattu district can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits staff for employers in Chengalpattu district, from Mahindra World City and Maraimalai Nagar to Siruseri and Kalpakkam. We supply production operators and helpers for automotive and engineering units, support and facility staff for IT campuses, and hostel and campus service staff for colleges along GST Road. Requests are handled from our Chennai office and can be filled within {{TURNAROUND}}. Employers in Chengalpattu district can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "Mahindra World City", note: "Integrated business city near Paranur with SEZ and domestic zones, where BMW's car plant, Infosys and other IT and engineering firms operate." },
       { name: "Maraimalai Nagar", note: "Planned satellite town on GST Road with engineering and auto component units, and housing used by many workers in the belt." },
@@ -185,10 +185,10 @@ module.exports = [
     district: "Tiruvallur",
     tamilName: "திருவள்ளூர்",
     primaryKeyword: "manpower consultancy tiruvallur",
-    title: "Manpower Consultancy in Tiruvallur | Lifeline Placements",
+    title: "Manpower Consultancy in Tiruvallur | Lifeline Crew",
     description: "Welders, fitters, operators, loaders and drivers for Gummidipoondi, Thiruvallur, Avadi and the Kattupalli port belt, from Chennai office; call +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Tiruvallur District",
-    summary: "Lifeline Placements supplies workers to employers across Tiruvallur district, including SIPCOT Gummidipoondi, the Thiruvallur and Avadi industrial belt, and the port area around Kattupalli. We recruit welders, fitters, machine operators, helpers, stores staff and drivers for steel, chemical, engineering and port-linked units. The district borders Chennai, so we cover it from our Aminjikarai office and can fill most openings within {{TURNAROUND}}. Tiruvallur employers can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew supplies workers to employers across Tiruvallur district, including SIPCOT Gummidipoondi, the Thiruvallur and Avadi industrial belt, and the port area around Kattupalli. We recruit welders, fitters, machine operators, helpers, stores staff and drivers for steel, chemical, engineering and port-linked units. The district borders Chennai, so we cover it from our Aminjikarai office and can fill most openings within {{TURNAROUND}}. Tiruvallur employers can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "SIPCOT Gummidipoondi", note: "Industrial complex near the Andhra Pradesh border with steel, chemical, plastics and auto component units; SIPCOT is developing a further park at Manallur nearby." },
       { name: "Thiruvallur town", note: "Caterpillar has built off-highway trucks at Thiruvallur since 1971 and added a backhoe loader plant there in 2012, with suppliers in the surrounding area." },
@@ -239,10 +239,10 @@ module.exports = [
     district: "Coimbatore",
     tamilName: "கோயம்புத்தூர்",
     primaryKeyword: "manpower agency coimbatore",
-    title: "Manpower Agency in Coimbatore | Lifeline Placements",
+    title: "Manpower Agency in Coimbatore, Tamil Nadu | Lifeline Crew",
     description: "CNC operators, motor winders, foundry hands, mill workers and office staff for Coimbatore employers, recruited from Chennai office; WhatsApp +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Coimbatore",
-    summary: "Lifeline Placements recruits staff for Coimbatore employers in pumps, motors, foundries, textile mills, IT offices and hospitals. Common requests are CNC operators, foundry helpers, motor winders, assemblers, quality staff, office assistants and ward staff. We do not have a Coimbatore branch; requests are handled from our Chennai office, and profiles for common roles can be shared within {{TURNAROUND}}. Coimbatore employers can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits staff for Coimbatore employers in pumps, motors, foundries, textile mills, IT offices and hospitals. Common requests are CNC operators, foundry helpers, motor winders, assemblers, quality staff, office assistants and ward staff. We do not have a Coimbatore branch; requests are handled from our Chennai office, and profiles for common roles can be shared within {{TURNAROUND}}. Coimbatore employers can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "SIDCO Industrial Estate, Kurichi", note: "Older estate in south Coimbatore with around 120 small engineering, pump and component units; a gold jewellery park is planned on part of it." },
       { name: "SIDCO Industrial Estate, Malumichampatti", note: "Industrial estate off Pollachi Road with engineering units, close to L&T's casting manufacturing unit." },
@@ -297,10 +297,10 @@ module.exports = [
     district: "Tiruppur",
     tamilName: "திருப்பூர்",
     primaryKeyword: "manpower supply tiruppur",
-    title: "Garment Manpower Supply in Tiruppur | Lifeline Placements",
+    title: "Garment Manpower Supply in Tiruppur | Lifeline Crew",
     description: "Tailors, checkers, ironing staff, packers and helpers for Tiruppur knitwear exporters and dyeing units, from Chennai; WhatsApp or call +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Tiruppur",
-    summary: "Lifeline Placements helps Tiruppur knitwear exporters and their job-work units find tailors, checkers, ironing staff, packers and helpers. We also recruit dyeing machine operators, merchandising assistants and office staff for export houses. Requests are handled from our Chennai office, not a local branch, and profiles for common roles can be shared within {{TURNAROUND}}. Garment exporters and dyeing units in Tiruppur can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew helps Tiruppur knitwear exporters and their job-work units find tailors, checkers, ironing staff, packers and helpers. We also recruit dyeing machine operators, merchandising assistants and office staff for export houses. Requests are handled from our Chennai office, not a local branch, and profiles for common roles can be shared within {{TURNAROUND}}. Garment exporters and dyeing units in Tiruppur can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "Netaji Apparel Park", note: "Export garment park linked to the Tiruppur Exporters' Association, with over 50 knitwear units on more than 150 acres." },
       { name: "Mudalipalayam SIDCO", note: "Industrial estate in south Tiruppur with garment and allied units, with migrant worker housing in the surrounding area." },
@@ -348,10 +348,10 @@ module.exports = [
     district: "Erode",
     tamilName: "ஈரோடு",
     primaryKeyword: "manpower consultancy erode",
-    title: "Manpower Consultancy in Erode | Lifeline Placements",
+    title: "Manpower Consultancy in Erode, Tamil Nadu | Lifeline Crew",
     description: "Loom operators, dyeing helpers, turmeric graders, packers and office staff for Erode, Perundurai and Bhavani units, from Chennai; call +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Erode",
-    summary: "Lifeline Placements recruits workers for Erode's textile processors, powerloom and handloom units, turmeric traders and the factories at SIPCOT Perundurai. Typical roles are loom operators, dyeing helpers, packers, warehouse staff, accounts assistants and drivers. We serve Erode from our Chennai office, about 400 km away, and can share profiles within {{TURNAROUND}} for common roles. Erode employers can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits workers for Erode's textile processors, powerloom and handloom units, turmeric traders and the factories at SIPCOT Perundurai. Typical roles are loom operators, dyeing helpers, packers, warehouse staff, accounts assistants and drivers. We serve Erode from our Chennai office, about 400 km away, and can share profiles within {{TURNAROUND}} for common roles. Erode employers can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "SIPCOT Perundurai", note: "Industrial estate set up in 2000 on about 2,000 acres, with textile processing, engineering and leather units, many moved from Tiruppur, Coimbatore and Erode city." },
       { name: "Erode turmeric market", note: "Regulated market and private yards where turmeric is auctioned, graded, polished and bagged, with the heaviest activity after the harvest early in the year." },
@@ -401,10 +401,10 @@ module.exports = [
     district: "Salem",
     tamilName: "சேலம்",
     primaryKeyword: "manpower agency salem",
-    title: "Manpower Agency in Salem and Mettur | Lifeline Placements",
+    title: "Manpower Agency in Salem and Mettur | Lifeline Crew",
     description: "Fitters, electricians, operators, sago unit workers, weavers and sales staff for Salem and Mettur employers, from our Chennai office; WhatsApp +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Salem",
-    summary: "Lifeline Placements supplies staff to Salem employers in steel, sago and starch processing, power, chemicals, textiles and retail. Common requests are machine operators, fitters, electricians, helpers, packers, weavers and showroom sales staff. We have no branch in Salem; recruitment is run from our Chennai office, about 340 km away, and profiles for common roles can be shared within {{TURNAROUND}}. Salem employers can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew supplies staff to Salem employers in steel, sago and starch processing, power, chemicals, textiles and retail. Common requests are machine operators, fitters, electricians, helpers, packers, weavers and showroom sales staff. We have no branch in Salem; recruitment is run from our Chennai office, about 340 km away, and profiles for common roles can be shared within {{TURNAROUND}}. Salem employers can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "Salem Steel Plant", note: "SAIL's stainless steel plant, operating since 1981, which makes hot rolled and cold rolled stainless steel and relies on maintenance contractors." },
       { name: "Pottaneri", note: "Site of JSW Steel's Salem works near Mettur, a special steel plant formerly run by Southern Iron and Steel." },
@@ -446,7 +446,7 @@ module.exports = [
     faqs: [
       { q: "Can you supply fitters and welders for a plant shutdown in Salem?", a: "Yes, for a planned shutdown, give us the dates, trades and headcount a few weeks ahead, and we recruit fitters, welders, riggers and helpers on short contracts. Candidates bring trade certificates and complete safety induction at your site. Profiles for Salem roles can be shared within {{TURNAROUND}}[[, up to {{CAPACITY}} people]]." },
       { q: "Do you recruit workers for sago and starch units?", a: "Yes, we recruit machine operators, drying-yard workers, packers and loaders for tapioca processing units, mainly for the processing season. Tell us whether you provide stay and food, as many workers travel from nearby villages. Contract staffing lets you release workers when the season ends. Our charge for Salem roles is {{FEE}}." },
-      { q: "Do you have an office in Salem?", a: "No, Lifeline Placements works from one office in Aminjikarai, Chennai. We recruit for Salem by phone and video screening, and shortlisted candidates meet you at your premises. If a role needs a face-to-face test, we plan it around your schedule so candidates travel only once." }
+      { q: "Do you have an office in Salem?", a: "No, Lifeline Crew works from one office in Aminjikarai, Chennai. We recruit for Salem by phone and video screening, and shortlisted candidates meet you at your premises. If a role needs a face-to-face test, we plan it around your schedule so candidates travel only once." }
     ],
     relatedIndustries: ["manufacturing", "textile-garments", "retail-showrooms"],
     nearby: ["namakkal", "erode", "krishnagiri"]
@@ -460,7 +460,7 @@ module.exports = [
     title: "Manpower Supply in Namakkal and Tiruchengode | Lifeline",
     description: "Welders, painters, rig fitters, poultry and feed mill workers and drivers for Namakkal and Tiruchengode, from Chennai; WhatsApp or call +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Namakkal",
-    summary: "Lifeline Placements recruits workers for Namakkal's lorry body builders, the borewell rig fabricators of Tiruchengode, poultry farms, feed mills and transport companies. We supply welders, fabricators, painters, farm and feed mill workers, drivers and office staff. Requests are handled from our Chennai office, about 380 km away, and profiles for common roles can be shared within {{TURNAROUND}}. Namakkal and Tiruchengode employers can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits workers for Namakkal's lorry body builders, the borewell rig fabricators of Tiruchengode, poultry farms, feed mills and transport companies. We supply welders, fabricators, painters, farm and feed mill workers, drivers and office staff. Requests are handled from our Chennai office, about 380 km away, and profiles for common roles can be shared within {{TURNAROUND}}. Namakkal and Tiruchengode employers can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "Namakkal body-building workshops", note: "Workshops building lorry, trailer, tipper and tanker bodies on truck chassis, a trade in Namakkal since the 1950s." },
       { name: "Tiruchengode", note: "Centre for borewell and water-well drilling rig manufacturing, with rig trucks sent across India and abroad." },
@@ -507,10 +507,10 @@ module.exports = [
     district: "Karur",
     tamilName: "கரூர்",
     primaryKeyword: "manpower agency karur",
-    title: "Manpower Agency in Karur for Textiles | Lifeline Placements",
+    title: "Manpower Agency in Karur for Textiles | Lifeline Crew",
     description: "Stitching operators, weavers, checkers, packers, bus body welders and painters for Karur exporters and workshops, from our Chennai office; call +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Karur",
-    summary: "Lifeline Placements recruits staff for Karur's home textile exporters, bus body builders, the paper industry and local offices. We supply weavers, stitching operators, checkers, packers, welders, painters, merchandising assistants and accounts staff. We serve Karur from our Chennai office, roughly 400 km away, and profiles for common roles can be shared within {{TURNAROUND}}. Karur exporters and workshop owners can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits staff for Karur's home textile exporters, bus body builders, the paper industry and local offices. We supply weavers, stitching operators, checkers, packers, welders, painters, merchandising assistants and accounts staff. We serve Karur from our Chennai office, roughly 400 km away, and profiles for common roles can be shared within {{TURNAROUND}}. Karur exporters and workshop owners can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "Karur home textile cluster", note: "Exporters and job-work units making bed linen, kitchen linen, table linen and curtains for foreign chain stores." },
       { name: "Karur bus body workshops", note: "Workshops that build bodies for a large share of the private buses running in South India." },
@@ -559,10 +559,10 @@ module.exports = [
     district: "Madurai",
     tamilName: "மதுரை",
     primaryKeyword: "manpower consultancy madurai",
-    title: "Manpower Consultancy in Madurai | Lifeline Placements",
+    title: "Manpower Consultancy in Madurai, Tamil Nadu | Lifeline Crew",
     description: "Ward staff, front-office, tyre plant operators, IT support and showroom staff for Madurai employers, recruited from Chennai office; WhatsApp +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Madurai",
-    summary: "Lifeline Placements recruits staff for Madurai employers in healthcare, tyres, granite, IT services, retail and hotels. Typical roles are ward assistants, front-office staff, machine operators, granite polishers, IT support staff, room attendants and sales staff. We have no Madurai branch; we serve the city from our Chennai office, about 460 km away, and can share profiles within {{TURNAROUND}}. Madurai employers can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits staff for Madurai employers in healthcare, tyres, granite, IT services, retail and hotels. Typical roles are ward assistants, front-office staff, machine operators, granite polishers, IT support staff, room attendants and sales staff. We have no Madurai branch; we serve the city from our Chennai office, about 460 km away, and can share profiles within {{TURNAROUND}}. Madurai employers can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "Kappalur Industrial Estate", note: "SIDCO industrial estate near Thirumangalam, south-west of Madurai, with small and mid-sized manufacturing units." },
       { name: "Vellaripatti", note: "Village near Madurai where TVS Srichakra makes two-wheeler and other tyres and has approved capacity expansion." },
@@ -621,7 +621,7 @@ module.exports = [
     title: "Manpower Agency in Dindigul and Kodaikanal | Lifeline",
     description: "Spinning mill operatives, lock assemblers, tannery helpers, market loaders and hotel staff for Dindigul district, from our Chennai office; call +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Dindigul",
-    summary: "Lifeline Placements recruits workers for Dindigul's spinning mills, lock makers, tanneries, vegetable traders and the hotels of Kodaikanal. We supply mill operatives, fitters, lock assembly workers, tannery helpers, loaders, drivers and hotel staff. We serve the district from our Chennai office, roughly 420 km away, without a local branch, and profiles for common roles can be shared within {{TURNAROUND}}. Dindigul employers can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits workers for Dindigul's spinning mills, lock makers, tanneries, vegetable traders and the hotels of Kodaikanal. We supply mill operatives, fitters, lock assembly workers, tannery helpers, loaders, drivers and hotel staff. We serve the district from our Chennai office, roughly 420 km away, without a local branch, and profiles for common roles can be shared within {{TURNAROUND}}. Dindigul employers can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "Dindigul lock cluster", note: "Lock and hardware units in and around Dindigul town; Dindigul locks received a GI tag in 2019." },
       { name: "Vedasandur", note: "Town on the Karur road with a concentration of cotton spinning mills." },
@@ -674,10 +674,10 @@ module.exports = [
     district: "Tiruchirappalli",
     tamilName: "திருச்சிராப்பள்ளி",
     primaryKeyword: "manpower consultancy trichy",
-    title: "Manpower Consultancy in Trichy | Lifeline Placements",
+    title: "Manpower Consultancy in Trichy, Tamil Nadu | Lifeline Crew",
     description: "IBR welders, fitters, grinders, ward staff and hostel staff for Trichy fabricators, hospitals and colleges, from our Chennai office; WhatsApp +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Tiruchirappalli (Trichy)",
-    summary: "Lifeline Placements recruits staff for Tiruchirappalli employers in heavy engineering, fabrication, hospitals and education. We supply welders, fitters, grinders, machine operators, ward staff, hostel staff and office assistants. Trichy is served from our Chennai office, about 330 km away, as we have no local branch. Profiles for common roles can be shared within {{TURNAROUND}}. Fabricators, hospitals and colleges in Trichy can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits staff for Tiruchirappalli employers in heavy engineering, fabrication, hospitals and education. We supply welders, fitters, grinders, machine operators, ward staff, hostel staff and office assistants. Trichy is served from our Chennai office, about 330 km away, as we have no local branch. Profiles for common roles can be shared within {{TURNAROUND}}. Fabricators, hospitals and colleges in Trichy can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "BHEL Tiruchirappalli", note: "BHEL's boiler plant and seamless steel tube unit, within Thuvakudi municipal limits, anchor the city's engineering base." },
       { name: "Thuvakudi SIDCO Industrial Estate", note: "Large SIDCO estate of about 478 acres where many BHEL ancillary fabricators and engineering units operate." },
@@ -720,7 +720,7 @@ module.exports = [
     faqs: [
       { q: "Can you supply IBR-qualified welders for BHEL ancillary work in Trichy?", a: "Yes, we recruit welders with IBR and other code qualifications, along with fitters, grinders and gas cutters. Tell us the process, such as TIG or SMAW, the material, and the qualification you need. We check certificates and can arrange a test at your unit. Profiles for Trichy roles can be shared within {{TURNAROUND}}." },
       { q: "Can you staff a college hostel or mess in Trichy?", a: "Yes, we recruit cooks, kitchen helpers, wardens and cleaners for college hostels and messes. Tell us the number of students, meals per day and whether staff live on campus.[[ Larger teams up to {{CAPACITY}} can be planned for the start of an academic year.]] Our charge for Trichy roles is {{FEE}}." },
-      { q: "Do you have a Trichy office?", a: "No, Lifeline Placements works from Aminjikarai in Chennai and covers Trichy from there. We screen candidates by phone and video and send shortlisted people to your premises. For skilled trades, we can arrange tests at your unit so you see the work before you decide." }
+      { q: "Do you have a Trichy office?", a: "No, Lifeline Crew works from Aminjikarai in Chennai and covers Trichy from there. We screen candidates by phone and video and send shortlisted people to your premises. For skilled trades, we can arrange tests at your unit so you see the work before you decide." }
     ],
     relatedIndustries: ["manufacturing", "hospitals-clinics", "hostels-service-apartments"],
     nearby: ["thanjavur", "karur", "madurai"]
@@ -731,10 +731,10 @@ module.exports = [
     district: "Thanjavur",
     tamilName: "தஞ்சாவூர்",
     primaryKeyword: "manpower agency thanjavur",
-    title: "Manpower Agency in Thanjavur | Lifeline Placements",
+    title: "Manpower Agency in Thanjavur, Tamil Nadu | Lifeline Crew",
     description: "Rice mill operators, loaders, hospital support, hostel cooks and hotel staff for Thanjavur and Kumbakonam, recruited from Chennai; WhatsApp +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Thanjavur",
-    summary: "Lifeline Placements recruits workers for Thanjavur's rice mills, food processing units, hospitals, colleges, temple-town hotels and showrooms. We supply mill operators, helpers, packers, drivers, ward staff, hostel cooks and sales staff. The district is served from our Chennai office, roughly 340 km away; we have no local branch. Profiles for common roles in the delta can be shared within {{TURNAROUND}}. Employers in Thanjavur and the delta can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits workers for Thanjavur's rice mills, food processing units, hospitals, colleges, temple-town hotels and showrooms. We supply mill operators, helpers, packers, drivers, ward staff, hostel cooks and sales staff. The district is served from our Chennai office, roughly 340 km away; we have no local branch. Profiles for common roles in the delta can be shared within {{TURNAROUND}}. Employers in Thanjavur and the delta can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "Thanjavur town", note: "District headquarters with the Brihadeeswarar Temple, Thanjavur Medical College and a busy retail and hotel trade." },
       { name: "NIFTEM campus, Thanjavur", note: "National food technology institute that began in 1968 as a paddy processing research centre and now runs a food business incubation centre." },
@@ -787,10 +787,10 @@ module.exports = [
     district: "Tirunelveli",
     tamilName: "திருநெல்வேலி",
     primaryKeyword: "manpower consultancy tirunelveli",
-    title: "Manpower Consultancy in Tirunelveli | Lifeline Placements",
+    title: "Manpower Consultancy in Tirunelveli | Lifeline Crew",
     description: "Solar line operators, technicians, project site workers, hospital and showroom staff for Tirunelveli district, from our Chennai office; call +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Tirunelveli",
-    summary: "Lifeline Placements recruits staff for employers in Tirunelveli district, including the solar manufacturing plants at SIPCOT Gangaikondan, hospitals and colleges in Palayamkottai, and contractors at large energy and space projects. We supply production operators, technicians, helpers, housekeeping, ward and office staff. We serve the district from our Chennai office, about 620 km away, and can share profiles within {{TURNAROUND}}. Tirunelveli employers can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits staff for employers in Tirunelveli district, including the solar manufacturing plants at SIPCOT Gangaikondan, hospitals and colleges in Palayamkottai, and contractors at large energy and space projects. We supply production operators, technicians, helpers, housekeeping, ward and office staff. We serve the district from our Chennai office, about 620 km away, and can share profiles within {{TURNAROUND}}. Tirunelveli employers can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "SIPCOT Gangaikondan", note: "Industrial park north of Tirunelveli with Tata Power's 4.3 GW solar cell and module plant and Vikram Solar's module plant, with a cell plant planned." },
       { name: "Palayamkottai", note: "Education and healthcare centre of the city, with many colleges, schools and hospitals, including Tirunelveli Medical College." },
@@ -847,7 +847,7 @@ module.exports = [
     title: "Manpower Agency in Nagercoil, Kanyakumari | Lifeline",
     description: "Hospital, hotel, seafood, rubber and coir unit staff for Nagercoil and Kanyakumari district, recruited from Chennai office; WhatsApp or call +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Nagercoil and Kanyakumari",
-    summary: "Lifeline Placements recruits staff for employers in Nagercoil and the rest of Kanyakumari district, in rubber, fisheries and seafood, coir, hospitals, colleges and tourism. We supply estate and processing workers, packers, ward staff, hotel staff, drivers and office assistants. Nagercoil is about 700 km from our Chennai office, and we serve it from there by phone and video. Profiles can be shared within {{TURNAROUND}}. Kanyakumari district employers can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits staff for employers in Nagercoil and the rest of Kanyakumari district, in rubber, fisheries and seafood, coir, hospitals, colleges and tourism. We supply estate and processing workers, packers, ward staff, hotel staff, drivers and office assistants. Nagercoil is about 700 km from our Chennai office, and we serve it from there by phone and video. Profiles can be shared within {{TURNAROUND}}. Kanyakumari district employers can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "Nagercoil town", note: "Headquarters of Kanyakumari district, with hospitals, colleges, textile showrooms and the Kanyakumari Government Medical College at Asaripallam." },
       { name: "Kalkulam and Vilavancode rubber estates", note: "Rubber is grown across the district's western taluks, including in reserve forests; the district has about 3% of India's rubber area." },
@@ -901,7 +901,7 @@ module.exports = [
     title: "Manpower Agency in Tuticorin (Thoothukudi) | Lifeline",
     description: "EV assembly operators, port and yard staff, seafood packers, salt pan workers and drivers for Thoothukudi, from our Chennai office; WhatsApp +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Thoothukudi (Tuticorin)",
-    summary: "Lifeline Placements recruits staff for Thoothukudi employers in electric vehicles, port and logistics, seafood, salt, chemicals and power. We supply assembly operators, technicians, forklift operators, loaders, seafood processing workers, packers, drivers and office staff. We serve the district from our Chennai office, about 600 km away, with no local branch, and can share profiles within {{TURNAROUND}}. Tuticorin employers can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits staff for Thoothukudi employers in electric vehicles, port and logistics, seafood, salt, chemicals and power. We supply assembly operators, technicians, forklift operators, loaders, seafood processing workers, packers, drivers and office staff. We serve the district from our Chennai office, about 600 km away, with no local branch, and can share profiles within {{TURNAROUND}}. Tuticorin employers can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "SIPCOT Thoothukudi", note: "Industrial park where VinFast opened its electric vehicle assembly plant in August 2025, with initial capacity of about 50,000 vehicles a year." },
       { name: "V.O. Chidambaranar Port", note: "One of India's major ports, handling containers, coal and bulk cargo including salt, with yards and transporters around it." },
@@ -954,10 +954,10 @@ module.exports = [
     district: "Vellore",
     tamilName: "வேலூர்",
     primaryKeyword: "manpower consultancy vellore",
-    title: "Manpower Consultancy in Vellore | Lifeline Placements",
+    title: "Manpower Consultancy in Vellore, Tamil Nadu | Lifeline Crew",
     description: "Ward assistants, lodge and hostel staff, leather unit workers and operators for Vellore and nearby towns, from Chennai; WhatsApp or call +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Vellore",
-    summary: "Lifeline Placements recruits staff for Vellore employers in healthcare, education, lodges and the leather and engineering units of the wider region. We supply ward assistants, patient attendants, front-office staff, hostel and lodge staff, cooks, machine operators and leather unit workers. Vellore is about 140 km from our Chennai office, which serves it directly, and profiles can be shared within {{TURNAROUND}}. Vellore employers can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits staff for Vellore employers in healthcare, education, lodges and the leather and engineering units of the wider region. We supply ward assistants, patient attendants, front-office staff, hostel and lodge staff, cooks, machine operators and leather unit workers. Vellore is about 140 km from our Chennai office, which serves it directly, and profiles can be shared within {{TURNAROUND}}. Vellore employers can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "CMC Vellore and Ida Scudder Road", note: "Christian Medical College's main hospital in the town centre, which draws patients from across India, especially the east and north-east." },
       { name: "Katpadi", note: "Railway junction suburb on the Chennai-Bengaluru line, with VIT's main campus." },
@@ -1009,10 +1009,10 @@ module.exports = [
     district: "Krishnagiri",
     tamilName: "ஓசூர்",
     primaryKeyword: "manpower supply hosur",
-    title: "Manpower Supply in Hosur SIPCOT | Lifeline Placements",
+    title: "Manpower Supply in Hosur SIPCOT, Tamil Nadu | Lifeline Crew",
     description: "Assembly and CNC operators, quality inspectors, stores staff and housekeeping for Hosur auto, EV and electronics plants, from Chennai; WhatsApp +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Hosur",
-    summary: "Lifeline Placements supplies workers to Hosur's two-wheeler, commercial vehicle, electric scooter, watch and electronics plants and their suppliers. Common requests are assembly operators, CNC operators, quality inspectors, stores staff, forklift drivers and housekeeping crews. We serve Hosur from our Chennai office, about 300 km away; we have no local branch. Profiles for common Hosur plant roles can be shared within {{TURNAROUND}}. Plant HR teams in Hosur can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew supplies workers to Hosur's two-wheeler, commercial vehicle, electric scooter, watch and electronics plants and their suppliers. Common requests are assembly operators, CNC operators, quality inspectors, stores staff, forklift drivers and housekeeping crews. We serve Hosur from our Chennai office, about 300 km away; we have no local branch. Profiles for common Hosur plant roles can be shared within {{TURNAROUND}}. Plant HR teams in Hosur can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "SIPCOT Hosur Phase I", note: "The older SIPCOT estate in Hosur, with automotive, engineering and electrical plants and many component suppliers." },
       { name: "SIPCOT Hosur Phase II", note: "Second SIPCOT phase with more engineering, electrical and component plants; Ultraviolette is setting up an electric motorcycle plant at SIPCOT Hosur." },
@@ -1065,10 +1065,10 @@ module.exports = [
     district: "Krishnagiri",
     tamilName: "கிருஷ்ணகிரி",
     primaryKeyword: "manpower agency krishnagiri",
-    title: "Manpower Agency in Krishnagiri | Lifeline Placements",
+    title: "Manpower Agency in Krishnagiri, Tamil Nadu | Lifeline Crew",
     description: "Operators, line helpers, mango pulp season workers, packers and drivers for Pochampalli, Shoolagiri and Krishnagiri town, from Chennai; call +91 99622 99076.",
     h1: "Manpower Supply and Recruitment in Krishnagiri District",
-    summary: "Lifeline Placements recruits workers for Krishnagiri district outside Hosur: the electric scooter plant at Pochampalli, the new SIPCOT parks around Shoolagiri, and the mango pulp units around Krishnagiri town. We supply assembly operators, line helpers, packers, seasonal processing workers, drivers and office staff. The district is served from our Chennai office, about 250 km away, and profiles can be shared within {{TURNAROUND}}. Krishnagiri employers can WhatsApp or call +91 99622 99076.",
+    summary: "Lifeline Crew recruits workers for Krishnagiri district outside Hosur: the electric scooter plant at Pochampalli, the new SIPCOT parks around Shoolagiri, and the mango pulp units around Krishnagiri town. We supply assembly operators, line helpers, packers, seasonal processing workers, drivers and office staff. The district is served from our Chennai office, about 250 km away, and profiles can be shared within {{TURNAROUND}}. Krishnagiri employers can WhatsApp or call +91 99622 99076.",
     areas: [
       { name: "Pochampalli", note: "SIPCOT area where Ola Electric built its Futurefactory for electric scooters, on land that also holds its cell Gigafactory project." },
       { name: "Shoolagiri", note: "Taluk on the Hosur-Krishnagiri highway where SIPCOT is developing large industrial parks and a proposed Future Mobility Park." },

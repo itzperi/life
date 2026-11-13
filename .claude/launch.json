@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "lifeline-site",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["src/serve.js", "8080"],
+      "port": 8080
+    },
+    {
+      "name": "lifeline-site-alt",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["src/serve.js", "8097"],
+      "port": 8097
+    }
+  ]
+}
