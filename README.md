@@ -33,3 +33,4 @@ npm run images   # re-render OG image and icons (needs Chrome or Edge)
 7. Weekly report template: `docs/07-weekly-report-template.md`
 8. Also: paid bridge `docs/08-paid-bridge.md`, lead tracking `docs/09-lead-tracking.md`, owner questions `docs/10-owner-questions.md`, 90-day plan `docs/11-90-day-plan.md`, fact sheet and rules `docs/00-facts-and-rules.md`
 9. GEO analysis (AI-citation readiness): `docs/13-geo-analysis.md`
+10. Lead machine plan (120 enquiries a day): `docs/14-lead-machine-plan.md`

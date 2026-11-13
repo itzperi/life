@@ -78,18 +78,22 @@
   // Crew request composer: role chips, headcount stepper, city and date write the WhatsApp message live.
   var cmps = d.querySelectorAll('[data-composer]');
   for (var ci = 0; ci < cmps.length; ci++) (function (cm) {
-    var st = { role: '', n: 10, city: '', when: 'within a week', ctx: cm.getAttribute('data-ctx') || '' };
+    var w0 = cm.querySelector('[data-when]'); var st = { role: '', n: 10, city: '', when: w0 ? w0.getAttribute('data-when') : 'within a week', ctx: cm.getAttribute('data-ctx') || '' };
     var pv = cm.querySelector('[data-preview]'), send = cm.querySelector('[data-send]'), out = cm.querySelector('[data-count]'), sel = cm.querySelector('[data-city]');
     var chips = cm.querySelectorAll('[data-role]'), whens = cm.querySelectorAll('[data-when]');
     for (var z = 0; z < chips.length; z++) { chips[z].setAttribute('role', 'button'); chips[z].setAttribute('aria-pressed', z === 0 ? 'true' : 'false'); }
     if (chips[0]) st.role = chips[0].getAttribute('data-role');
     if (sel) st.city = sel.value;
-    function msg() { return 'Hi Lifeline Crew, I need ' + st.n + ' ' + st.role + (st.ctx ? ' ' + st.ctx : '') + (st.city ? ' in ' + st.city : '') + ', needed ' + st.when + '.'; }
+    var ta = cm.getAttribute('data-lang') === 'ta';
+    function msg() {
+      if (ta) return 'வணக்கம் Lifeline Crew,\nதேவை: ' + st.n + ' ' + st.role + (st.ctx ? ' ' + st.ctx : '') + '\nஇடம்: ' + (st.city || 'தமிழ்நாடு') + '\nஎப்போது: ' + st.when;
+      return 'Hi Lifeline Crew, I need ' + st.n + ' ' + st.role + (st.ctx ? ' ' + st.ctx : '') + (st.city ? ' in ' + st.city : '') + ', needed ' + st.when + '.';
+    }
     function render() {
       var m = msg();
       if (pv) pv.textContent = m;
       if (out) out.textContent = st.n;
-      if (send) send.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(m + '\nShift timing: \nAnything else: \n\nRef: ' + SRC);
+      if (send) send.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(m + (ta ? '\nஷிப்ட் நேரம்: \nவேறு விவரம்: ' : '\nShift timing: \nAnything else: ') + '\n\nRef: ' + SRC);
     }
     function press(list, el) { for (var k = 0; k < list.length; k++) list[k].setAttribute('aria-pressed', list[k] === el ? 'true' : 'false'); }
     for (var k = 0; k < chips.length; k++) chips[k].addEventListener('click', function (e) { e.preventDefault(); st.role = this.getAttribute('data-role'); press(chips, this); render(); });

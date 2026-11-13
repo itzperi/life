@@ -104,28 +104,38 @@ function pickerChips(loc, context) {
 // A WhatsApp-style card that writes the employer's requirement as they tap: role, headcount, city, date.
 // Without JavaScript every role chip is still a plain wa.me link with a prefilled message, and the send button works.
 const firstLower = (s) => (/^[A-Z][a-z]/.test(s) ? s.charAt(0).toLowerCase() + s.slice(1) : s);
-function composer({ loc = 'composer', roles = [], ctx = '', city = '', title = 'Build your staff request' } = {}) {
+const CMP_TEXT = {
+  en: { sub: 'Lifeline Crew replies on WhatsApp', who: 'Who do you need?', many: 'How many', fewer: 'Fewer people', more: 'More people', where: 'Where', any: 'Any Tamil Nadu location', when: 'When', whenLabel: 'When do you need them', send: 'Send on WhatsApp', note: 'Opens WhatsApp with this message. Nothing is sent until you press send.',
+    whens: [['within a week', 'This week'], ['within 2 weeks', '2 weeks'], ['within a month', 'This month']] },
+  ta: { sub: 'Lifeline Crew WhatsApp-ல் பதில் அளிக்கும்', who: 'யார் தேவை?', many: 'எத்தனை பேர்', fewer: 'குறைக்க', more: 'கூட்ட', where: 'எங்கே', any: 'தமிழ்நாட்டில் எந்த இடமும்', when: 'எப்போது', whenLabel: 'எப்போது தேவை', send: 'WhatsApp-ல் அனுப்புங்கள்', note: 'இந்த செய்தியுடன் WhatsApp திறக்கும். நீங்கள் அனுப்பும் வரை எதுவும் அனுப்பப்படாது.',
+    whens: [['ஒரு வாரத்துக்குள்', 'இந்த வாரம்'], ['2 வாரத்துக்குள்', '2 வாரம்'], ['ஒரு மாதத்துக்குள்', 'இந்த மாதம்']] },
+};
+// Message format shared with site.js. Tamil uses labelled lines to avoid case endings on city names.
+const cmpMsg = (lang, n, role, ctx, city, when) => (lang === 'ta'
+  ? `வணக்கம் Lifeline Crew,\nதேவை: ${n} ${role}${ctx ? ' ' + ctx : ''}\nஇடம்: ${city || 'தமிழ்நாடு'}\nஎப்போது: ${when}`
+  : `Hi Lifeline Crew, I need ${n} ${role}${ctx ? ' ' + ctx : ''}${city ? ' in ' + city : ''}, needed ${when}.`);
+function composer({ loc = 'composer', roles = [], ctx = '', city = '', title = 'Build your staff request', lang = 'en' } = {}) {
+  const T = CMP_TEXT[lang] || CMP_TEXT.en;
   const cities = require('../data/cities').map((c) => c.name);
   const list = roles.length ? roles : PICKER.map(([l]) => l);
-  const roleMsg = (r) => `Hi Lifeline Crew, I need ${firstLower(r)}${ctx ? ' ' + ctx : ''}${city ? ' in ' + city : ''}.\nHow many: \nWork location: \nNeeded by: `;
-  const first = `Hi Lifeline Crew, I need 10 ${firstLower(list[0])}${ctx ? ' ' + ctx : ''}${city ? ' in ' + city : ''}, needed within a week.`;
-  const whens = [['within a week', 'This week'], ['within 2 weeks', '2 weeks'], ['within a month', 'This month']];
-  return `<aside class="cmp" data-composer data-ctx="${esc(ctx)}" aria-labelledby="cmp-${loc}">
-<div class="cmp-top"><span class="cmp-av">${ICON.logo}</span><div><p class="cmp-name" id="cmp-${loc}">${esc(title)}</p><p class="cmp-sub">Lifeline Crew replies on WhatsApp</p></div></div>
+  const roleMsg = (r) => (lang === 'ta' ? `வணக்கம் Lifeline Crew,\nதேவை: ${r}\nஎத்தனை பேர்: \nஇடம்: ${city}\nஎப்போது: ` : `Hi Lifeline Crew, I need ${firstLower(r)}${ctx ? ' ' + ctx : ''}${city ? ' in ' + city : ''}.\nHow many: \nWork location: \nNeeded by: `);
+  const first = cmpMsg(lang, 10, lang === 'ta' ? list[0] : firstLower(list[0]), ctx, city, T.whens[0][0]);
+  return `<aside class="cmp" data-composer data-ctx="${esc(ctx)}" data-lang="${lang}" aria-labelledby="cmp-${loc}">
+<div class="cmp-top"><span class="cmp-av">${ICON.logo}</span><div><p class="cmp-name" id="cmp-${loc}">${esc(title)}</p><p class="cmp-sub">${esc(T.sub)}</p></div></div>
 <div class="cmp-chat"><p class="cmp-bubble" data-preview aria-live="polite">${esc(first)}</p></div>
 <div class="cmp-body">
-<p class="cmp-q">Who do you need?</p>
-<div class="chips cmp-roles">${list.map((r, i) => `<a class="chip" href="${esc(waHref(roleMsg(r)))}" data-loc="${loc}" data-role="${esc(firstLower(r))}">${ICON.wa}<span>${esc(r)}</span></a>`).join('')}</div>
+<p class="cmp-q">${esc(T.who)}</p>
+<div class="chips cmp-roles">${list.map((r) => `<a class="chip" href="${esc(waHref(roleMsg(r)))}" data-loc="${loc}" data-role="${esc(lang === 'ta' ? r : firstLower(r))}">${ICON.wa}<span>${esc(r)}</span></a>`).join('')}</div>
 <div class="cmp-ctl">
 <div class="cmp-row">
-<div><p class="cmp-q" id="cmp-n-${loc}">How many</p><div class="stepper" role="group" aria-labelledby="cmp-n-${loc}"><button type="button" data-step="-1" aria-label="Fewer people">−</button><output data-count>10</output><button type="button" data-step="1" aria-label="More people">+</button></div></div>
-<div><label class="cmp-q" for="cmp-city-${loc}">Where</label><select id="cmp-city-${loc}" data-city><option value="">Any Tamil Nadu location</option>${cities.map((c) => `<option${c === city ? ' selected' : ''}>${esc(c)}</option>`).join('')}</select></div>
+<div><p class="cmp-q" id="cmp-n-${loc}">${esc(T.many)}</p><div class="stepper" role="group" aria-labelledby="cmp-n-${loc}"><button type="button" data-step="-1" aria-label="${esc(T.fewer)}">−</button><output data-count>10</output><button type="button" data-step="1" aria-label="${esc(T.more)}">+</button></div></div>
+<div><label class="cmp-q" for="cmp-city-${loc}">${esc(T.where)}</label><select id="cmp-city-${loc}" data-city><option value="">${esc(T.any)}</option>${cities.map((c) => `<option${c === city ? ' selected' : ''}>${esc(c)}</option>`).join('')}</select></div>
 </div>
-<p class="cmp-q">When</p>
-<div class="seg" role="group" aria-label="When do you need them">${whens.map(([v, l], i) => `<button type="button" data-when="${v}" aria-pressed="${i === 0}">${l}</button>`).join('')}</div>
+<p class="cmp-q">${esc(T.when)}</p>
+<div class="seg" role="group" aria-label="${esc(T.whenLabel)}">${T.whens.map(([v, l], i) => `<button type="button" data-when="${v}" aria-pressed="${i === 0}">${esc(l)}</button>`).join('')}</div>
 </div>
-<a class="btn btn-wa btn-block" data-send href="${esc(waHref(first))}" data-loc="${loc}_send">${ICON.wa}Send on WhatsApp</a>
-<p class="cmp-note">Opens WhatsApp with this message. Nothing is sent until you press send.</p>
+<a class="btn btn-wa btn-block" data-send href="${esc(waHref(first))}" data-loc="${loc}_send">${ICON.wa}${esc(T.send)}</a>
+<p class="cmp-note">${esc(T.note)}</p>
 </div></aside>`;
 }
 
@@ -169,7 +179,7 @@ function breadcrumbs(items) {
   return `<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><ol>${items.map((b, i) => `<li>${i < items.length - 1 ? `<a href="${b.path}">${esc(b.name)}</a>` : `<span aria-current="page">${esc(b.name)}</span>`}</li>`).join('')}</ol></div></nav>`;
 }
 
-const NAV = [['/services/', 'Services'], ['/industries/', 'Industries'], ['/cities/', 'Cities'], ['/guides/', 'Guides'], ['/about/', 'About'], ['/contact/', 'Contact']];
+const NAV = [['/services/', 'Services'], ['/industries/', 'Industries'], ['/cities/', 'Cities'], ['/guides/', 'Guides'], ['/answers/', 'Answers'], ['/about/', 'About'], ['/contact/', 'Contact']];
 function header(current) {
   const link = ([h, l]) => `<a href="${h}"${current && current.startsWith(h) ? ' aria-current="page"' : ''}>${l}</a>`;
   return `<a class="skip" href="#main">Skip to content</a>
@@ -197,7 +207,7 @@ function footer(context) {
 ${C.googleRating ? `<p class="ftr-rating">${ICON.star}<span><strong>${C.googleRating.rating}</strong> on Google · ${C.googleRating.count} reviews <small>(as of ${C.googleRating.asOf})</small></span></p>` : ''}
 </div>
 <div><h2>Services</h2><ul>${services.map((s) => `<li><a href="/services/${s.slug}/">${esc(s.name)}</a></li>`).join('')}<li><a href="/services/">All services</a></li></ul>
-<h2>More</h2><ul><li><a href="/guides/">Hiring guides</a></li><li><a href="/jobs/">Jobs (for job seekers)</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
+<h2>More</h2><ul><li><a href="/answers/">Staffing questions answered</a></li><li><a href="/guides/">Hiring guides</a></li><li><a href="/ta/" lang="ta" hreflang="ta-IN">தமிழில் படிக்க</a></li><li><a href="/jobs/">Jobs (for job seekers)</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
 <div><h2>Industries</h2><ul>${inds.slice(0, 9).map((i) => `<li><a href="/industries/${i.slug}/">${esc(i.name)}</a></li>`).join('')}<li><a href="/industries/">All industries</a></li></ul></div>
 <div><h2>Cities</h2><ul>${cities.slice(0, 9).map((c) => `<li><a href="/cities/${c.slug}/">${esc(c.name)}</a></li>`).join('')}<li><a href="/cities/">All cities</a></li></ul></div>
 </div>
@@ -274,11 +284,11 @@ function finalCta(waText, title = 'Need staff? Message us now.') {
   return `<section class="final"><div class="wrap"><div class="final-card"><h2>${esc(title)}</h2><p>Send the role, how many people and when you need them. We reply on WhatsApp during working hours with questions or a written quote.</p><div class="cta-row">${waBtn('final_cta', waText, 'WhatsApp ' + C.phoneDisplay, 'btn-lg')}${callBtn('final_cta', 'Call ' + C.phoneDisplay, 'btn-light btn-lg')}</div></div></div></section>`;
 }
 
-function page({ path: p, title, description, body, crumbs = [], schema = [], noindex = false, ogType = 'website', pageType = 'WebPage', waContext = null }) {
+function page({ path: p, title, description, body, crumbs = [], schema = [], noindex = false, ogType = 'website', pageType = 'WebPage', waContext = null, lang = 'en-IN', alternates = null }) {
   const canonical = C.url + p;
   const gaTag = C.ga4 ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${C.ga4}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${C.ga4}');</script>` : '';
   const webPage = noindex ? null : {
-    '@type': pageType, '@id': `${canonical}#webpage`, url: canonical, name: title, description, inLanguage: 'en-IN',
+    '@type': pageType, '@id': `${canonical}#webpage`, url: canonical, name: title, description, inLanguage: lang,
     isPartOf: { '@id': `${C.url}/#website` }, about: { '@id': `${C.url}/#org` }, dateModified: C.updated,
     primaryImageOfPage: { '@type': 'ImageObject', url: `${C.url}/assets/og-default.png` },
     speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.summary'] },
@@ -287,7 +297,7 @@ function page({ path: p, title, description, body, crumbs = [], schema = [], noi
   const website = { '@type': 'WebSite', '@id': `${C.url}/#website`, url: `${C.url}/`, name: C.name, alternateName: C.alternateName, inLanguage: 'en-IN', publisher: { '@id': `${C.url}/#org` } };
   const nodes = [orgNode(p === '/'), p === '/' ? website : null, webPage, crumbs.length > 1 ? crumbNode(crumbs) : null, ...schema];
   return `<!doctype html>
-<html lang="en-IN" data-wa="${C.wa}">
+<html lang="${lang}" data-wa="${C.wa}">
 <head>
 <meta charset="utf-8">
 <script>document.documentElement.classList.add("js")</script>
@@ -295,6 +305,7 @@ function page({ path: p, title, description, body, crumbs = [], schema = [], noi
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${canonical}">\n<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">`}
+${alternates ? alternates.map(([hl, href]) => `<link rel="alternate" hreflang="${hl}" href="${C.url}${href}">`).join('') : ''}
 <meta name="geo.region" content="IN-TN"><meta name="geo.placename" content="Chennai">
 <meta property="og:type" content="${ogType}">
 <meta property="og:site_name" content="Lifeline Crew">

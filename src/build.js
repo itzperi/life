@@ -6,6 +6,7 @@ const { composer, firstLower, C, esc, t, tok, plain, ICON, indIcon, waHref, waNe
 const industries = require('./data/industries');
 const cities = require('./data/cities');
 const guides = require('./data/guides');
+const answers = require('./data/answers');
 const services = require('./data/services').filter((s) => s.slug !== 'payroll-outsourcing' || C.payrollOutsourcing);
 
 const ROOT = path.join(__dirname, '..');
@@ -150,11 +151,14 @@ ${quoteForm({ id: 'quote' })}</div></section>
 
 ${faqHtml(homeFaqs)}
 
+<section aria-labelledby="qa-h"><div class="wrap"><h2 id="qa-h">Quick answers before you hire</h2><p class="lead">Short, sourced answers to the questions employers ask us most.</p><ul class="qa-list">${answers.map((x) => `<li><a href="/answers/${x.slug}/"><span class="ct">${esc(x.q)}</span></a></li>`).join('')}</ul><p><a class="link" href="/answers/">All answers ${ICON.arrow}</a></p></div></section>
+
 <section class="alt"><div class="wrap"><h2>Hiring guides</h2><div class="grid grid-lg">${guides.map((g) => `<a class="card card-guide" href="/guides/${g.slug}/"><span class="ic">${ICON.book}</span><span class="ct">${esc(g.h1)}</span><small>${esc(g.description)}</small></a>`).join('')}</div></div></section>
 
 ${finalCta(DEFAULT_WA())}`;
   emit('/', {
     title: 'Manpower Supply Agency in Tamil Nadu | Lifeline Crew',
+    alternates: [['en-IN', '/'], ['ta-IN', '/ta/'], ['x-default', '/']],
     description: 'Lifeline Crew supplies factory, BPO, office, housekeeping, hospital and retail staff to employers across Tamil Nadu. WhatsApp +91 99622 99076 for a quote today.',
     body,
     schema: [faqNode(homeFaqs), howToNode(`${C.url}/#howto`, 'How to hire staff through Lifeline Crew', STEPS(''))],
@@ -365,6 +369,122 @@ ${finalCta(waText)}`;
       faqNode(g.faqs),
     ],
   }, { keyword: g.primaryKeyword, type: 'guide', faqs: g.faqs, summary: g.summary });
+}
+
+// ---------------- ANSWERS (AEO) ----------------
+// One employer question per page: question as H1, a 40-60 word direct answer, then detail, sources and a composer.
+for (const a of answers) {
+  const p = `/answers/${a.slug}/`;
+  const crumbs = [HOME, { name: 'Answers', path: '/answers/' }, { name: a.q, path: p }];
+  const allFaqs = [{ q: a.q, a: a.answer }, ...a.faqs];
+  const rel = [
+    ...a.related.services.map((s) => services.find((x) => x.slug === s)).filter(Boolean).map((s) => `<li><a href="/services/${s.slug}/">${esc(s.name)}</a></li>`),
+    ...a.related.guides.map((s) => guideBySlug[s]).filter(Boolean).map((g) => `<li><a href="/guides/${g.slug}/">${esc(g.h1)}</a></li>`),
+    ...a.related.industries.map((s) => indBySlug[s]).filter(Boolean).map((i) => `<li><a href="/industries/${i.slug}/">${esc(i.name)} staffing</a></li>`),
+  ].join('');
+  const others = answers.filter((x) => x !== a).slice(0, 5).map((x) => `<li><a href="/answers/${x.slug}/">${esc(x.q)}</a></li>`).join('');
+  const body = `<article><section class="hero"><div class="wrap hero-grid">
+<div class="hero-copy">
+<h1 class="h1-q">${esc(a.q)}</h1>
+<div class="answer-box"><p class="answer-label">Short answer</p><p class="summary">${t(a.answer)}</p></div>
+<p class="meta">${ICON.clock}Answered by Lifeline Crew, ${esc(C.address.locality)}, Chennai. Updated ${C.updatedDisplay}</p>
+${ctaRow('hero', DEFAULT_WA())}
+</div>
+${composer({ loc: 'answer', title: 'Ask us to hire for you' })}
+</div></section>
+<section><div class="wrap prose">
+${tok(a.bodyHtml)}
+${a.sources.length ? `<h2 id="sources">Sources</h2><ul>${a.sources.map((s) => `<li><a href="${esc(s.url)}" rel="noopener">${esc(s.name)}</a></li>`).join('')}</ul>` : ''}
+</div></section></article>
+${a.faqs.length ? faqHtml(a.faqs, 'Related question') : ''}
+<section class="alt"><div class="wrap cols">
+<div><h2>Related pages</h2><ul>${rel}</ul></div>
+<div><h2>More answers</h2><ul>${others}<li><a href="/answers/">All answers</a></li></ul></div>
+</div></section>
+${finalCta(DEFAULT_WA())}`;
+  emit(p, {
+    title: a.title, description: a.description, body, crumbs, ogType: 'article',
+    schema: [
+      { '@type': 'Article', '@id': `${C.url}${p}#article`, headline: a.q, description: a.description, datePublished: C.updated, dateModified: C.updated, author: { '@id': `${C.url}/#org` }, publisher: { '@id': `${C.url}/#org` }, mainEntityOfPage: C.url + p, image: `${C.url}/assets/og-default.png`, inLanguage: 'en-IN' },
+      faqNode(allFaqs),
+    ],
+  }, { keyword: a.primaryKeyword, type: 'answer', faqs: allFaqs });
+}
+emit('/answers/', {
+  title: 'Staffing Questions Answered for Tamil Nadu Employers',
+  description: 'Short, sourced answers on contract labour licences, PF and ESI, night shifts, migrant workers and fast hiring in Tamil Nadu. Ask Lifeline Crew on WhatsApp.',
+  crumbs: [HOME, { name: 'Answers', path: '/answers/' }],
+  schema: [{ '@type': 'ItemList', name: 'Staffing questions answered', itemListElement: answers.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.q, url: `${C.url}/answers/${x.slug}/` })) }],
+  body: `<section class="hero"><div class="wrap hero-grid"><div class="hero-copy"><h1>Staffing questions, answered for Tamil Nadu employers</h1><p class="ta" lang="ta">நிறுவனங்களின் கேள்விகளுக்கு நேரடி பதில்கள்</p>
+<p class="summary">Short answers from Lifeline Crew, a manpower agency in Aminjikarai, Chennai, on the questions employers ask before hiring: licences, PF and ESI, night shifts, migrant workers, fixed-term contracts and how fast staff can join. Each answer gives its sources and date. WhatsApp or call ${C.phoneDisplay} with your own question.</p>${ctaRow('hero', DEFAULT_WA())}</div>
+${composer({ loc: 'answers_hub' })}</div></section>
+<section><div class="wrap"><ul class="qa-list">${answers.map((x) => `<li><a href="/answers/${x.slug}/"><span class="ct">${esc(x.q)}</span><small>${esc((plain(x.answer) || '').split('. ')[0] + '.')}</small></a></li>`).join('')}</ul></div></section>
+${finalCta(DEFAULT_WA())}`,
+}, { keyword: 'staffing questions tamil nadu', type: 'hub' });
+
+// ---------------- TAMIL HOME (/ta/) ----------------
+{
+  const taFaqs = [
+    { q: 'Lifeline Crew என்ன செய்கிறது?', a: 'Lifeline Crew சென்னை அமிஞ்சிக்கரையில் உள்ள மனிதவள (மேன்பவர்) நிறுவனம். தமிழ்நாடு முழுவதும் உள்ள தொழிற்சாலைகள், அலுவலகங்கள், BPO, மருத்துவமனைகள், கடைகள், கிடங்குகள் போன்ற நிறுவனங்களுக்கு நிரந்தர, ஒப்பந்த மற்றும் பெருமளவு பணியாளர்களை வழங்குகிறோம். WhatsApp அல்லது அழைப்பு: +91 99622 99076.' },
+    { q: 'எவ்வளவு விரைவில் பணியாளர்கள் கிடைப்பார்கள்?', a: 'தேவை எழுத்துப்பூர்வமாக உறுதியான பிறகு, உதவியாளர்கள் (helpers, loaders, packers) 48 மணி நேரத்தில் கிடைப்பார்கள். ஆபரேட்டர்கள், செவிலியர்கள், கணக்காளர்கள் போன்ற திறன் தேவைப்படும் பணிகளுக்கு 7 நாட்கள் ஆகும். பணி, எண்ணிக்கை, இடம், ஷிப்ட், சம்பளம் ஆகியவற்றை WhatsApp-ல் அனுப்புங்கள்.' },
+    { q: 'ஒப்பந்த பணியாளர்களுக்கு PF, ESI யார் செலுத்துவார்கள்?', a: 'ஒப்பந்த பணியாளர்கள் ஏஜென்சியின் சம்பளப் பட்டியலில் இருப்பார்கள். PF, ESI ஆகியவற்றை ஏஜென்சி பிடித்தம் செய்து செலுத்தும்; அந்த செலவு உங்கள் மாதாந்திர பில்லில் சேர்க்கப்படும். ஒவ்வொரு மாதமும் செலுத்திய ரசீதுகளைக் கேட்டுப் பெறுங்கள்.' },
+    { q: 'தமிழ்நாட்டின் எந்த மாவட்டங்களுக்கு சேவை தருகிறீர்கள்?', a: 'சென்னை அலுவலகத்திலிருந்து தமிழ்நாடு முழுவதும் சேவை தருகிறோம்: சென்னை, காஞ்சிபுரம் (ஸ்ரீபெரும்புதூர், ஒரகடம்), செங்கல்பட்டு, திருவள்ளூர், கோயம்புத்தூர், திருப்பூர், ஓசூர், மதுரை, திருச்சி, சேலம் உட்பட 20 மாவட்டங்கள். மற்ற மாவட்டங்களுக்கும் WhatsApp-ல் கேளுங்கள்.' },
+    { q: 'கட்டணம் எவ்வளவு?', a: 'கட்டணம் பணி, எண்ணிக்கை மற்றும் காலத்தைப் பொறுத்தது. ஒவ்வொரு தேவைக்கும் எழுத்துப்பூர்வ விலைப்பட்டியல் தருவோம்; நீங்கள் ஒப்புக்கொண்ட பிறகே வேலை தொடங்கும். பணி, எண்ணிக்கை, இடம் ஆகியவற்றை WhatsApp-ல் அனுப்பி விலையைப் பெறுங்கள்.' },
+  ];
+  const TA_ROLES = ['தொழிற்சாலை பணியாளர்கள்', 'BPO / கால் சென்டர் ஊழியர்கள்', 'அலுவலக ஊழியர்கள்', 'ஹவுஸ்கீப்பிங் பணியாளர்கள்', 'மருத்துவமனை பணியாளர்கள்', 'கடை / ஷோரூம் ஊழியர்கள்', 'கிடங்கு / டெலிவரி பணியாளர்கள்', 'ஸ்பா / சலூன் பணியாளர்கள்'];
+  const TA_MODELS = [
+    ['permanent-placement', 'நிரந்தர பணியமர்த்தல்', 'நாங்கள் தேர்வு செய்து அனுப்புகிறோம்; பணியாளர் உங்கள் சம்பளப் பட்டியலில் சேருவார். ஒருமுறை மட்டும் கட்டணம்.'],
+    ['contract-staffing', 'ஒப்பந்த பணியாளர்கள்', 'பணியாளர்கள் எங்கள் சம்பளப் பட்டியலில்; சம்பளம், PF, ESI நாங்கள் செலுத்தி மாதந்தோறும் பில் அனுப்புவோம்.'],
+    ['bulk-hiring', 'பெருமளவு ஆட்சேர்ப்பு', 'புதிய லைன், புதிய கிளை, பண்டிகைக் காலம்: ஒரே தேதியில் பலரை பணியமர்த்துதல்.'],
+    ['payroll-outsourcing', 'சம்பளப் பட்டியல் சேவை', 'நீங்கள் தேர்வு செய்தவர்களை எங்கள் பட்டியலில் வைத்து சம்பளம், PF, ESI பணிகளைச் செய்வோம்.'],
+  ].filter(([slug]) => services.some((s) => s.slug === slug));
+  const TA_STEPS = [
+    ['தேவையை அனுப்புங்கள்', `பணி, எத்தனை பேர், இடம், எப்போது தேவை என்பதை WhatsApp அல்லது அழைப்பு மூலம் ${C.phoneDisplay} எண்ணுக்கு தெரிவியுங்கள்.`],
+    ['எழுத்துப்பூர்வ விலை', 'சம்பளம், ஷிப்ட், பணியமர்த்தல் முறை, எங்கள் கட்டணம் ஆகியவற்றை எழுத்தில் உறுதி செய்வோம்.'],
+    ['நேர்காணல்', 'உங்கள் தேவைக்கு ஏற்ப சரிபார்த்த நபர்களை அனுப்புவோம். நீங்கள் நேர்காணல் செய்து தேர்வு செய்யுங்கள்.'],
+    ['பணியில் சேருதல்', 'ஆவணங்கள் மற்றும் சேரும் நாளை நாங்கள் ஒருங்கிணைப்போம்; விலகுபவர்களுக்கான மாற்று விதிமுறைகள் விலைப்பட்டியலில் இருக்கும்.'],
+  ];
+  const taWa = 'வணக்கம் Lifeline Crew, எனக்கு பணியாளர்கள் தேவை.\nபணி: \nஎத்தனை பேர்: \nஇடம்: \nஎப்போது: ';
+  const body = `<section class="hero hero-home"><div class="wrap hero-grid">
+<div class="hero-copy">
+<p class="pill">${ICON.pin}அமிஞ்சிக்கரை, சென்னை. தமிழ்நாடு முழுவதும் சேவை</p>
+<h1>தமிழ்நாடு முழுவதும் நிறுவனங்களுக்கு பணியாளர்கள் வழங்கும் மேன்பவர் நிறுவனம்</h1>
+<p class="summary"><strong>Lifeline Crew</strong> சென்னை அமிஞ்சிக்கரையில் உள்ள மனிதவள நிறுவனம். தொழிற்சாலை, BPO, அலுவலகம், ஹவுஸ்கீப்பிங், மருத்துவமனை, கடை மற்றும் கிடங்கு பணியாளர்களை தமிழ்நாடு முழுவதும் உள்ள நிறுவனங்களுக்கு வழங்குகிறோம். உதவியாளர்கள் 48 மணி நேரத்தில், திறன் பணியாளர்கள் 7 நாட்களில். WhatsApp: <a href="tel:${C.tel}" data-loc="hero_text">${C.phoneDisplay}</a>.</p>
+<div class="cta-row">${waBtn('hero', taWa, 'WhatsApp-ல் அனுப்புங்கள்')}${callBtn('hero', 'அழைக்க ' + C.phoneDisplay)}</div>
+<p class="meta"><a href="/" hreflang="en-IN" lang="en">Read this page in English</a></p>
+</div>
+${composer({ loc: 'hero_ta', title: 'உங்கள் பணியாளர் தேவை', roles: TA_ROLES, lang: 'ta' })}
+</div></section>
+
+<section class="board" aria-labelledby="board-ta"><div class="wrap board-grid">
+<div><h2 id="board-ta">எவ்வளவு விரைவில்?</h2><p>தேவை எழுத்தில் உறுதியான நாளிலிருந்து.</p></div>
+<dl class="board-rows">
+<div><dt>உதவியாளர்கள்: லோடர்கள், பேக்கர்கள்</dt><dd><b>48</b> மணி நேரம்</dd></div>
+<div><dt>திறன் பணியாளர்கள்: ஆபரேட்டர்கள், செவிலியர்கள், கணக்காளர்கள்</dt><dd><b>7</b> நாட்கள்</dd></div>
+</dl></div></section>
+
+<section><div class="wrap"><h2>பணியமர்த்தும் முறைகள்</h2>
+<div class="models">${TA_MODELS.map(([slug, n, d]) => `<article class="model"><h3><a href="/services/${slug}/">${esc(n)}</a></h3><p>${esc(d)}</p></article>`).join('')}</div></div></section>
+
+<section class="alt"><div class="wrap"><h2>நாங்கள் சேவை செய்யும் தொழில்கள்</h2>
+<ul class="ind-list">${industries.map((x) => `<li><a class="ind-link" href="/industries/${x.slug}/"><span class="ic">${indIcon(x.slug)}</span><span><span class="ct">${esc(x.tamil)}</span><small lang="en">${esc(x.name)}</small></span></a><a class="ind-wa" href="${esc(waHref(`வணக்கம் Lifeline Crew, ${x.name} நிறுவனத்துக்கு பணியாளர்கள் தேவை.\nபணி: \nஎத்தனை பேர்: \nஇடம்: `))}" data-loc="ta_industry" aria-label="${esc(x.name)}: WhatsApp">${ICON.wa}</a></li>`).join('')}</ul></div></section>
+
+<section><div class="wrap"><h2>மாவட்டங்கள்</h2>
+<ul class="city-list">${cities.map((c) => `<li><a href="/cities/${c.slug}/">${esc(c.tamilName)}</a></li>`).join('')}</ul></div></section>
+
+<section class="alt"><div class="wrap"><h2>எப்படி வேலை செய்கிறோம்</h2>
+<ol class="steps">${TA_STEPS.map(([h, x]) => `<li><strong>${esc(h)}</strong>${esc(x)}</li>`).join('')}</ol></div></section>
+
+${faqHtml(taFaqs, 'அடிக்கடி கேட்கப்படும் கேள்விகள்')}
+
+<section class="final"><div class="wrap"><div class="final-card"><h2>பணியாளர்கள் தேவையா? இப்போதே தெரிவியுங்கள்.</h2><p>பணி, எத்தனை பேர், எப்போது தேவை என்று ஒரு WhatsApp செய்தி போதும்.</p><div class="cta-row">${waBtn('final_cta', taWa, 'WhatsApp ' + C.phoneDisplay, 'btn-lg')}${callBtn('final_cta', 'அழைக்க ' + C.phoneDisplay, 'btn-light btn-lg')}</div></div></div></section>`;
+  emit('/ta/', {
+    title: 'தமிழ்நாடு மேன்பவர் சப்ளை ஏஜென்சி | Lifeline Crew சென்னை',
+    description: 'Lifeline Crew: தமிழ்நாடு முழுவதும் தொழிற்சாலை, அலுவலகம், BPO, மருத்துவமனை, கடை பணியாளர்கள். உதவியாளர்கள் 48 மணி நேரத்தில். இன்றே WhatsApp +91 99622 99076.',
+    body, lang: 'ta-IN', alternates: [['en-IN', '/'], ['ta-IN', '/ta/'], ['x-default', '/']],
+    crumbs: [HOME, { name: 'தமிழ்', path: '/ta/' }],
+    schema: [faqNode(taFaqs)],
+  }, { keyword: 'மேன்பவர் ஏஜென்சி தமிழ்நாடு', type: 'home-ta', faqs: taFaqs });
 }
 
 // ---------------- HUBS ----------------
